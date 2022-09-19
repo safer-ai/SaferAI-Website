@@ -24,15 +24,31 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.title {
+  padding: 2em;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.section {
+  margin: 1em;
+  background-color: #eee;
+  border-radius: 1em;
+  border-collapse: separate;
+  overflow: hidden;
+  margin: 1em auto 1em auto;
+  width: 60vw;
+}
+.section-title {
+  background-color: #ccc;
+  font-weight: bold;
+  font-size: 2em;
+  padding: 1em;
+}
+.section-content {
+  /* background-color: lightgray; */
+  padding: 1em;
+}
+.section-result {
+  padding: 1em;
+  background-color: lightgray;
 }

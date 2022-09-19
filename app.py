@@ -1,8 +1,14 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, request
 import os
 import requests
+from flask_cors import CORS
+from countergen.evaluation import get_evaluator_for_generative_model, api_to_generative_model
+import sys
 
 app = Flask(__name__, static_url_path="", static_folder="frontend/build")
+CORS(app)
+
+evaluator = get_evaluator_for_generative_model(api_to_generative_model())
 
 
 @app.route("/")
@@ -22,6 +28,12 @@ def ping():
     except (requests.ConnectionError, requests.Timeout) as exception:
         print("No internet connection.")
         return "No"
+
+
+@app.route("/get_perf", methods=["POST"])
+def get_perf():
+    data = request.json
+    return str(evaluator(data["input"], [data["output"]]))
 
 
 if __name__ == "__main__":
