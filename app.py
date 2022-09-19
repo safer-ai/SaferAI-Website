@@ -6,13 +6,13 @@ app = Flask(__name__, static_url_path="", static_folder="frontend/build")
 
 
 @app.route("/")
-def fun():
+def main():
     print("hey", __file__[:-6] + "frontend/build/index.html")
     return send_file(__file__[:-6] + "frontend/build/index.html")
 
 
 @app.route("/ping")
-def fun():
+def ping():
     url = "http://www.kite.com"
     timeout = 5
     try:
