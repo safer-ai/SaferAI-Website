@@ -1,7 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import "./RemovableTextField.css";
 import { IconButton, TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import debounce from "lodash.debounce";
 
 type RemovableTextFieldProps = {
@@ -14,19 +14,26 @@ type RemovableTextFieldProps = {
 
 const RemovableTextField = (props: RemovableTextFieldProps) => {
   const { key, label, value, setValue, onDelete } = props;
-  const [tempValue, setTempValue] = useState<string>(value);
+  const [tempValue, setTempValue] = useState<string | undefined>(undefined);
+
+  // Use value as the source of truth while avoiding loops
+  useEffect(() => setTempValue(value), [value]);
+  const displayedValue = tempValue ?? "";
 
   const onChange = (e: any) => {
     const { value: nextValue } = e.target;
     setTempValue(nextValue);
-    const debounceSetValue = debounce(() => setValue(nextValue), 1000);
-    debounceSetValue();
+    if (nextValue !== value) {
+      const debounceSetValue = debounce(() => setValue(nextValue), 1000);
+      debounceSetValue();
+    }
   };
+
   return (
     <TextField
       key={key}
       label={label}
-      value={tempValue}
+      value={displayedValue}
       onChange={onChange}
       variant="outlined"
       multiline
