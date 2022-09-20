@@ -11,7 +11,7 @@ FROM python:3.7
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-RUN python3 -m spacy download en
+RUN python -m spacy download en
 COPY . . 
 # Copy built npm package
 COPY --from=0 /app/build /app/frontend/build
