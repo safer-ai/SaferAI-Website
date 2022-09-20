@@ -7,6 +7,7 @@ import DataSelection from "./sections/DataSelection";
 import ModelEditing from "./sections/ModelEditing";
 import ModelEvaluation from "./sections/ModelEvaluation";
 import { AugmentedDataset, Dataset } from "./types";
+import { Card, CardHeader, CardContent, Container } from "@mui/material";
 
 const App = () => {
   const [dataset, setDataset] = useState<Dataset>({ samples: [] });
@@ -18,15 +19,15 @@ const App = () => {
   const [output, setOutput] = useState<string>("");
 
   return (
-    <div className="container">
+    <Container maxWidth="md">
       <h1 className="title">Try CounterGen online!</h1>
       <p>
         The code for this website and instructions to adapt it to your needs are
-        freely available! Visit{" "}
+        freely available! For more information, visit{" "}
         <a href="https://github.com/FabienRoger/Countergen-Website">
           github.com/FabienRoger/Countergen-Website
-        </a>{" "}
-        for more instructions
+        </a>
+        .
       </p>
       <p>
         If you want more flexibility, use the{" "}
@@ -62,7 +63,7 @@ const App = () => {
         </button>
         <p>{data}</p>
       </div> */}
-    </div>
+    </Container>
   );
 };
 

@@ -5,6 +5,7 @@ import ColabLink from "../components/ColabLink";
 import Collapsable from "../components/Collapsable";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { simpleAugment } from "../utils/communication";
+import { Card, CardHeader, CardContent } from "@mui/material";
 
 type DataAugmentationProps = {
   dataset: Dataset;
@@ -22,9 +23,12 @@ const DataAugmentation = (props: DataAugmentationProps) => {
   };
 
   return (
-    <div className="section">
-      <div className="section-title">Augment the data</div>
-      <div className="section-content">
+    <Card className="section">
+      <CardHeader
+        className="section-title"
+        title="Augment the data"
+      ></CardHeader>
+      <CardContent className="section-content">
         <Button onClick={augment}>Augment!</Button>
         {/* <Collapsable text={"Upload your data"}>
           <p>Via csv</p>
@@ -33,8 +37,8 @@ const DataAugmentation = (props: DataAugmentationProps) => {
             <ColabLink>By using a pythonscript</ColabLink>
           </p>
         </Collapsable> */}
-      </div>
-      <div className="section-result">
+      </CardContent>
+      <CardContent className="section-result">
         {augdataset !== null &&
           augdataset.samples.map((s: SampleWithVariations) => {
             return (
@@ -50,8 +54,8 @@ const DataAugmentation = (props: DataAugmentationProps) => {
               </div>
             );
           })}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

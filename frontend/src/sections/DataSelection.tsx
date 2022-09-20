@@ -7,6 +7,9 @@ import Collapsable from "../components/Collapsable";
 import TextSelector from "../components/TextSelector";
 import { Dataset } from "../types";
 import { cleanDs, formatDs } from "../utils/dsUtils";
+import { Card, CardHeader, CardContent } from "@mui/material";
+import DoneIcon from "@mui/icons-material/Done";
+import CloseIcon from "@mui/icons-material/Close";
 
 type DataSelectionProps = {
   dataset: Dataset; // Not used to display
@@ -41,14 +44,24 @@ const DataSelection = (props: DataSelectionProps) => {
     (prev, sample) => prev + sample.outputs.length + 1,
     0
   );
+  const statusIsGood = numberOfInputs > 2 && numberOfOutputs > 6;
+  const statusDiv = statusIsGood ? (
+    <p>
+      <DoneIcon />
+    </p>
+  ) : (
+    <p className="horizontal-flex">
+      <CloseIcon /> Not enough inputs.
+    </p>
+  );
 
   return (
-    <div className="section">
-      <div className="section-title">Choose your data</div>
-      <div className="section-content">
+    <Card className="section">
+      <CardHeader className="section-title" title="Choose your data" />
+      <CardContent className="section-content">
         <p>Enter you own data</p>
         <TextSelector dataset={cleanDataset} setDataset={setCleanDataset} />
-        <div className="options-holder">
+        <div className="horizontal-flex">
           <Button onClick={clear}>Clear</Button>
           <Button onClick={() => addDefault("doublebind")}>
             Add double bind data
@@ -65,11 +78,14 @@ const DataSelection = (props: DataSelectionProps) => {
             <ColabLink>By using a pythonscript</ColabLink>
           </p>
         </Collapsable>
-      </div>
-      <div className="section-result">
-        {numberOfInputs} valid inputs and {numberOfOutputs} valid outputs.
-      </div>
-    </div>
+      </CardContent>
+      <CardContent className="section-result">
+        {statusDiv}
+        <p>
+          {numberOfInputs} valid inputs and {numberOfOutputs} valid outputs.
+        </p>
+      </CardContent>
+    </Card>
   );
 };
 

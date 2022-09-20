@@ -1,38 +1,24 @@
-.container {
-  margin: 1em auto 1em auto;
-  width: 60vw;
-}
-
 .title {
   padding: 0.5em;
   text-align: center;
 }
 
 .section {
-  margin: 1em;
-  background-color: #eee;
-  border-radius: 5px;
-  border-collapse: separate;
-  overflow: hidden;
+  margin-bottom: 1em;
 }
 .section-title {
-  background-color: #ccc;
-  font-weight: bold;
-  font-size: 2em;
-  padding: 1em;
+  background-color: #eee;
 }
 .section-content {
-  /* background-color: lightgray; */
-  padding: 1em;
+  background-color: #f8f8f8;
 }
 .section-result {
-  padding: 1em;
-  background-color: lightgray;
+  background-color: #ccc;
   overflow-y: scroll;
   max-height: 50vh;
 }
 
-.options-holder {
+.horizontal-flex {
   display: flex;
   flex-direction: row;
 }
