@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import getperf from "./communication";
+import { getperf } from "./utils/communication";
 import ColabLink from "./components/ColabLink";
 import DataAugmentation from "./sections/DataAugmentation";
 import DataSelection from "./sections/DataSelection";
@@ -53,7 +53,9 @@ const App = () => {
         ></input>
         <button
           onClick={() =>
-            getperf(input, output).then((data) => setData(JSON.stringify(data)))
+            getperf(input, output).then((data: any) =>
+              setData(JSON.stringify(data))
+            )
           }
         >
           Get perf!

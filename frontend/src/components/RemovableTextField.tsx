@@ -22,6 +22,7 @@ const RemovableTextField = (props: RemovableTextFieldProps) => {
       multiline
       size="small"
       fullWidth
+      margin="dense"
       InputProps={
         onDelete
           ? {

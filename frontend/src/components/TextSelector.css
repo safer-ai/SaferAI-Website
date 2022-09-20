@@ -1,18 +1,18 @@
 .text-selector {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 3px;
   overflow-y: scroll;
   max-height: 50vh;
 }
 .text-selector-outputs-col {
   display: flex;
   flex-direction: column;
-  gap: 3px;
 }
 .text-selector-line {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 3px;
   width: 100%;
 }
 .text-selector-output-line {

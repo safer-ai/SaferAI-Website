@@ -4,7 +4,12 @@ import os
 import requests
 from flask_cors import CORS
 from countergen.evaluation import get_evaluator_for_generative_model, api_to_generative_model
-from countergen.augmentation.data_augmentation import SampleWithVariations, AugmentedDataset, Dataset
+from countergen.augmentation.data_augmentation import (
+    SampleWithVariations,
+    AugmentedDataset,
+    Dataset,
+    default_dataset_paths,
+)
 from countergen.augmentation import SimpleAugmenter
 import sys
 
@@ -27,6 +32,17 @@ def load_sent_ds():
     return Dataset(samples)
 
 
+@app.route("/get_default_ds/<name>", methods=["GET"])
+def get_default_ds(name):
+    if name not in default_dataset_paths:
+        return ""
+    ds = Dataset.from_default(name)
+    r = []
+    for sample in ds.samples:
+        r.append({"input": sample.input, "expected_outputs": sample.expected_output})
+    return json.dumps(r)
+
+
 @app.route("/augment/simple/<name>", methods=["POST"])
 def augment_simple(name):
     ds = load_sent_ds()
@@ -34,7 +50,7 @@ def augment_simple(name):
     r = []
     for sample in augds.samples:
         r.append(sample.to_json_dict())
-    return json.dump(r)
+    return json.dumps(r)
 
 
 @app.route("/isthereinternet")
