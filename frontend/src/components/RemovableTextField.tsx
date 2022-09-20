@@ -1,22 +1,32 @@
 import CloseIcon from "@mui/icons-material/Close";
 import "./RemovableTextField.css";
 import { IconButton, TextField } from "@mui/material";
+import { useState } from "react";
+import debounce from "lodash.debounce";
 
 type RemovableTextFieldProps = {
   key: string;
   label: string;
   value: string;
-  onChange: (e: any) => void;
-  onDelete?: (e: any) => void;
+  setValue: (e: any) => void;
+  onDelete?: () => void;
 };
 
 const RemovableTextField = (props: RemovableTextFieldProps) => {
-  const { key, label, value, onChange, onDelete } = props;
+  const { key, label, value, setValue, onDelete } = props;
+  const [tempValue, setTempValue] = useState<string>(value);
+
+  const onChange = (e: any) => {
+    const { value: nextValue } = e.target;
+    setTempValue(nextValue);
+    const debounceSetValue = debounce(() => setValue(nextValue), 1000);
+    debounceSetValue();
+  };
   return (
     <TextField
       key={key}
       label={label}
-      value={value}
+      value={tempValue}
       onChange={onChange}
       variant="outlined"
       multiline

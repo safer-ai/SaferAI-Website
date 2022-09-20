@@ -72,8 +72,8 @@ const TextSelector = (props: TextSelectorProps) => {
               key={`selector-item-input-${i}`}
               label="Input"
               value={input}
-              onChange={(e) => setInput(e.target.value, i)}
-              onDelete={(e) => removeSample(i)}
+              setValue={(s) => setInput(s, i)}
+              onDelete={() => removeSample(i)}
             />
             <div className="text-selector-outputs-col">
               {outputs.map((o, j) => {
@@ -83,8 +83,8 @@ const TextSelector = (props: TextSelectorProps) => {
                       key={`selector-item-output-${i}-${j}`}
                       label="Output"
                       value={o}
-                      onChange={(e) => setOutput(e.target.value, i, j)}
-                      onDelete={(e) => removeOutput(i, j)}
+                      setValue={(s) => setOutput(s, i, j)}
+                      onDelete={() => removeOutput(i, j)}
                     />
                     {j === outputs.length - 1 && (
                       <Button
