@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./RemovableTextField.css";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 
 type RemovableTextFieldProps = {
   key: string;
@@ -13,14 +12,6 @@ type RemovableTextFieldProps = {
 
 const RemovableTextField = (props: RemovableTextFieldProps) => {
   const { key, label, value, onChange, onDelete } = props;
-  // return InputProps={{
-  //     startAdornment: iconStart ? (
-  //       <InputAdornment position="start">{iconStart}</InputAdornment>
-  //     ) : null,
-  //     endAdornment: iconEnd ? (
-  //       <InputAdornment position="end">{iconEnd}</InputAdornment>
-  //     ) : null
-  //   }}
   return (
     <TextField
       key={key}

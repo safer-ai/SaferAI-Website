@@ -1,6 +1,5 @@
-import { Button, Input, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import React, { useState } from "react";
 import { Dataset, Sample } from "../types";
 import "./TextSelector.css";
 import RemovableTextField from "./RemovableTextField";
