@@ -1,0 +1,8 @@
+.colab-link {
+  color: darkorange;
+  text-decoration: none;
+}
+.colab-link:hover {
+  color: darkorange;
+  text-decoration: underline;
+}

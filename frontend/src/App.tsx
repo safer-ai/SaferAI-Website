@@ -1,34 +1,28 @@
 import React, { useState } from "react";
 import "./App.css";
+import getperf from "./communication";
+import ColabLink from "./components/ColabLink";
 
-function App() {
+const App = () => {
   const [data, setData] = useState<string>("");
 
   const [input, setInput] = useState<string>("");
   const [output, setOutput] = useState<string>("");
 
-  const backend_url = process.env.REACT_APP_COUNTERGEN_BACK_URL ?? "";
-  const getperf = () => {
-    fetch(backend_url + "/get_perf", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        input: input,
-        output: output,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setData(JSON.stringify(data));
-      });
-  };
-
   return (
-    <div>
+    <div className="container">
       <h1 className="title">Try Countergen online!</h1>
+      <p>
+        The code for this website and instructions to adapt it to your needs are
+        freely available! Visit{" "}
+        <a href="https://github.com/FabienRoger/Countergen-Website">
+          github.com/FabienRoger/Countergen-Website
+        </a>{" "}
+        for more instructions
+      </p>
+      <p>
+        More functionnallities are available if you use the <ColabLink>Google Colab version</ColabLink> of this tool.
+      </p>
       <div className="section">
         <div className="section-title">Choose your data</div>
         <div className="section-content">
@@ -70,11 +64,17 @@ function App() {
           value={output}
           onChange={(e) => setOutput(e.target.value)}
         ></input>
-        <button onClick={getperf}>Get perf!</button>
+        <button
+          onClick={() =>
+            getperf(input, output).then((data) => setData(JSON.stringify(data)))
+          }
+        >
+          Get perf!
+        </button>
         <p>{data}</p>
       </div>
     </div>
   );
-}
+};
 
 export default App;
