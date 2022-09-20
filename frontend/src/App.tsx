@@ -1,22 +1,16 @@
 import React, { useState } from "react";
 import "./App.css";
-import { getperf } from "./utils/communication";
 import ColabLink from "./components/ColabLink";
 import DataAugmentation from "./sections/DataAugmentation";
 import DataSelection from "./sections/DataSelection";
 import ModelEditing from "./sections/ModelEditing";
 import ModelEvaluation from "./sections/ModelEvaluation";
 import { AugmentedDataset, Dataset } from "./types";
-import { Card, CardHeader, CardContent, Container } from "@mui/material";
+import { Container } from "@mui/material";
 
 const App = () => {
   const [dataset, setDataset] = useState<Dataset>({ samples: [] });
   const [augdataset, setAugDataset] = useState<AugmentedDataset | null>(null);
-
-  // TESTS
-  const [data, setData] = useState<string>("");
-  const [input, setInput] = useState<string>("");
-  const [output, setOutput] = useState<string>("");
 
   return (
     <Container maxWidth="md">
@@ -45,24 +39,6 @@ const App = () => {
       <ModelEvaluation augdataset={augdataset} />
 
       <ModelEditing />
-
-      {/* <div className="section">
-        <input value={input} onChange={(e) => setInput(e.target.value)}></input>
-        <input
-          value={output}
-          onChange={(e) => setOutput(e.target.value)}
-        ></input>
-        <button
-          onClick={() =>
-            getperf(input, output).then((data: any) =>
-              setData(JSON.stringify(data))
-            )
-          }
-        >
-          Get perf!
-        </button>
-        <p>{data}</p>
-      </div> */}
     </Container>
   );
 };

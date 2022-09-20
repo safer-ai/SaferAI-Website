@@ -1,8 +1,7 @@
 import { Button, Chip } from "@mui/material";
-import React, { useState } from "react";
 import "../App.css";
-import ColabLink from "../components/ColabLink";
-import Collapsable from "../components/Collapsable";
+// import ColabLink from "../components/ColabLink";
+// import Collapsable from "../components/Collapsable";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { simpleAugment } from "../utils/communication";
 import { Card, CardHeader, CardContent } from "@mui/material";
