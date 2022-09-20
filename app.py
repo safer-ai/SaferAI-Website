@@ -3,6 +3,7 @@ from flask import Flask, render_template, send_file, request
 import os
 import requests
 from flask_cors import CORS
+import countergen
 from countergen.evaluation import get_evaluator_for_generative_model, api_to_generative_model
 from countergen.augmentation.data_augmentation import (
     Sample,
