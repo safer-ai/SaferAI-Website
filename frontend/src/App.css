@@ -28,6 +28,8 @@
 .section-result {
   padding: 1em;
   background-color: lightgray;
+  overflow-y: scroll;
+  max-height: 50vh;
 }
 
 .options-holder {

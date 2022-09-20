@@ -23,6 +23,7 @@ export const getDefaultDataset = async (
   name: string
 ): Promise<Dataset | undefined> => {
   const response = await fetch(backend_url + "/get_default_ds/" + name);
+  console.log(response);
   const data = await response.json();
   const samples = data as Sample[];
   return { samples: samples };
@@ -46,4 +47,17 @@ export const simpleAugment = async (
   const data = await response.json();
   const samples = data as SampleWithVariations[];
   return { samples: samples };
+};
+
+export const simpleEvaluate = async (augds: AugmentedDataset) => {
+  const response = await fetch(backend_url + "/evaluate/simple", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(augds.samples),
+  });
+  const data = await response.json();
+  return data;
 };

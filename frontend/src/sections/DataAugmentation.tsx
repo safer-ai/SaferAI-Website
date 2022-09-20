@@ -1,6 +1,10 @@
+import { Button, Chip } from "@mui/material";
 import React, { useState } from "react";
 import "../App.css";
-import { AugmentedDataset, Dataset } from "../types";
+import ColabLink from "../components/ColabLink";
+import Collapsable from "../components/Collapsable";
+import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
+import { simpleAugment } from "../utils/communication";
 
 type DataAugmentationProps = {
   dataset: Dataset;
@@ -10,16 +14,42 @@ type DataAugmentationProps = {
 
 const DataAugmentation = (props: DataAugmentationProps) => {
   const { dataset, augdataset, setAugDataset } = props;
+
+  const augment = () => {
+    simpleAugment(dataset, "gender").then((augds) => {
+      if (augds !== undefined) setAugDataset(augds);
+    });
+  };
+
   return (
     <div className="section">
       <div className="section-title">Augment the data</div>
       <div className="section-content">
-        <p>Wow so much choice</p>
-        <p>And there is more</p>
+        <Button onClick={augment}>Augment!</Button>
+        {/* <Collapsable text={"Upload your data"}>
+          <p>Via csv</p>
+          <p>Via jsonl</p>
+          <p>
+            <ColabLink>By using a pythonscript</ColabLink>
+          </p>
+        </Collapsable> */}
       </div>
       <div className="section-result">
-        <p>150 total sentence</p>
-        <p>Here are some examples</p>
+        {augdataset !== null &&
+          augdataset.samples.map((s: SampleWithVariations) => {
+            return (
+              <div className="variation-holder">
+                {s.variations.map((v) => (
+                  <p>
+                    {v.text}
+                    {v.categories.map((c) => (
+                      <Chip label={c} variant="outlined" />
+                    ))}
+                  </p>
+                ))}
+              </div>
+            );
+          })}
       </div>
     </div>
   );
