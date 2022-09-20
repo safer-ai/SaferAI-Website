@@ -16,8 +16,9 @@ const RemovableTextField = (props: RemovableTextFieldProps) => {
   const { key, label, value, setValue, onDelete } = props;
   const [tempValue, setTempValue] = useState<string | undefined>(undefined);
 
-  // Use value as the source of truth while avoiding loops
-  useEffect(() => setTempValue(value), [value]);
+  // Use value as the source of truth only at initialization
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setTempValue(value), []);
   const displayedValue = tempValue ?? "";
 
   const onChange = (e: any) => {
