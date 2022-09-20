@@ -29,3 +29,8 @@
   padding: 1em;
   background-color: lightgray;
 }
+
+.options-holder {
+  display: flex;
+  flex-direction: row;
+}

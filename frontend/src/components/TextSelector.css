@@ -1,0 +1,19 @@
+.text-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.text-selector-line {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.text-selector-outputs-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.text-selector-output-line {
+  display: flex;
+  flex-direction: row;
+}
