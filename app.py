@@ -39,7 +39,7 @@ def get_default_ds(name):
     ds = Dataset.from_default(name)
     r = []
     for sample in ds.samples:
-        r.append({"input": sample.input, "expected_outputs": sample.expected_output})
+        r.append({"input": sample.input, "outputs": sample.outputs})
     return json.dumps(r)
 
 

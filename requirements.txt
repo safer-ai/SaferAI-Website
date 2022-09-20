@@ -5,5 +5,5 @@ psycopg2==2.9.3
 requests==2.27.1
 six==1.16.0
 SQLAlchemy==1.4.37
-countergen==0.2.1
+countergen==0.2.2
 flask-cors==3.0.10

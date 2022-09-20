@@ -8,14 +8,14 @@ export type Category = string;
 
 export type Sample = {
   input: string;
-  expected_outputs: string[];
+  outputs: string[];
 };
 export type Dataset = { samples: Sample[] };
 
 export type Variation = { text: Input; categories: Category[] };
 export type SampleWithVariations = {
   input: Input;
-  expected_output: Output;
+  outputs: Output;
   variations: Variation[];
 };
 export type AugmentedDataset = { samples: SampleWithVariations[] };

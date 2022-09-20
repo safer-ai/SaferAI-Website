@@ -25,7 +25,7 @@ const DataSelection = (props: DataSelectionProps) => {
     });
   };
 
-  useEffect(() => addDefault("doublebind"), []);
+  useEffect(() => addDefault("doublebind"), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="section">
