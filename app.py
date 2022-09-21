@@ -3,28 +3,24 @@ from flask import Flask, render_template, send_file, request
 import os
 import requests
 from flask_cors import CORS
-from countergen.evaluation import get_evaluator_for_generative_model, api_to_generative_model
-from countergen.augmentation.data_augmentation import (
-    Sample,
-    SampleWithVariations,
+import countergen
+from countergen import (
+    get_generative_model_evaluator,
+    api_to_generative_model,
     AugmentedDataset,
     Dataset,
-    default_dataset_paths,
-)
-from countergen.augmentation import SimpleAugmenter
-import sys
-from countergen.evaluation import (
-    get_evaluator_for_generative_model,
-    pt_to_generative_model,
+    DEFAULT_DS_PATHS,
+    SimpleAugmenter,
     api_to_generative_model,
-    PerformanceStatsPerCategory,
     evaluate,
 )
+from countergen.augmentation.data_augmentation import Sample, SampleWithVariations
+from countergen import aggregators
 
 app = Flask(__name__, static_url_path="", static_folder="frontend/build")
 CORS(app)
 
-evaluator = get_evaluator_for_generative_model(api_to_generative_model())
+evaluator = get_generative_model_evaluator(api_to_generative_model())
 
 
 @app.route("/")
@@ -34,7 +30,7 @@ def main():
 
 @app.route("/get_default_ds/<name>", methods=["GET"])
 def get_default_ds(name):
-    if name not in default_dataset_paths:
+    if name not in DEFAULT_DS_PATHS:
         return ""
     ds = Dataset.from_default(name)
     r = []
@@ -72,8 +68,8 @@ def load_sent_augds():
 @app.route("/evaluate/simple", methods=["POST"])
 def evaluate_simple():
     ds = load_sent_augds()
-    model_ev = get_evaluator_for_generative_model(api_to_generative_model(), "probability")
-    aggregator = PerformanceStatsPerCategory()
+    model_ev = get_generative_model_evaluator(api_to_generative_model(), "probability")
+    aggregator = countergen.aggregators.PerformanceStatsPerCategory()
     results = evaluate(ds.samples, model_ev, aggregator)
     return json.dumps({c: f"{s.mean:.5f} +- {s.uncertainty_2sig:.5f}" for c, s in results.items()})
 
