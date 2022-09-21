@@ -19,7 +19,7 @@ git push heroku main
 
 To dev the frontend:
 
-1. Create a `.env` file in `frontend/` containing `REACT_APP_COUNTERGEN_BACK_URL=http://127.0.0.1:5000`
+1. Create a `.env` file in `frontend/` containing `REACT_APP_COUNTERGEN_BACK_URL=http://127.0.0.1:5000` (or the URL of whathever backend you wish to use, for example `https://countergen.heroku.app`)
 2. Run
 
 ```bash
