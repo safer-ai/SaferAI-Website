@@ -17,18 +17,18 @@ from countergen import (
 from countergen.augmentation.data_augmentation import Sample, SampleWithVariations
 from countergen import aggregators
 
-application = Flask(__name__, static_url_path="", static_folder="frontend/build")
-CORS(application)
+app = Flask(__name__, static_url_path="", static_folder="frontend/build")
+CORS(app)
 
 evaluator = get_generative_model_evaluator(api_to_generative_model())
 
 
-@application.route("/")
+@app.route("/")
 def main():
     return send_file(__file__[:-6] + "frontend/build/index.html")
 
 
-@application.route("/get_default_ds/<name>", methods=["GET"])
+@app.route("/get_default_ds/<name>", methods=["GET"])
 def get_default_ds(name):
     if name not in DEFAULT_DS_PATHS:
         return ""
@@ -47,7 +47,7 @@ def load_sent_ds():
     return Dataset(samples)
 
 
-@application.route("/augment/simple/<name>", methods=["POST"])
+@app.route("/augment/simple/<name>", methods=["POST"])
 def augment_simple(name):
     ds = load_sent_ds()
     augds = ds.augment([SimpleAugmenter.from_default(name)])
@@ -65,7 +65,7 @@ def load_sent_augds():
     return AugmentedDataset(samples)
 
 
-@application.route("/evaluate/simple", methods=["POST"])
+@app.route("/evaluate/simple", methods=["POST"])
 def evaluate_simple():
     ds = load_sent_augds()
     model_ev = get_generative_model_evaluator(api_to_generative_model(), "probability")
@@ -74,7 +74,7 @@ def evaluate_simple():
     return json.dumps({c: f"{s.mean:.5f} +- {s.uncertainty_2sig:.5f}" for c, s in results.items()})
 
 
-@application.route("/isthereinternet")
+@app.route("/isthereinternet")
 def isthereinternet():
     url = "http://www.kite.com"
     timeout = 5
@@ -85,7 +85,7 @@ def isthereinternet():
         return "No"
 
 
-@application.route("/get_perf", methods=["POST"])
+@app.route("/get_perf", methods=["POST"])
 def get_perf():
     data = request.json
     return str(evaluator(data["input"], [data["output"]]))
@@ -93,4 +93,4 @@ def get_perf():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    application.run(host="0.0.0.0", threaded=True, port=port, debug=True)
+    app.run(host="0.0.0.0", threaded=True, port=port, debug=True)
