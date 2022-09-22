@@ -14,4 +14,5 @@ RUN pip install -r requirements.txt
 COPY . . 
 # Copy built npm package
 COPY --from=0 /app/build /app/frontend/build
+RUN ls
 CMD ["python3", "app.py"]  
