@@ -15,4 +15,5 @@ COPY . .
 # Copy built npm package
 COPY --from=0 /app/build /app/frontend/build
 RUN ls
+RUN ls /app/frontend
 CMD ["python3", "app.py"]  
