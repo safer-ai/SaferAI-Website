@@ -26,7 +26,7 @@ To dev the frontend:
 cd frontend; npm start
 ```
 
-Setup the instance by following the instructions here https://www.youtube.com/watch?v=-oD7qNfxKws
+Setup the instance by following the instructions here <https://www.youtube.com/watch?v=-oD7qNfxKws>
 and then enter the following instruction
 
 ```bash
@@ -50,4 +50,4 @@ python app.py
 
 Ctrl+A then d
 
-(recover with screen -r)
+(recover with `screen -r`)
