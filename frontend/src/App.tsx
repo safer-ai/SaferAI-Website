@@ -24,7 +24,7 @@ const App = () => {
         .
       </p>
       <p>
-        If you want more flexibility, use the{" "}
+        If you use sensitive data, or if you want more flexibility, use the{" "}
         <ColabLink>Google Colab version</ColabLink> of this tool!
       </p>
 
@@ -39,6 +39,8 @@ const App = () => {
       <ModelEvaluation augdataset={augdataset} />
 
       <ModelEditing />
+
+      <p><i>Data is not stored, but it might leak, please use the colab notebook or the Countergen Python module directly if you want to use sensitive data.</i></p>
     </Container>
   );
 };
