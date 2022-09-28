@@ -81,7 +81,7 @@ const TextSelector = (props: TextSelectorProps) => {
                   <div className="text-selector-output-line">
                     <RemovableTextField
                       key={`selector-item-output-${i}-${j}`}
-                      label="Output"
+                      label="Outputs"
                       value={o}
                       setValue={(s) => setOutput(s, i, j)}
                       onDelete={() => removeOutput(i, j)}

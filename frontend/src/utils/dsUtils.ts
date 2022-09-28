@@ -1,8 +1,8 @@
 import { addBeginSpace, stripEndSpace, stripBeginSpace } from "./textUtils";
-import { Dataset, Output, Sample } from "../types";
+import { Dataset, Outputs, Sample } from "../types";
 
 // To human friendly (without spaces)
-const cleanOutputs = (output: Output): Output => {
+const cleanOutputs = (output: Outputs): Outputs => {
   return output
     .map((o: string) => stripBeginSpace(stripEndSpace(o))) // Remove the space at the beginning & end if there is one
     .filter((o: string) => o.length > 0); // Can't contain nothing
@@ -23,7 +23,7 @@ export const cleanDs = (ds: Dataset): Dataset => {
 };
 
 // To machine friendly (with spaces)
-const formatOutputs = (output: Output): Output => {
+const formatOutputs = (output: Outputs): Outputs => {
   return output
     .map((o: string) => addBeginSpace(stripEndSpace(o))) // Add a space at the beginning if there's none
     .filter((o: string) => o.length > 1); // Can't contain only a space
