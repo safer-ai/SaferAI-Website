@@ -1,8 +1,9 @@
-Flask==2.1.1
-Flask-SQLAlchemy==2.5.1
-psycopg2==2.9.3
-requests==2.27.1
-six==1.16.0
-SQLAlchemy==1.4.37
-countergen==0.3.0
-flask-cors==3.0.10
+click==8.1.1
+Flask==2.0.3
+itsdangerous==2.1.2
+Jinja2==3.1.1
+MarkupSafe==2.1.1
+Werkzeug==2.1.0
+countergen==0.3.3
+requests
+flask-cors
