@@ -76,6 +76,23 @@ def augment_simple(name):
     return json.dumps(r)
 
 
+@application.route("/augment/multiple", methods=["POST"])
+def augment_multiple():
+    """name is either 'gender' or 'west_v_asia' (switch names white vs asia)"""
+
+    converter_names = request.json["names"]
+
+    if any(name not in DEFAULT_CONVERTERS_PATHS for name in converter_names):
+        return json.dumps({"error": "wrong augmenter name", "data": converter_names})
+
+    ds = load_sent_ds(request.json["data"])
+    augds = ds.augment([SimpleAugmenter.from_default(name) for name in converter_names])
+    r = []
+    for sample in augds.samples:
+        r.append(sample.to_json_dict())
+    return json.dumps(r)
+
+
 def load_sent_augds(data: Mapping[str, Any]):
     samples = []
     for d in data:

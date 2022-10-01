@@ -33,6 +33,23 @@ export const simpleAugment = async (
   return { samples: samples };
 };
 
+export const multipleAugment = async (
+  ds: Dataset,
+  augmenterNames: string[]
+): Promise<AugmentedDataset | undefined> => {
+  const response = await fetch(backend_url + "/augment/multiple", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ data: ds.samples, names: augmenterNames }),
+  });
+  const data = await response.json();
+  const samples = data as SampleWithVariations[];
+  return { samples: samples };
+};
+
 export const simpleEvaluate = async (
   augds: AugmentedDataset,
   modelName: string

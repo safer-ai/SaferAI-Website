@@ -3,7 +3,7 @@ import "../App.css";
 // import ColabLink from "../components/ColabLink";
 // import Collapsable from "../components/Collapsable";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
-import { simpleAugment } from "../utils/communication";
+import { multipleAugment } from "../utils/communication";
 import { Card, CardHeader, CardContent } from "@mui/material";
 
 type DataAugmentationProps = {
@@ -16,7 +16,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
   const { dataset, augdataset, setAugDataset } = props;
 
   const augment = () => {
-    simpleAugment(dataset, "gender").then((augds) => {
+    multipleAugment(dataset, ["gender"]).then((augds) => {
       if (augds !== undefined) setAugDataset(augds);
     }); // Could also we west_v_asia
   };
