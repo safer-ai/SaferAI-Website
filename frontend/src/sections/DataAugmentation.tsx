@@ -18,7 +18,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
   const augment = () => {
     simpleAugment(dataset, "gender").then((augds) => {
       if (augds !== undefined) setAugDataset(augds);
-    });
+    }); // Could also we west_v_asia
   };
 
   return (
@@ -39,16 +39,20 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       </CardContent>
       <CardContent className="section-result">
         {augdataset !== null &&
-          augdataset.samples.map((s: SampleWithVariations) => {
+          augdataset.samples.map((s: SampleWithVariations, i) => {
             return (
-              <div className="variation-holder">
-                {s.variations.map((v) => (
-                  <p>
+              <div className="variation-holder" key={`variation-${i}`}>
+                {s.variations.map((v, j) => (
+                  <div key={`variation-${i}-${j}`}>
                     {v.text}
                     {v.categories.map((c) => (
-                      <Chip label={c} variant="outlined" />
+                      <Chip
+                        label={c}
+                        variant="outlined"
+                        key={`variation-chip-${i}-${j}`}
+                      />
                     ))}
-                  </p>
+                  </div>
                 ))}
               </div>
             );

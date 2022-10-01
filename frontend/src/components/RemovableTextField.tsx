@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import debounce from "lodash.debounce";
 
 type RemovableTextFieldProps = {
-  key: string;
   label: string;
   value: string;
   setValue: (e: any) => void;
@@ -13,7 +12,7 @@ type RemovableTextFieldProps = {
 };
 
 const RemovableTextField = (props: RemovableTextFieldProps) => {
-  const { key, label, value, setValue, onDelete } = props;
+  const { label, value, setValue, onDelete } = props;
   const [tempValue, setTempValue] = useState<string | undefined>(undefined);
 
   // Use value as the source of truth only at initialization
@@ -32,7 +31,6 @@ const RemovableTextField = (props: RemovableTextFieldProps) => {
 
   return (
     <TextField
-      key={key}
       label={label}
       value={displayedValue}
       onChange={onChange}

@@ -3,22 +3,6 @@ import { Dataset, Sample } from "../types";
 
 const backend_url = process.env.REACT_APP_COUNTERGEN_BACK_URL ?? "";
 
-export const getperf = async (input: string, output: string) => {
-  const response = await fetch(backend_url + "/get_perf", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      input: input,
-      output: output,
-    }),
-  });
-  const data = await response.json();
-  return data;
-};
-
 export const getDefaultDataset = async (
   name: string
 ): Promise<Dataset | undefined> => {
@@ -49,14 +33,41 @@ export const simpleAugment = async (
   return { samples: samples };
 };
 
-export const simpleEvaluate = async (augds: AugmentedDataset) => {
-  const response = await fetch(backend_url + "/evaluate/simple", {
+export const simpleEvaluate = async (
+  augds: AugmentedDataset,
+  modelName: string
+) => {
+  const response = await fetch(backend_url + "/evaluate/simple/" + modelName, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(augds.samples),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const sendAPIEvaluate = async (
+  augds: AugmentedDataset,
+  modelName: string,
+  apiKey: string,
+  apiURL: string
+) => {
+  const response = await fetch(backend_url + "/evaluate/sendapi/" + modelName, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data: augds.samples,
+      apiconfig: {
+        key: apiKey,
+        base_url: apiURL,
+      },
+    }),
   });
   const data = await response.json();
   return data;

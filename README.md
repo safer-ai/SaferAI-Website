@@ -24,13 +24,17 @@ To dev the frontend:
 cd frontend; npm start
 ```
 
-## Deploy on heroku
+## Deploy
+
+Remove `REACT_APP_COUNTERGEN_BACK_URL=http://127.0.0.1:5000` in the `.env` file
+
+### Deploy on heroku
 
 ```bash
 git push heroku main
 ```
 
-## Deploy on beanstalk
+### Deploy on beanstalk
 
 1. Add your aws credentials to the appropriate `.aws` folder
 
@@ -60,7 +64,7 @@ git commit -m "Deploy"
 eb deploy
 ```
 
-## Deploy on an EC2 instance
+### Deploy on an EC2 instance
 
 Setup the instance by following the instructions here <https://www.youtube.com/watch?v=-oD7qNfxKws>
 and then enter the following instruction

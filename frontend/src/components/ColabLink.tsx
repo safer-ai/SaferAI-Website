@@ -7,6 +7,6 @@ const ColabLink = (props: { children: JSX.Element | string }) => {
     >
       {props.children}
     </a>
-  ); // TODO: Replace link
+  );
 };
 export default ColabLink;

@@ -67,9 +67,8 @@ const TextSelector = (props: TextSelectorProps) => {
     <div className="text-selector">
       {samples.map(({ input, outputs }, i) => {
         return (
-          <div className="text-selector-line">
+          <div className="text-selector-line" key={`selector-item-input-${i}`}>
             <RemovableTextField
-              key={`selector-item-input-${i}`}
               label="Input"
               value={input}
               setValue={(s) => setInput(s, i)}
@@ -78,9 +77,11 @@ const TextSelector = (props: TextSelectorProps) => {
             <div className="text-selector-outputs-col">
               {outputs.map((o, j) => {
                 return (
-                  <div className="text-selector-output-line">
+                  <div
+                    className="text-selector-output-line"
+                    key={`selector-item-output-${i}-${j}`}
+                  >
                     <RemovableTextField
-                      key={`selector-item-output-${i}-${j}`}
                       label="Outputs"
                       value={o}
                       setValue={(s) => setOutput(s, i, j)}
