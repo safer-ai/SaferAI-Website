@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 import countergen
 import countergen.config
@@ -12,13 +12,13 @@ from countergen import (
     Dataset,
     Sample,
     SimpleAugmenter,
-    aggregators,
     api_to_generative_model,
-    evaluate,
     get_generative_model_evaluator,
+    compute_performances,
 )
 from countergen.augmentation.data_augmentation import SampleWithVariations
 from countergen.tools.api_utils import ApiConfig
+from countergen.types import AugmentedSample, ModelEvaluator
 from flask import Flask, render_template, request, send_file
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
@@ -100,6 +100,19 @@ def load_sent_augds(data: Mapping[str, Any]):
     return AugmentedDataset(samples)
 
 
+def evaluate_complex(samples: Iterable[AugmentedSample], model_ev: ModelEvaluator) -> str:
+    performances = compute_performances(samples, model_ev)
+    stats = countergen.aggregators.PerformanceStatsPerCategory()(performances)
+    stats_json = {k: s.to_json_dict() for k, s in stats.items()}
+    outliers = countergen.aggregators.OutliersAggregator(samples)(performances)
+    return json.dumps(
+        {
+            "stats": stats_json,
+            "outliers": outliers,
+        }
+    )
+
+
 @application.route("/evaluate/simple/<model_name>", methods=["POST"])
 def evaluate_simple(model_name="text-ada-001"):
     """Accepts only certain models any model name
@@ -113,9 +126,11 @@ def evaluate_simple(model_name="text-ada-001"):
 
     model_ev = get_generative_model_evaluator(api_to_generative_model(openai_engine=model_name), "probability")
 
-    aggregator = countergen.aggregators.PerformanceStatsPerCategory()
-    results = evaluate(ds.samples, model_ev, aggregator)
-    return json.dumps({c: f"{s.mean:.5f} +- {s.uncertainty_2sig:.5f}" for c, s in results.items()})
+    return evaluate_complex(ds.samples, model_ev)
+
+    # aggregator = countergen.aggregators.PerformanceStatsPerCategory()
+    # results = evaluate(ds.samples, model_ev, aggregator)
+    # return json.dumps({c: f"{s.mean:.5f} +- {s.uncertainty_2sig:.5f}" for c, s in results.items()})
 
 
 @application.route("/evaluate/sendapi/<model_name>", methods=["POST"])
@@ -138,9 +153,11 @@ def evaluate_sendapi(model_name="text-ada-001"):
         api_to_generative_model(openai_engine=model_name, apiconfig=apiconfig), "probability"
     )
 
-    aggregator = countergen.aggregators.PerformanceStatsPerCategory()
-    results = evaluate(ds.samples, model_ev, aggregator)
-    return json.dumps({c: f"{s.mean:.5f} +- {s.uncertainty_2sig:.5f}" for c, s in results.items()})
+    return evaluate_complex(ds.samples, model_ev)
+
+    # aggregator = countergen.aggregators.PerformanceStatsPerCategory()
+    # results = evaluate(ds.samples, model_ev, aggregator)
+    # return json.dumps({c: f"{s.mean:.5f} +- {s.uncertainty_2sig:.5f}" for c, s in results.items()})
 
 
 @application.route("/isthereinternet")

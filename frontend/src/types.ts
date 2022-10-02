@@ -19,3 +19,13 @@ export type SampleWithVariations = {
   variations: Variation[];
 };
 export type AugmentedDataset = { samples: SampleWithVariations[] };
+
+export type Stats = {
+  mean: number;
+  uncertainty_2sig: number;
+};
+export type OutlierData = [Input, Outputs, Category[], Performance];
+export type EvaluationReturn = {
+  stats: Stats;
+  outliers: [OutlierData, OutlierData][];
+};

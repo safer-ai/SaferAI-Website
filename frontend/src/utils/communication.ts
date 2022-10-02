@@ -1,5 +1,5 @@
 import { AugmentedDataset, SampleWithVariations } from "./../types";
-import { Dataset, Sample } from "../types";
+import { Dataset, Sample, EvaluationReturn } from "../types";
 
 const backend_url = process.env.REACT_APP_COUNTERGEN_BACK_URL ?? "";
 
@@ -53,7 +53,8 @@ export const multipleAugment = async (
 export const simpleEvaluate = async (
   augds: AugmentedDataset,
   modelName: string
-) => {
+): Promise<EvaluationReturn> => {
+  console.log(modelName);
   const response = await fetch(backend_url + "/evaluate/simple/" + modelName, {
     method: "POST",
     headers: {
@@ -71,7 +72,7 @@ export const sendAPIEvaluate = async (
   modelName: string,
   apiKey: string,
   apiURL: string
-) => {
+): Promise<EvaluationReturn> => {
   const response = await fetch(backend_url + "/evaluate/sendapi/" + modelName, {
     method: "POST",
     headers: {
