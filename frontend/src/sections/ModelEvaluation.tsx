@@ -1,4 +1,4 @@
-import { Checkbox, MenuItem, Select, TextField } from "@mui/material";
+import { MenuItem, Select, TextField } from "@mui/material";
 import React, { useState } from "react";
 import "../App.css";
 import { AugmentedDataset } from "../types";
@@ -6,6 +6,7 @@ import { sendAPIEvaluate, simpleEvaluate } from "../utils/communication";
 import { Card, CardHeader, CardContent } from "@mui/material";
 import { dsIsReadyToEvaluate } from "../utils/dsUtils";
 import WaitableButton from "../components/WaitableButton";
+import ResultBars from "../components/ResultBars";
 
 type ModelEvaluationProps = {
   augdataset: AugmentedDataset | null;
@@ -98,6 +99,7 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
         />
       </CardContent>
       <CardContent className="section-result">
+        {result !== null && <ResultBars stats={result.stats} />}
         {result !== null && <p>{JSON.stringify(result)}</p>}
       </CardContent>
     </Card>
