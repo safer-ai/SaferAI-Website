@@ -23,7 +23,7 @@ const WaitableButton = (props: WaitableButtonProps) => {
       {waiting && (
         <>
           <CircularProgress style={{ marginLeft: "1em", marginRight: "1em" }} />
-          {expectedTime && <p>This should take about {expectedTime}...</p>}
+          {expectedTime && <p>This should take {expectedTime}...</p>}
         </>
       )}
     </div>

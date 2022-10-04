@@ -15,16 +15,12 @@ const App = () => {
     <Container maxWidth="md">
       <h1 className="title">Try CounterGen online!</h1>
       <p>
-        The code for this website and instructions to adapt it to your needs are
-        freely available! For more information, visit{" "}
-        <a href="https://github.com/FabienRoger/Countergen-Website">
-          github.com/FabienRoger/Countergen-Website
-        </a>
-        .
-      </p>
-      <p>
         If you use sensitive data, or if you want more flexibility, use the{" "}
         <ColabLink>Google Colab version</ColabLink> of this tool!
+      </p>
+      <p>
+        You can checkout the documentation and the code behind this tool{" "}
+        <a href="https://github.com/FabienRoger/Countergen">here</a>.
       </p>
 
       <DataSelection dataset={dataset} setDataset={setDataset} />
@@ -39,6 +35,14 @@ const App = () => {
 
       <p>
         <i>Your data won't be collected nor stored.</i>
+      </p>
+      <p>
+        The code for this website and instructions to adapt it to your needs are
+        freely available. For more information, visit{" "}
+        <a href="https://github.com/FabienRoger/Countergen-Website">
+          github.com/FabienRoger/Countergen-Website
+        </a>
+        .
       </p>
     </Container>
   );

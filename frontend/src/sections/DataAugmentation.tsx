@@ -1,4 +1,4 @@
-import { Chip } from "@mui/material";
+import { Checkbox, Chip } from "@mui/material";
 import "../App.css";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { multipleAugment } from "../utils/communication";
@@ -18,13 +18,24 @@ const DataAugmentation = (props: DataAugmentationProps) => {
   const { dataset, augdataset, setAugDataset } = props;
 
   const [waiting, setWaiting] = useState<boolean>(false);
+  const [augmentGender, setAugmentGender] = useState<boolean>(true);
+  const [augmentRace, setAugmentRace] = useState<boolean>(false);
+  const [errMessage, setErrMessage] = useState<string>("");
 
   const augment = () => {
+    let toAugment = [];
+    if (augmentGender) toAugment.push("gender");
+    if (augmentRace) toAugment.push("west_v_asia");
+    if (toAugment.length === 0) {
+      setErrMessage("Select at least one way to augment the data");
+      return;
+    }
+
     setWaiting(true);
-    multipleAugment(dataset, ["gender"]).then((augds) => {
+    multipleAugment(dataset, toAugment).then((augds) => {
       if (augds !== undefined) setAugDataset(augds);
       setWaiting(false);
-    }); // Could also we west_v_asia
+    });
   };
 
   return (
@@ -34,6 +45,33 @@ const DataAugmentation = (props: DataAugmentationProps) => {
         title="Augment the data"
       ></CardHeader>
       <CardContent className="section-content">
+        <p className="horizontal-flex">
+          <Checkbox
+            checked={augmentGender}
+            onChange={(e) => {
+              setAugmentGender(e.target.checked);
+              setErrMessage("");
+            }}
+            name="Augment gender"
+          />
+          Augment gender{" "}
+          <i style={{ marginLeft: "0.5em" }}>
+            {"(He <-> She, John <-> Marry, ...)"}
+          </i>
+        </p>
+        <p className="horizontal-flex">
+          <Checkbox
+            checked={augmentRace}
+            onChange={(e) => {
+              setAugmentRace(e.target.checked);
+              setErrMessage("");
+            }}
+            name="Augment race"
+          />
+          Augment race{" "}
+          <i style={{ marginLeft: "0.5em" }}>{"(John <-> Mohammed, ...)"}</i>
+        </p>
+        {errMessage && <p style={{ color: "red" }}>{errMessage}</p>}
         <WaitableButton
           text={"Augment!"}
           onClick={augment}

@@ -43,7 +43,7 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
       <CardHeader className="section-title" title="Evaluate the model" />
       <CardContent className="section-content">
         <div>
-          <p>
+          <p className="horizontal-flex">
             <Checkbox
               checked={useAPI}
               onChange={(e) => setUseAPI(e.target.checked)}
