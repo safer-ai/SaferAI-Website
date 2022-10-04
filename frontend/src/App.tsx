@@ -38,11 +38,7 @@ const App = () => {
       <ModelEvaluation augdataset={augdataset} />
 
       <p>
-        <i>
-          Data is not stored, but it might leak, please use the colab notebook
-          or the Countergen Python module directly if you want to use sensitive
-          data.
-        </i>
+        <i>Your data won't be collected nor stored.</i>
       </p>
     </Container>
   );

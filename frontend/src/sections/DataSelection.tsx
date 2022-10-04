@@ -74,9 +74,6 @@ const DataSelection = (props: DataSelectionProps) => {
         <Collapsable text={"Upload your data"}>
           <p>Via csv</p>
           <p>Via jsonl</p>
-          <p>
-            <ColabLink>By using a pythonscript</ColabLink>
-          </p>
         </Collapsable>
       </CardContent>
       <CardContent className="section-result">

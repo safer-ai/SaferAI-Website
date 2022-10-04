@@ -29,13 +29,6 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       ></CardHeader>
       <CardContent className="section-content">
         <Button onClick={augment}>Augment!</Button>
-        {/* <Collapsable text={"Upload your data"}>
-          <p>Via csv</p>
-          <p>Via jsonl</p>
-          <p>
-            <ColabLink>By using a pythonscript</ColabLink>
-          </p>
-        </Collapsable> */}
       </CardContent>
       <CardContent className="section-result">
         {augdataset !== null &&
