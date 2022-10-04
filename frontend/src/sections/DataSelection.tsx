@@ -2,14 +2,12 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import "../App.css";
 import { getDefaultDataset } from "../utils/communication";
-import ColabLink from "../components/ColabLink";
 import Collapsable from "../components/Collapsable";
 import TextSelector from "../components/TextSelector";
 import { Dataset } from "../types";
-import { cleanDs, formatDs } from "../utils/dsUtils";
+import { cleanDs, dsIsReadyToAugment, formatDs } from "../utils/dsUtils";
 import { Card, CardHeader, CardContent } from "@mui/material";
-import DoneIcon from "@mui/icons-material/Done";
-import CloseIcon from "@mui/icons-material/Close";
+import Ready from "../components/Ready";
 
 type DataSelectionProps = {
   dataset: Dataset; // Not used to display
@@ -33,7 +31,10 @@ const DataSelection = (props: DataSelectionProps) => {
 
   const addDefault = (name: string) => {
     getDefaultDataset(name).then((data: Dataset | undefined) => {
-      if (data !== undefined) setCleanDataset(cleanDs(data));
+      if (data !== undefined)
+        setCleanDataset({
+          samples: [...cleanDataset.samples, ...cleanDs(data).samples],
+        });
     });
   };
 
@@ -41,18 +42,8 @@ const DataSelection = (props: DataSelectionProps) => {
 
   const numberOfInputs = formatedDataset.samples.length;
   const numberOfOutputs = formatedDataset.samples.reduce(
-    (prev, sample) => prev + sample.outputs.length + 1,
+    (prev, sample) => prev + sample.outputs.length,
     0
-  );
-  const statusIsGood = numberOfInputs > 2 && numberOfOutputs > 6;
-  const statusDiv = statusIsGood ? (
-    <p>
-      <DoneIcon />
-    </p>
-  ) : (
-    <p className="horizontal-flex">
-      <CloseIcon /> Not enough inputs.
-    </p>
   );
 
   return (
@@ -62,9 +53,23 @@ const DataSelection = (props: DataSelectionProps) => {
         <p>Enter you own data</p>
         <TextSelector dataset={cleanDataset} setDataset={setCleanDataset} />
         <div className="horizontal-flex">
-          <Button onClick={clear}>Clear</Button>
-          <Button onClick={() => addDefault("doublebind")}>
+          <Button onClick={clear} variant="outlined">
+            Clear
+          </Button>
+          <Button onClick={() => addDefault("doublebind")} variant="outlined">
             Add double bind data
+          </Button>
+          <Button
+            onClick={() => addDefault("male-stereotypes")}
+            variant="outlined"
+          >
+            Add male stereotype data
+          </Button>
+          <Button
+            onClick={() => addDefault("female-stereotypes")}
+            variant="outlined"
+          >
+            Add female stereotype data
           </Button>
         </div>
         <p>
@@ -77,7 +82,7 @@ const DataSelection = (props: DataSelectionProps) => {
         </Collapsable>
       </CardContent>
       <CardContent className="section-result">
-        {statusDiv}
+        <Ready state={dsIsReadyToAugment(formatedDataset)} />
         <p>
           {numberOfInputs} valid inputs and {numberOfOutputs} valid outputs.
         </p>
