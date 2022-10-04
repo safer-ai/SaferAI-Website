@@ -38,7 +38,7 @@ const DataSelection = (props: DataSelectionProps) => {
     });
   };
 
-  useEffect(() => addDefault("doublebind"), []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => addDefault("male-stereotypes"), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const numberOfInputs = formatedDataset.samples.length;
   const numberOfOutputs = formatedDataset.samples.reduce(
