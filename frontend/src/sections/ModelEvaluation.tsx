@@ -1,12 +1,20 @@
-import { MenuItem, Select, TextField } from "@mui/material";
-import React, { useState } from "react";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Chip,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import { useState } from "react";
 import "../App.css";
-import { AugmentedDataset } from "../types";
-import { sendAPIEvaluate, simpleEvaluate } from "../utils/communication";
-import { Card, CardHeader, CardContent } from "@mui/material";
-import { dsIsReadyToEvaluate } from "../utils/dsUtils";
-import WaitableButton from "../components/WaitableButton";
 import ResultBars from "../components/ResultBars";
+import WaitableButton from "../components/WaitableButton";
+import { AugmentedDataset, EvaluationReturn } from "../types";
+import { sendAPIEvaluate, simpleEvaluate } from "../utils/communication";
+import { dsIsReadyToEvaluate } from "../utils/dsUtils";
 
 type ModelEvaluationProps = {
   augdataset: AugmentedDataset | null;
@@ -14,7 +22,7 @@ type ModelEvaluationProps = {
 
 const ModelEvaluation = (props: ModelEvaluationProps) => {
   const { augdataset } = props;
-  const [result, setResult] = useState<any | null>(null);
+  const [result, setResult] = useState<EvaluationReturn | null>(null);
   const [selectedModel, setSelectModel] = useState<string>("text-ada-001");
   const useAPI = selectedModel === "your-api";
   const [apiKey, setApiKey] = useState<string>("");
@@ -99,8 +107,32 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
         />
       </CardContent>
       <CardContent className="section-result">
-        {result !== null && <ResultBars stats={result.stats} />}
-        {result !== null && <p>{JSON.stringify(result)}</p>}
+        {result !== null && result !== undefined && (
+          <>
+            <p style={{ textAlign: "center" }}>Average performances</p>
+            <ResultBars stats={result.stats} />
+            <p style={{ textAlign: "center" }}>Outliers</p>
+            {result.outliers.map((v, i) => {
+              return v.map(([inp, out, cats, perf], j) => (
+                <div key={`variation-${i}-${j}`}>
+                  {"perf="}
+                  {perf.toPrecision(2)}
+                  {" on: "}
+                  {inp}
+                  <ArrowForwardIcon fontSize="small"/>
+                  {out}
+                  {cats.map((c, k) => (
+                    <Chip
+                      label={c}
+                      variant="outlined"
+                      key={`variation-chip-${i}-${k}`}
+                    />
+                  ))}
+                </div>
+              ));
+            })}
+          </>
+        )}
       </CardContent>
     </Card>
   );

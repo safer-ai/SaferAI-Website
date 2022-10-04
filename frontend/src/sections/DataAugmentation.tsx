@@ -91,11 +91,11 @@ const DataAugmentation = (props: DataAugmentationProps) => {
                 {s.variations.map((v, j) => (
                   <div key={`variation-${i}-${j}`}>
                     {v.text}
-                    {v.categories.map((c) => (
+                    {v.categories.map((c, k) => (
                       <Chip
                         label={c}
                         variant="outlined"
-                        key={`variation-chip-${i}-${j}`}
+                        key={`variation-chip-${i}-${j}-${k}`}
                       />
                     ))}
                   </div>

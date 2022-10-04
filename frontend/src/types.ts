@@ -26,6 +26,6 @@ export type Stats = {
 };
 export type OutlierData = [Input, Outputs, Category[], Performance];
 export type EvaluationReturn = {
-  stats: Stats;
+  stats: { [category: string]: Stats };
   outliers: [OutlierData, OutlierData][];
 };

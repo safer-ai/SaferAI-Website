@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Stats } from "../types";
 import "./ResultBars.css";
 
