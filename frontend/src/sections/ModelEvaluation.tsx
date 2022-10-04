@@ -1,4 +1,4 @@
-import { Checkbox, TextField } from "@mui/material";
+import { Checkbox, MenuItem, Select, TextField } from "@mui/material";
 import React, { useState } from "react";
 import "../App.css";
 import { AugmentedDataset } from "../types";
@@ -14,11 +14,12 @@ type ModelEvaluationProps = {
 const ModelEvaluation = (props: ModelEvaluationProps) => {
   const { augdataset } = props;
   const [result, setResult] = useState<any | null>(null);
-  const [useAPI, setUseAPI] = useState<boolean>(false);
+  const [selectedModel, setSelectModel] = useState<string>("text-ada-001");
+  const useAPI = selectedModel === "your-api";
   const [apiKey, setApiKey] = useState<string>("");
   const [apiURL, setApiURL] = useState<string>("https://api.openai.com/v1");
+  const [modelName, setModelName] = useState<string>("text-ada-001");
   const [waiting, setWaiting] = useState<boolean>(false);
-  const modelName = "text-ada-001"; // or text-babbage-001 or text-curie-001 or anything if useAPI
 
   const evaluate = () => {
     setWaiting(true);
@@ -31,7 +32,7 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
         }
       );
     } else {
-      simpleEvaluate(augdataset, modelName).then((data: any) => {
+      simpleEvaluate(augdataset, selectedModel).then((data: any) => {
         setResult(data);
         setWaiting(false);
       });
@@ -43,14 +44,18 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
       <CardHeader className="section-title" title="Evaluate the model" />
       <CardContent className="section-content">
         <div>
-          <p className="horizontal-flex">
-            <Checkbox
-              checked={useAPI}
-              onChange={(e) => setUseAPI(e.target.checked)}
-              name="Use your own API key and URL"
-            />
-            Use your own API key and URL
-          </p>
+          <Select
+            value={selectedModel}
+            label="Model"
+            size="small"
+            onChange={(e) => setSelectModel(e.target.value)}
+            style={{ marginBottom: "0.5em" }}
+          >
+            <MenuItem value={"text-ada-001"}>OpenAI Ada</MenuItem>
+            <MenuItem value={"text-babbage-001"}>OpenAI Babbage</MenuItem>
+            <MenuItem value={"text-curie-001"}>OpenAI Curie</MenuItem>
+            <MenuItem value={"your-api"}>Use your own API key and URL</MenuItem>
+          </Select>
           {useAPI && (
             <>
               <TextField
@@ -71,6 +76,15 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
                 fullWidth
                 margin="dense"
                 label="API URL"
+              />
+              <TextField
+                value={modelName}
+                onChange={(e) => setModelName(e.target.value)}
+                variant="outlined"
+                size="small"
+                fullWidth
+                margin="dense"
+                label="Model name"
               />
             </>
           )}
