@@ -26,6 +26,8 @@ from werkzeug.exceptions import HTTPException
 application = Flask(__name__, static_url_path="", static_folder="frontend/build")
 CORS(application)
 
+MAX_SAMPLES = 200
+
 
 @application.route("/")
 def main():
@@ -45,7 +47,7 @@ def handle_exception(e):
 def get_default_ds(name):
     """Excepts doublebind or tiny-test."""
 
-    if name not in ["doublebind", "tiny-test"]:
+    if name not in ["doublebind", "tiny-test", "male-stereotypes", "female-stereotypes"]:
         return json.dumps({"error": "wrong dataset name", "data": name})
 
     ds = Dataset.from_default(name)
@@ -69,6 +71,10 @@ def augment_simple(name):
         return json.dumps({"error": "wrong augmenter name", "data": name})
 
     ds = load_sent_ds(request.json)
+
+    if len(ds.samples) > MAX_SAMPLES:
+        return json.dumps({"error": "too many samples", "data": len(ds.samples)})
+
     augds = ds.augment([SimpleAugmenter.from_default(name)])
     r = []
     for sample in augds.samples:
@@ -86,6 +92,10 @@ def augment_multiple():
         return json.dumps({"error": "wrong augmenter name", "data": converter_names})
 
     ds = load_sent_ds(request.json["data"])
+
+    if len(ds.samples) > MAX_SAMPLES:
+        return json.dumps({"error": "too many samples", "data": len(ds.samples)})
+
     augds = ds.augment([SimpleAugmenter.from_default(name) for name in converter_names])
     r = []
     for sample in augds.samples:
@@ -124,6 +134,9 @@ def evaluate_simple(model_name="text-ada-001"):
 
     ds = load_sent_augds(request.json)
 
+    if len(ds.samples) > MAX_SAMPLES:
+        return json.dumps({"error": "too many samples", "data": len(ds.samples)})
+
     model_ev = get_generative_model_evaluator(api_to_generative_model(openai_engine=model_name), "probability")
 
     return evaluate_complex(ds.samples, model_ev)
@@ -146,6 +159,10 @@ def evaluate_sendapi(model_name="text-ada-001"):
       },
     }"""
     ds = load_sent_augds(request.json["data"])
+
+    if len(ds.samples) > MAX_SAMPLES:
+        return json.dumps({"error": "too many samples", "data": len(ds.samples)})
+
     apiconfig = ApiConfig.from_json_dict(request.json["apiconfig"])
     apiconfig.base_url = apiconfig.base_url or countergen.config.apiconfig.base_url
 

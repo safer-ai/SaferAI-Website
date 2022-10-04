@@ -1,5 +1,8 @@
+import { AugmentedDataset } from "./../types";
 import { addBeginSpace, stripEndSpace, stripBeginSpace } from "./textUtils";
 import { Dataset, Outputs, Sample } from "../types";
+import { MAX_SAMPLES, MIN_OUTPUTS, MIN_SAMPLES } from "./parameters";
+import { ReadyState } from "../components/Ready";
 
 // To human friendly (without spaces)
 const cleanOutputs = (output: Outputs): Outputs => {
@@ -41,4 +44,57 @@ export const formatDs = (ds: Dataset): Dataset => {
     })
     .filter((sample) => sample.input.length > 0 && sample.outputs.length > 0);
   return { samples: newSamples };
+};
+
+export const dsIsReadyToAugment = (ds: Dataset): ReadyState => {
+  const numberOfInputs = ds.samples.length;
+  const numberOfOutputs = ds.samples.reduce(
+    (prev, sample) => prev + sample.outputs.length,
+    0
+  );
+
+  if (numberOfInputs < MIN_SAMPLES || numberOfOutputs < MIN_OUTPUTS) {
+    return {
+      ready: false,
+      message: "Not enough inputs.",
+    };
+  }
+
+  if (numberOfInputs > MAX_SAMPLES) {
+    return {
+      ready: false,
+      message: "Too many inputs. Please use the notebook.",
+    };
+  }
+
+  return {
+    ready: true,
+    message: "Ready to augment!",
+  };
+};
+
+export const dsIsReadyToEvaluate = (ds: AugmentedDataset): ReadyState => {
+  const numberOfVariations = ds.samples.reduce(
+    (prev, sample) => prev + sample.variations.length,
+    0
+  );
+
+  if (numberOfVariations < MIN_SAMPLES) {
+    return {
+      ready: false,
+      message: "Not enough variations.",
+    };
+  }
+
+  if (numberOfVariations > MAX_SAMPLES) {
+    return {
+      ready: false,
+      message: "Too many variations. Please use the notebook.",
+    };
+  }
+
+  return {
+    ready: true,
+    message: "Ready to evaluate!",
+  };
 };

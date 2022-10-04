@@ -1,10 +1,12 @@
-import { Button, Chip } from "@mui/material";
+import { Chip } from "@mui/material";
 import "../App.css";
-// import ColabLink from "../components/ColabLink";
-// import Collapsable from "../components/Collapsable";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { multipleAugment } from "../utils/communication";
 import { Card, CardHeader, CardContent } from "@mui/material";
+import { dsIsReadyToAugment, dsIsReadyToEvaluate } from "../utils/dsUtils";
+import Ready from "../components/Ready";
+import { useState } from "react";
+import WaitableButton from "../components/WaitableButton";
 
 type DataAugmentationProps = {
   dataset: Dataset;
@@ -15,9 +17,13 @@ type DataAugmentationProps = {
 const DataAugmentation = (props: DataAugmentationProps) => {
   const { dataset, augdataset, setAugDataset } = props;
 
+  const [waiting, setWaiting] = useState<boolean>(false);
+
   const augment = () => {
+    setWaiting(true);
     multipleAugment(dataset, ["gender"]).then((augds) => {
       if (augds !== undefined) setAugDataset(augds);
+      setWaiting(false);
     }); // Could also we west_v_asia
   };
 
@@ -28,9 +34,18 @@ const DataAugmentation = (props: DataAugmentationProps) => {
         title="Augment the data"
       ></CardHeader>
       <CardContent className="section-content">
-        <Button onClick={augment}>Augment!</Button>
+        <WaitableButton
+          text={"Augment!"}
+          onClick={augment}
+          disabled={!dsIsReadyToAugment(dataset).ready}
+          waiting={waiting}
+          expectedTime={"a few seconds"}
+        />
       </CardContent>
       <CardContent className="section-result">
+        {augdataset !== null && (
+          <Ready state={dsIsReadyToEvaluate(augdataset)} />
+        )}
         {augdataset !== null &&
           augdataset.samples.map((s: SampleWithVariations, i) => {
             return (
