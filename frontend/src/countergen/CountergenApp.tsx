@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import Redirect from "./components/Redirect";
-import Navbar from "./sections/Navbar";
-import CountergenMain from "./pages/CountergenMain";
-import CountergenResults from "./pages/CountergenResults";
-import CountergenWeb from "./pages/CountergenWeb";
+import Redirect from "../components/Redirect";
+import Navbar from "./countergenweb_sections/Navbar";
+import CountergenMain from "./CountergenMain";
+import CountergenResults from "./CountergenResults";
+import CountergenWeb from "./CountergenWeb";
 
 const CountergenApp = () => {
   return (

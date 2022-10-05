@@ -1,13 +1,12 @@
-import { Button } from "@mui/material";
+import { Button, Card, CardContent, CardHeader } from "@mui/material";
 import { useEffect, useState } from "react";
+import Collapsable from "../../components/Collapsable";
+import Ready from "../../components/Ready";
+import TextSelector from "../../components/TextSelector";
+import { Dataset } from "../../types";
 import "../CountergenApp.css";
 import { getDefaultDataset } from "../utils/communication";
-import Collapsable from "../components/Collapsable";
-import TextSelector from "../components/TextSelector";
-import { Dataset } from "../types";
 import { cleanDs, dsIsReadyToAugment, formatDs } from "../utils/dsUtils";
-import { Card, CardHeader, CardContent } from "@mui/material";
-import Ready from "../components/Ready";
 
 type DataSelectionProps = {
   dataset: Dataset; // Not used to display

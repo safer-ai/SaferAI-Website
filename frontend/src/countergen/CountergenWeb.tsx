@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../CountergenApp.css";
 import ColabLink from "../components/ColabLink";
-import DataAugmentation from "../sections/DataAugmentation";
-import DataSelection from "../sections/DataSelection";
-import ModelEvaluation from "../sections/ModelEvaluation";
+import DataAugmentation from "./countergenweb_sections/DataAugmentation";
+import DataSelection from "./countergenweb_sections/DataSelection";
+import ModelEvaluation from "./countergenweb_sections/ModelEvaluation";
 import { AugmentedDataset, Dataset } from "../types";
 import { Container } from "@mui/material";
 

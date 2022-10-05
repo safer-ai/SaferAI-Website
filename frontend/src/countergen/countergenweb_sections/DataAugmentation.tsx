@@ -1,12 +1,11 @@
-import { Checkbox, Chip } from "@mui/material";
-import "../CountergenApp.css";
-import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
-import { multipleAugment } from "../utils/communication";
-import { Card, CardHeader, CardContent } from "@mui/material";
-import { dsIsReadyToAugment, dsIsReadyToEvaluate } from "../utils/dsUtils";
-import Ready from "../components/Ready";
+import { Card, CardContent, CardHeader, Checkbox, Chip } from "@mui/material";
 import { useState } from "react";
-import WaitableButton from "../components/WaitableButton";
+import Ready from "../../components/Ready";
+import WaitableButton from "../../components/WaitableButton";
+import { AugmentedDataset, Dataset, SampleWithVariations } from "../../types";
+import "../CountergenApp.css";
+import { multipleAugment } from "../utils/communication";
+import { dsIsReadyToAugment, dsIsReadyToEvaluate } from "../utils/dsUtils";
 
 type DataAugmentationProps = {
   dataset: Dataset;

@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import "../CountergenApp.css";
-import ResultBars from "../components/ResultBars";
-import WaitableButton from "../components/WaitableButton";
-import { AugmentedDataset, EvaluationReturn } from "../types";
+import ResultBars from "../../components/ResultBars";
+import WaitableButton from "../../components/WaitableButton";
+import { AugmentedDataset, EvaluationReturn } from "../../types";
 import { sendAPIEvaluate, simpleEvaluate } from "../utils/communication";
 import { dsIsReadyToEvaluate } from "../utils/dsUtils";
 

@@ -1,8 +1,8 @@
-import { AugmentedDataset } from "./../types";
+import { AugmentedDataset } from "../../types";
 import { addBeginSpace, stripEndSpace, stripBeginSpace } from "./textUtils";
-import { Dataset, Outputs, Sample } from "../types";
+import { Dataset, Outputs, Sample } from "../../types";
 import { MAX_SAMPLES, MIN_OUTPUTS, MIN_SAMPLES } from "./parameters";
-import { ReadyState } from "../components/Ready";
+import { ReadyState } from "../../components/Ready";
 
 // To human friendly (without spaces)
 const cleanOutputs = (output: Outputs): Outputs => {
