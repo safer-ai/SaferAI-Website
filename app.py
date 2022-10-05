@@ -34,6 +34,11 @@ def main_page():
     return send_file(__file__[:-6] + "frontend/build/index.html")
 
 
+@application.route("/index.html")
+def main_redirect_page():
+    return redirect("/", code=302)
+
+
 @application.route("/countergen")
 def countergen_page():
     return send_file(__file__[:-6] + "frontend/build/index.html")
