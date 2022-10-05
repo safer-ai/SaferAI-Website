@@ -51,13 +51,18 @@ pip install -r requirements-dev.txt
 ```
 
 4. Copy the content of the `frontend/build` folder as well as `requirements.txt` and `application.py` 
-in the root directory of another folder.
+in the root directory of another folder. Remove the CORS from the `application.py`, send `index.html` instead of `__file__[:-6] + "frontend/build/index.html"`, replace the Flask constructor by `Flask(__name__)`, and remove arguments from the `application.run` command.
 
 5. In the new folder you created, run
 
 ```bash
 eb init -p python-3.7 countergen-web --region us-east-2
 eb create
+```
+
+Follow the instruction and stick with the defaults.
+
+```bash
 git init
 git add .
 git commit -m "Deploy"
