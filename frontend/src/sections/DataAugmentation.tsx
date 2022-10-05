@@ -1,5 +1,5 @@
 import { Checkbox, Chip } from "@mui/material";
-import "../App.css";
+import "../CountergenApp.css";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { multipleAugment } from "../utils/communication";
 import { Card, CardHeader, CardContent } from "@mui/material";

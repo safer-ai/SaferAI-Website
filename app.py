@@ -19,7 +19,7 @@ from countergen import (
 from countergen.augmentation.data_augmentation import SampleWithVariations
 from countergen.tools.api_utils import ApiConfig
 from countergen.types import AugmentedSample, ModelEvaluator
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 
@@ -30,8 +30,38 @@ MAX_SAMPLES = 200
 
 
 @application.route("/")
-def main():
+def main_page():
     return send_file(__file__[:-6] + "frontend/build/index.html")
+
+
+@application.route("/countergen")
+def countergen_page():
+    return send_file(__file__[:-6] + "frontend/build/index.html")
+
+
+@application.route("/countergenweb")
+def countergenweb_page():
+    return send_file(__file__[:-6] + "frontend/build/index.html")
+
+
+@application.route("/countergendocs")
+def countergendocs_page():
+    return send_file(__file__[:-6] + "frontend/build/index.html")
+
+
+@application.route("/countergenresults")
+def countergendocs_page():
+    return send_file(__file__[:-6] + "frontend/build/index.html")
+
+
+@application.route("/countergengithub")
+def countergengithub_page():
+    return redirect("https://github.com/FabienRoger/Countergen", code=302)
+
+
+@application.route("/countergendocs")
+def countergendocs_page():
+    return redirect("https://fabienroger.github.io/Countergen/docs/_build/html/index.html", code=302)
 
 
 @application.errorhandler(Exception)

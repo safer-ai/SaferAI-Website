@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import "../App.css";
+import "../CountergenApp.css";
 import { getDefaultDataset } from "../utils/communication";
 import Collapsable from "../components/Collapsable";
 import TextSelector from "../components/TextSelector";

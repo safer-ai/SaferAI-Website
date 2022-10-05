@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import "../App.css";
+import "../CountergenApp.css";
 import ResultBars from "../components/ResultBars";
 import WaitableButton from "../components/WaitableButton";
 import { AugmentedDataset, EvaluationReturn } from "../types";
@@ -119,7 +119,7 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
                   {perf.toPrecision(2)}
                   {" on: "}
                   {inp}
-                  <ArrowForwardIcon fontSize="small"/>
+                  <ArrowForwardIcon fontSize="small" />
                   {out}
                   {cats.map((c, k) => (
                     <Chip
