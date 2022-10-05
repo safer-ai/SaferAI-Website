@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import "../CountergenApp.css";
 import ResultBars from "../../components/ResultBars";
 import WaitableButton from "../../components/WaitableButton";
 import { AugmentedDataset, EvaluationReturn } from "../../types";

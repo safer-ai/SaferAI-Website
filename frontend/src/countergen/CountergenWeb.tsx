@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../CountergenApp.css";
+import "./CountergenApp.css";
 import ColabLink from "../components/ColabLink";
 import DataAugmentation from "./countergenweb_sections/DataAugmentation";
 import DataSelection from "./countergenweb_sections/DataSelection";

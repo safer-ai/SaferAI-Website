@@ -1,0 +1,31 @@
+/* From https://codesandbox.io/s/react-landing-page-template-forked-8jb1hf?file=/public/css/style.css:2888-5819 */
+
+.intro {
+  display: table;
+  width: 100%;
+  padding: 0;
+  background: url(../../public/intro-bg.png) center center no-repeat;
+  background-color: rgb(90%, 90%, 90%);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+.intro-overlay {
+  background: rgba(255, 255, 255, 0.8);
+  height: 98vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h2 {
+  margin: 1em;
+}
+
+.feature-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

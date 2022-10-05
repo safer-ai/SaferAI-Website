@@ -4,7 +4,6 @@ import Collapsable from "../../components/Collapsable";
 import Ready from "../../components/Ready";
 import TextSelector from "../../components/TextSelector";
 import { Dataset } from "../../types";
-import "../CountergenApp.css";
 import { getDefaultDataset } from "../utils/communication";
 import { cleanDs, dsIsReadyToAugment, formatDs } from "../utils/dsUtils";
 

@@ -3,7 +3,6 @@ import { useState } from "react";
 import Ready from "../../components/Ready";
 import WaitableButton from "../../components/WaitableButton";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../../types";
-import "../CountergenApp.css";
 import { multipleAugment } from "../utils/communication";
 import { dsIsReadyToAugment, dsIsReadyToEvaluate } from "../utils/dsUtils";
 

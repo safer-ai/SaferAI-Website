@@ -1,7 +1,18 @@
+import About from "./coutergenmain_sections/About";
+import Header from "./coutergenmain_sections/Header";
+import UseCases from "./coutergenmain_sections/UseCases";
+import "./CountergenMain.css";
+
 type CountergenMainProps = {};
 
 const CountergenMain = (props: CountergenMainProps) => {
-  return <p>CountergenMain</p>;
+  return (
+    <>
+      <Header />
+      <UseCases />
+      <About />
+    </>
+  );
 };
 
 export default CountergenMain;
