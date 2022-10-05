@@ -50,18 +50,13 @@ def countergendocs_page():
 
 
 @application.route("/countergenresults")
-def countergendocs_page():
+def countergenresults_page():
     return send_file(__file__[:-6] + "frontend/build/index.html")
 
 
 @application.route("/countergengithub")
 def countergengithub_page():
     return redirect("https://github.com/FabienRoger/Countergen", code=302)
-
-
-@application.route("/countergendocs")
-def countergendocs_page():
-    return redirect("https://fabienroger.github.io/Countergen/docs/_build/html/index.html", code=302)
 
 
 @application.errorhandler(Exception)
