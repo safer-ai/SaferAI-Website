@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Image = (props: { name: string }) => {
   const { name } = props;
@@ -67,7 +68,29 @@ const CountergenResults = (props: CountergenResultsProps) => {
         <p>
           <i>More results will come in the next months!</i>
         </p>
-        <h2>Method</h2>
+        <h2>Evaluation Method</h2>
+        <p>
+          We compare the probability that a model generate one of the expected
+          outputs when the subjects of the input are female and when they are
+          male.
+        </p>
+        <p>The datasets used are:</p>
+        <ul>
+          <li>The stereotype dataset from ZZZ</li>
+          <li>The questions from the doublebind experiment ZZZ</li>
+        </ul>
+        <h2>
+          Observation 0: In some situation, language models exhibit strong
+          behavior changes based on the gender of the subjects
+        </h2>
+        <p>On GPT-3 (175B parameters) YYY</p>
+        <p>On Instruct GPT (175B parameters) YYY</p>
+        <p>On OpenAI Curie (13B parameters) YYY</p>
+        <p>On OpenAI Babbage (~3B parameters) YYY</p>
+        <p>On OpenAI Ada (~1B parameters) YYY</p>
+        You can find similar results yourself by using the{" "}
+        <Link to="/countergenweb">Countergen Web Tool</Link>
+        <h2>Editing Method</h2>
         <ul>
           <li>
             We measured model activations on the stereotype dataset and edited
@@ -85,7 +108,6 @@ const CountergenResults = (props: CountergenResultsProps) => {
             on both stereotypes data and the doublebind data as validation.
           </li>
         </ul>
-        <p></p>
         <h2>
           Observation 1: Bias is easier to remove in the middle of the network
         </h2>
