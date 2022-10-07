@@ -51,13 +51,16 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
     <Card className="section">
       <CardHeader className="section-title" title="Evaluate the model" />
       <CardContent className="section-content">
-        <div>
+        <div
+          className="horizontal-flex"
+          style={{ padding: "0.5em", gap: "0.5em" }}
+        >
+          <p style={{ margin: 0 }}>Chose a model to evaluate</p>
           <Select
             value={selectedModel}
             label="Model"
             size="small"
             onChange={(e) => setSelectModel(e.target.value)}
-            style={{ marginBottom: "0.5em" }}
           >
             <MenuItem value={"text-ada-001"}>OpenAI Ada</MenuItem>
             <MenuItem value={"text-babbage-001"}>OpenAI Babbage</MenuItem>

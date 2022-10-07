@@ -10,15 +10,14 @@ from countergen import (
     DEFAULT_DS_PATHS,
     AugmentedDataset,
     Dataset,
-    Sample,
     SimpleAugmenter,
     api_to_generative_model,
     get_generative_model_evaluator,
     compute_performances,
 )
-from countergen.augmentation.data_augmentation import SampleWithVariations
+from countergen.augmentation.data_augmentation import SimpleAugmentedSample
 from countergen.tools.api_utils import ApiConfig
-from countergen.types import AugmentedSample, ModelEvaluator
+from countergen.types import AugmentedSample, ModelEvaluator, Sample
 from flask import Flask, render_template, request, send_file, redirect
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
@@ -59,6 +58,11 @@ def countergenresults_page():
     return send_file(__file__[:-6] + "frontend/build/index.html")
 
 
+@application.route("/countergennotebook")
+def countergennotebook_page():
+    return redirect("https://colab.research.google.com/drive/1J6zahRfPfqSyXlA1hm_KQCQlkcd3KVPc", code=302)
+
+
 @application.route("/countergengithub")
 def countergengithub_page():
     return redirect("https://github.com/FabienRoger/Countergen", code=302)
@@ -77,7 +81,7 @@ def handle_exception(e):
 def get_default_ds(name):
     """Excepts doublebind or tiny-test."""
 
-    if name not in ["doublebind", "tiny-test", "male-stereotypes", "female-stereotypes"]:
+    if name not in ["doublebind-negative", "doublebind-positive", "male-stereotypes", "female-stereotypes"]:
         return json.dumps({"error": "wrong dataset name", "data": name})
 
     ds = Dataset.from_default(name)
@@ -136,7 +140,7 @@ def augment_multiple():
 def load_sent_augds(data: Mapping[str, Any]):
     samples = []
     for d in data:
-        samples.append(SampleWithVariations.from_json_dict(d))
+        samples.append(SimpleAugmentedSample.from_json_dict(d))
     return AugmentedDataset(samples)
 
 

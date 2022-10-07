@@ -16,19 +16,25 @@ import {
   BsFillFileEarmarkBarGraphFill,
   BsFillStarFill,
 } from "react-icons/bs";
-import { SiReadthedocs } from "react-icons/si";
+import { SiReadthedocs, SiGooglecolab } from "react-icons/si";
 
 const pages = {
   countergenweb: (
     <>
       <BsFillStarFill />
-      Web Tool
+      Use Countergen Online
     </>
   ),
   countergenresults: (
     <>
       <BsFillFileEarmarkBarGraphFill />
       <div>Results</div>
+    </>
+  ),
+  countergennotebook: (
+    <>
+      <SiGooglecolab />
+      <div>Notebook</div>
     </>
   ),
   countergengithub: (
@@ -60,9 +66,8 @@ const Navbar = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ gap: "1em" }}>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -173,7 +178,7 @@ const Navbar = () => {
               flexGrow: 0,
               display: { xs: "none", md: "flex" },
               marginLeft: "auto",
-              gap: 3,
+              gap: 2,
             }}
           >
             {Object.entries(pages).map(([url, text]) => (
@@ -191,6 +196,7 @@ const Navbar = () => {
                     alignItems: "center",
                     gap: "0.3em",
                     flexDirection: "row",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {text}

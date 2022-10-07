@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 
 const Image = (props: { name: string }) => {
   const { name } = props;
@@ -49,13 +53,74 @@ const Image = (props: { name: string }) => {
   );
 };
 
-type CountergenResultsProps = {};
+const SimpleTableRow = (props: { data: string[] }) => {
+  const { data } = props;
 
-const CountergenResults = (props: CountergenResultsProps) => {
+  const boldIfSignificant = (s: string) => {
+    return s[s.length - 1] === "*" ? <b>{s}</b> : s;
+  };
+
+  const boldedData = data.slice(1).map(boldIfSignificant);
+
+  return (
+    <TableRow
+      key={data[0]}
+      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+    >
+      <TableCell component="th" scope="row">
+        {data[0]}
+      </TableCell>
+
+      {boldedData.map((elt) => (
+        <TableCell>{elt}</TableCell>
+      ))}
+    </TableRow>
+  );
+};
+
+const experimentData = [
+  [
+    "GPT-3  (175B parameters)",
+    "20% more likely for women",
+    "48% more likely for men*",
+    "11% more likely for women",
+    "17% more likely for men",
+  ],
+  [
+    "InstructGPT  (175B parameters)",
+    "20% more likely for women",
+    "48% more likely for men*",
+    "12% more likely for women",
+    "26% more likely for men",
+  ],
+  [
+    "OpenAI Curie (13B parameters)",
+    "12% more likely for men",
+    "23% more likely for men",
+    "35% more likely for women*",
+    "17% more likely for women",
+  ],
+  [
+    "OpenAI Babbage (~3B parameters)",
+    "2% more likely for women",
+    "33% more likely for men*",
+    "25% more likely for women*",
+    "1% more likely for women",
+  ],
+  [
+    "OpenAI Ada (~1B parameters)",
+    "21% more likely for men",
+    "23% more likely for men*",
+    "49% more likely for women*",
+    "14% more likely for women",
+  ],
+];
+
+const CountergenResults = () => {
   return (
     <div className="container">
       <div className="col-md-10 col-md-offset-1">
-        <h1>Results</h1>
+        <h1>Results On Gender Bias</h1>
         <p>
           <i>
             <b>Results are prelimenary</b>: larger real life experiments are
@@ -67,28 +132,46 @@ const CountergenResults = (props: CountergenResultsProps) => {
         <p>
           <i>More results will come in the next months!</i>
         </p>
-        <h2>Evaluation Method</h2>
+        <h2>
+          Observation 0: In some situation, language models exhibit strong
+          behavior changes based on the gender of the subjects
+        </h2>
         <p>
           We compare the probability that a model generate one of the expected
           outputs when the subjects of the input are female and when they are
-          male.
+          male. The given number is the relative probability (compared to the
+          biggest of the two probabilities).
         </p>
         <p>The datasets used are:</p>
         <ul>
           <li>The stereotype dataset from ZZZ</li>
           <li>The questions from the doublebind experiment ZZZ</li>
         </ul>
-        <h2>
-          Observation 0: In some situation, language models exhibit strong
-          behavior changes based on the gender of the subjects
-        </h2>
-        <p>On GPT-3 (175B parameters) YYY</p>
-        <p>On Instruct GPT (175B parameters) YYY</p>
-        <p>On OpenAI Curie (13B parameters) YYY</p>
-        <p>On OpenAI Babbage (~3B parameters) YYY</p>
-        <p>On OpenAI Ada (~1B parameters) YYY</p>
-        You can find similar results yourself by using the{" "}
-        <Link to="/countergenweb">Countergen Web Tool</Link>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Model used</TableCell>
+              <TableCell>Female stereotype</TableCell>
+              <TableCell>Male stereotype</TableCell>
+              <TableCell>
+                Positive adjective in the doublebind experiment
+              </TableCell>
+              <TableCell>
+                Negative adjective in the doublebind experiment
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {experimentData.map((data) => (
+              <SimpleTableRow data={data} />
+            ))}
+          </TableBody>
+        </Table>
+        <p>
+          <small>
+            <i>*p=0.05</i>
+          </small>
+        </p>
         <h2>Editing Method</h2>
         <ul>
           <li>
@@ -165,6 +248,12 @@ const CountergenResults = (props: CountergenResultsProps) => {
         <h3>Where can I find the detail of the experiments?</h3>
         <p>Here are the notebooks used to produce the results above:</p>
         <ul>
+          <li>
+            <a href="https://github.com/FabienRoger/Countergen/blob/main/countergen/exploration/gpt_experiment.ipynbr">
+              https://github.com/FabienRoger/Countergen/blob/main/countergen/exploration/gpt_experiment.ipynbr
+            </a>{" "}
+            (Experiment on OpenAI's models)
+          </li>
           <li>
             <a href="https://www.kaggle.com/code/fabienroger/editing-2r">
               https://www.kaggle.com/code/fabienroger/editing-2r
