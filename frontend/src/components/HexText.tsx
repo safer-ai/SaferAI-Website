@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 type HexTextProps = { text: string };
 
 const HexText = (props: HexTextProps) => {
@@ -9,20 +7,33 @@ const HexText = (props: HexTextProps) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    textAlign: "center",
+    fontSize: "24px",
+    margin: 0,
     // filter:
     //   "invert(50%) sepia(70%) saturate(552%) hue-rotate(143deg) brightness(91%) contrast(96%)",
   };
   return (
-    <div style={{ position: "relative" }}>
-      <div>{text}</div>
+    <div
+      style={{
+        position: "relative",
+        height: "160px",
+        width: "160px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        marginRight: 0,
+      }}
+    >
+      <div style={{ textAlign: "center" }}>{text}</div>
 
       <img
-        style={{ ...imageStyle, width: "9em" }}
+        style={{ ...imageStyle, width: "160px" }}
         src={`/images/path576.svg`}
         alt=""
       />
       <img
-        style={{ ...imageStyle, width: "8em" }}
+        style={{ ...imageStyle, width: "140px" }}
         src={`/images/path578.svg`}
         alt=""
       />

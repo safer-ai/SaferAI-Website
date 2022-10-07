@@ -14,7 +14,7 @@ const CountergenApp = () => {
         <Route path="/countergen" element={<CountergenMain />} />
         <Route path="/countergenweb" element={<CountergenWeb />} />
         <Route path="/countergenresults" element={<CountergenResults />} />
-        
+
         <Route
           path="/countergennotebook"
           element={

@@ -19,9 +19,10 @@
 }
 
 .horizontal-flex {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: center; */
+  color: #953322;
 }
 
 h1 {

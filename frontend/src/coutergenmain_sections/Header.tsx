@@ -1,47 +1,47 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 
 const Header = () => {
   return (
-    <header className="intro">
-      <div className="intro-overlay">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 col-md-offset-2 intro-text">
-              <Typography
-                variant="h1"
-                noWrap
-                sx={{
-                  fontFamily: "monospace",
-                  fontSize: "70px",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  mb: "0.5em",
-                }}
-              >
-                Countergen
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "24px",
-                  color: "inherit",
-                  mb: "0.5em",
-                }}
-              >
-                It's us. lalalalalla allalalal alallal
-              </Typography>
-              <Button
-                href="#features"
-                className="page-scroll"
-                variant="contained"
-              >
-                Learn More
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    <Container
+      maxWidth="lg"
+      sx={{
+        height: "95vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "3em",
+      }}
+    >
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: { xs: "40px", sm: "50px", md: "60px" },
+          // padding: { xs: "4em 0 4em 0", md: "6em 0 6em 0" },
+          color: "inherit",
+          mb: "0.5em",
+          textAlign: "center",
+          maxWidth: "40em",
+        }}
+      >
+        Audit & Fix <br /> The Biases of Language Models
+      </Typography>
+      <Button
+        className="page-scroll button-hover-light-text"
+        variant="contained"
+        color="secondary"
+        sx={{
+          fontSize: { xs: "15px", sm: "20px", md: "25px" },
+        }}
+        onClick={(e) => {
+          let process = document.getElementById("process");
+          e.preventDefault(); // Stop Page Reloading
+          process && process.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        Get Started
+      </Button>
+    </Container>
   );
 };
 

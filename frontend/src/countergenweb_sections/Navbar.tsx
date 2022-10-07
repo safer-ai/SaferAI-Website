@@ -132,12 +132,12 @@ const Navbar = () => {
                   <Link
                     to={`${url}`}
                     style={{
-                      color: "blue",
                       textDecoration: "none",
                       display: "flex",
                       alignItems: "center",
                       gap: "1em",
                       flexDirection: "row",
+                      color: "#024564",
                     }}
                   >
                     {text}
@@ -146,7 +146,6 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
