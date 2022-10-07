@@ -1,5 +1,10 @@
-import { AugmentedDataset, SampleWithVariations } from "../../types";
-import { Dataset, Sample, EvaluationReturn } from "../../types";
+import {
+  AugmentedDataset,
+  Dataset,
+  EvaluationReturn,
+  Sample,
+  SampleWithVariations,
+} from "../types";
 
 const backend_url = process.env.REACT_APP_COUNTERGEN_BACK_URL ?? "";
 

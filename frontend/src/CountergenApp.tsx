@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Redirect from "../components/Redirect";
+import Redirect from "./components/Redirect";
 import Navbar from "./countergenweb_sections/Navbar";
 import CountergenMain from "./CountergenMain";
 import CountergenResults from "./CountergenResults";

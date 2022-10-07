@@ -1,5 +1,5 @@
 import "./App.css";
-import CountergenApp from "./countergen/CountergenApp";
+import CountergenApp from "./CountergenApp";
 import { BrowserRouter } from "react-router-dom";
 
 type AppProps = {};

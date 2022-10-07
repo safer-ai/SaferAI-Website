@@ -1,9 +1,9 @@
 import { Button, Card, CardContent, CardHeader } from "@mui/material";
 import { useEffect, useState } from "react";
-import Collapsable from "../../components/Collapsable";
-import Ready from "../../components/Ready";
-import TextSelector from "../../components/TextSelector";
-import { Dataset } from "../../types";
+import Collapsable from "../components/Collapsable";
+import Ready from "../components/Ready";
+import TextSelector from "../components/TextSelector";
+import { Dataset } from "../types";
 import { getDefaultDataset } from "../utils/communication";
 import { cleanDs, dsIsReadyToAugment, formatDs } from "../utils/dsUtils";
 
