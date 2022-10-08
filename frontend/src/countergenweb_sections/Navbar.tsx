@@ -200,34 +200,46 @@ const Navbar = () => {
               gap: 2,
             }}
           >
-            {pages.map(({ link, children, external, low_priority }) => (
-              <Button
-                key={link}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: { md: low_priority ? "none" : "block", lg: "block" },
-                  fontSize: "16px",
-                }}
-              >
-                <Link
-                  to={external ? { pathname: link } : link}
-                  target={external ? "_blank" : "_self"}
-                  style={{
+            {pages.map(({ link, children, external, low_priority }) => {
+              const linkStyle: any = {
+                color: "white",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.3em",
+                flexDirection: "row",
+                whiteSpace: "nowrap",
+              };
+              return (
+                <Button
+                  key={link}
+                  onClick={handleCloseNavMenu}
+                  sx={{
                     color: "white",
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.3em",
-                    flexDirection: "row",
-                    whiteSpace: "nowrap",
+                    display: {
+                      md: low_priority ? "none" : "block",
+                      lg: "block",
+                    },
+                    fontSize: "16px",
                   }}
                 >
-                  {children}
-                </Link>
-              </Button>
-            ))}
+                  {external ? (
+                    <a
+                      href={link}
+                      target="_blank"
+                      style={linkStyle}
+                      rel="noreferrer"
+                    >
+                      {children}
+                    </a>
+                  ) : (
+                    <Link to={link} style={linkStyle}>
+                      {children}
+                    </Link>
+                  )}
+                </Button>
+              );
+            })}
           </Box>
         </Toolbar>
       </Container>
