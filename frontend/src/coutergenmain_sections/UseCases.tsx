@@ -20,7 +20,7 @@ const UseCases = () => {
       <Typography
         variant="h2"
         paddingTop={"48px"}
-        paddingBottom={"24px"}
+        paddingBottom={"48px"}
         textAlign="center"
       >
         A Tool For Everyone

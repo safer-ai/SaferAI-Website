@@ -24,7 +24,7 @@ const HexText = (props: HexTextProps) => {
         marginRight: 0,
       }}
     >
-      <div style={{ textAlign: "center", fontSize: "24px" }}>{text}</div>
+      <div style={{ textAlign: "center", fontSize: "20px" }}>{text}</div>
 
       <img
         style={{ ...imageStyle, width: "160px" }}

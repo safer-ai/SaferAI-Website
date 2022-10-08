@@ -282,9 +282,9 @@ const CountergenResults = () => {
         </li>
       </ul>
       <p>
-        We experiments in other setups, editing multiple layers at once, editing
-        more layers, and methods to find the relevant directions faster. If you
-        want to know more, please reach out!
+        We ran experiments in other setups, editing multiple layers at once,
+        editing more layers, and methods to find the relevant directions faster.
+        If you want to know more, please reach out!
       </p>
     </Container>
   );

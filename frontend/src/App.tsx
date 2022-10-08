@@ -24,6 +24,9 @@ const theme = createTheme({
       primary: "#024564",
     },
   },
+  typography: {
+    fontFamily: `"Montserrat", "Roboto", "Helvetica", "Arial", sans-serif`,
+  },
 });
 const App = () => {
   return (
