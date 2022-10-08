@@ -9,7 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import {
   BsGithub,
@@ -17,39 +16,59 @@ import {
   BsFillStarFill,
 } from "react-icons/bs";
 import { SiReadthedocs, SiGooglecolab } from "react-icons/si";
+import { DOCS_URL, NOTEBOOK_URL, REPO_URL } from "../params";
 
-const pages = {
-  countergenweb: (
-    <>
-      <BsFillStarFill />
-      Use Countergen Online
-    </>
-  ),
-  countergenresults: (
-    <>
-      <BsFillFileEarmarkBarGraphFill />
-      <div>Results</div>
-    </>
-  ),
-  countergennotebook: (
-    <>
-      <SiGooglecolab />
-      <div>Notebook</div>
-    </>
-  ),
-  countergengithub: (
-    <>
-      <BsGithub />
-      <div>Github</div>
-    </>
-  ),
-  countergendocs: (
-    <>
-      <SiReadthedocs />
-      <div>Docs</div>
-    </>
-  ),
-};
+const pages = [
+  {
+    link: "countergenweb",
+    children: (
+      <>
+        <BsFillStarFill />
+        Use Countergen Online
+      </>
+    ),
+  },
+  {
+    link: "countergenresults",
+    children: (
+      <>
+        <BsFillFileEarmarkBarGraphFill />
+        <div>Results</div>
+      </>
+    ),
+  },
+  {
+    link: NOTEBOOK_URL,
+    external: true,
+    children: (
+      <>
+        <SiGooglecolab />
+        <div>Notebook</div>
+      </>
+    ),
+  },
+  {
+    link: REPO_URL,
+    external: true,
+    children: (
+      <>
+        <BsGithub />
+        <div>Github</div>
+      </>
+    ),
+  },
+  {
+    link: DOCS_URL,
+    external: true,
+    children: (
+      <>
+        <SiReadthedocs />
+        <div>Docs</div>
+      </>
+    ),
+    low_priority: true,
+  },
+];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -127,10 +146,11 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {Object.entries(pages).map(([url, text]) => (
-                <MenuItem key={url} onClick={handleCloseNavMenu}>
+              {pages.map(({ link, children, external }) => (
+                <MenuItem key={link} onClick={handleCloseNavMenu}>
                   <Link
-                    to={`${url}`}
+                    to={`${link}`}
+                    target={external ? "_blank" : "_self"}
                     style={{
                       textDecoration: "none",
                       display: "flex",
@@ -140,7 +160,7 @@ const Navbar = () => {
                       color: "#024564",
                     }}
                   >
-                    {text}
+                    {children}
                   </Link>
                 </MenuItem>
               ))}
@@ -180,14 +200,19 @@ const Navbar = () => {
               gap: 2,
             }}
           >
-            {Object.entries(pages).map(([url, text]) => (
+            {pages.map(({ link, children, external, low_priority }) => (
               <Button
-                key={url}
+                key={link}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: { md: low_priority ? "none" : "block", lg: "block" },
+                }}
               >
                 <Link
-                  to={`${url}`}
+                  to={`${link}`}
+                  target={external ? "_blank" : "_self"}
                   style={{
                     color: "white",
                     textDecoration: "none",
@@ -198,7 +223,7 @@ const Navbar = () => {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {text}
+                  {children}
                 </Link>
               </Button>
             ))}

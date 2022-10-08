@@ -1,13 +1,8 @@
 import {
-  Avatar,
   Container,
-  Grid,
   List,
-  ListSubheader,
   Typography,
   ListItem,
-  Link,
-  Button,
 } from "@mui/material";
 
 const referencesList = [

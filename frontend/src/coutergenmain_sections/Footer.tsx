@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 
 const Footer = () => {
   return (
@@ -16,7 +16,7 @@ const Footer = () => {
           By SaferAI
         </Typography>
         <Typography>
-          For the 2022 AI Audit Challenge by Standford HAI.
+          For the 2022 AI Audit Challenge by Stanford HAI.
         </Typography>
       </Container>
     </Box>

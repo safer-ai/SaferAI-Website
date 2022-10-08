@@ -2,6 +2,7 @@ import { Avatar, Container, Grid, Typography } from "@mui/material";
 import { FaHatCowboySide } from "react-icons/fa";
 import { BsFileEarmarkCode, BsPencil } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { DOCS_URL, NOTEBOOK_URL, REPO_URL } from "../params";
 
 const CircleAvatar = (props: { children: any }) => {
   return (
@@ -49,8 +50,12 @@ const UseCases = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 7 }}>
-          A <Link to="/countergenweb">web interface</Link> allows you to easily
-          measure model bias on your data. No coding required !
+          A{" "}
+          <Link to="/countergenweb" target="_blank">
+            web interface
+          </Link>{" "}
+          allows you to easily measure model bias on your data. No coding
+          required !
         </Grid>
 
         <Grid
@@ -73,8 +78,10 @@ const UseCases = () => {
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 8 }}>
           Load your data and your model into a{" "}
-          <Link to="/countergennotebook">friendly Colab notebook</Link> and get
-          started with evaluation & model editing!
+          <Link to={NOTEBOOK_URL} target="_blank">
+            friendly Colab notebook
+          </Link>{" "}
+          and get started with evaluation & model editing!
         </Grid>
         <Grid
           item
@@ -96,9 +103,14 @@ const UseCases = () => {
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 9 }}>
           Use the open source{" "}
-          <Link to="/countergengithub">countergen Python modules</Link> to
-          evaluate the models you are using or creating.{" "}
-          <Link to="/countergengithub">Documentation</Link> included!
+          <Link to={REPO_URL} target="_blank">
+            countergen Python modules
+          </Link>{" "}
+          to evaluate the models you are using or creating.{" "}
+          <Link to={DOCS_URL} target="_blank">
+            Documentation
+          </Link>{" "}
+          included!
         </Grid>
       </Grid>
       {/* </Grid> */}
