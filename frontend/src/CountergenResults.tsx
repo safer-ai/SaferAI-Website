@@ -6,6 +6,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  CardContent,
+  Card,
+  CardHeader,
 } from "@mui/material";
 
 const Image = (props: { name: string }) => {
@@ -135,46 +138,52 @@ const CountergenResults = () => {
       <p>
         <i>More results will come in the next months!</i>
       </p>
-      <h2>
-        Observation 0: In some situation, language models exhibit strong
-        behavior changes based on the gender of the subjects
-      </h2>
-      <p>
-        We compare the probability that a model generate one of the expected
-        outputs when the subjects of the input are female and when they are
-        male. The given number is the relative probability (compared to the
-        biggest of the two probabilities).
-      </p>
-      <p>The datasets used are:</p>
-      <ul>
-        <li>The stereotype dataset from ZZZ</li>
-        <li>The questions from the doublebind experiment ZZZ</li>
-      </ul>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Model used</TableCell>
-            <TableCell>Female stereotype</TableCell>
-            <TableCell>Male stereotype</TableCell>
-            <TableCell>
-              Positive adjective in the doublebind experiment
-            </TableCell>
-            <TableCell>
-              Negative adjective in the doublebind experiment
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {experimentData.map((data) => (
-            <SimpleTableRow data={data} />
-          ))}
-        </TableBody>
-      </Table>
-      <p>
-        <small>
-          <i>*p=0.05</i>
-        </small>
-      </p>
+      <Card className="section">
+        <CardHeader
+          className="section-title"
+          title=" Observation 0: In some situation, language models exhibit strong
+          behavior changes based on the gender of the subjects"
+        />
+        <CardContent className="section-content">
+          <p>
+            We compare the probability that a model generate one of the expected
+            outputs when the subjects of the input are female and when they are
+            male. The given number is the relative probability (compared to the
+            biggest of the two probabilities).
+          </p>
+          <p>The datasets used are:</p>
+          <ul>
+            <li>The stereotype dataset from ZZZ</li>
+            <li>The questions from the doublebind experiment ZZZ</li>
+          </ul>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Model used</TableCell>
+                <TableCell>Female stereotype</TableCell>
+                <TableCell>Male stereotype</TableCell>
+                <TableCell>
+                  Positive adjective in the doublebind experiment
+                </TableCell>
+                <TableCell>
+                  Negative adjective in the doublebind experiment
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {experimentData.map((data) => (
+                <SimpleTableRow data={data} />
+              ))}
+            </TableBody>
+          </Table>
+          <p>
+            <small>
+              <i>*0 not included in the p=0.05 confidence interval</i>
+            </small>
+          </p>
+        </CardContent>
+      </Card>
+
       <h2>Editing Method</h2>
       <ul>
         <li>
@@ -192,39 +201,64 @@ const CountergenResults = () => {
           on both stereotypes data and the doublebind data as validation.
         </li>
       </ul>
-      <h2>
-        Observation 1: Bias is easier to remove in the middle of the network
-      </h2>
+      <Card className="section">
+        <CardHeader
+          className="section-title"
+          title="Observation 1: Bias is easier to remove in the middle of the network"
+        />
+        <CardContent className="section-content">
+          <p>
+            Applying RLACE or INLP to intermediate activations slightly reduces
+            the bias of the model. But it works better and generalize a bit more
+            to the validation set (the doublebind sociology experiment) when
+            editing is done in the middle of the network, where the network
+            probably has a crisper representation of "male" and "female".
+          </p>
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <Image name="inlp_8d_layer" />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Image name="rlace_8d_layer" />
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+      <Card className="section">
+        <CardHeader
+          className="section-title"
+          title="Observation 2: The bias is not encoded in a linear way"
+        />
+        <CardContent className="section-content">
+          <p>
+            Though RLACE is able to make any linear classifier fail separation
+            between male and female with a rank-8 projection, we found that, no
+            matter where the projection is done, and how many dimensions are
+            removed, model bias isn't eliminated.
+          </p>
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <Image name="rlace_8d_layer" />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Image name="rlace_dims" />
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+
+      <h2>Conclusion</h2>
       <p>
-        Applying RLACE or INLP to intermediate activations slightly reduces the
-        bias of the model. But it works better and generalize a bit more to the
-        validation set (the doublebind sociology experiment) when editing is
-        done in the middle of the network, where the network probably has a
-        crisper representation of "male" and "female".
+        Model exhibit easily measurable bias on small datasets from the
+        literature augmented using Countergen. Editing model on these small
+        datasets is hard, and further research is need to determine if it can be
+        a robust way to reduce the amount of bias in language models.
       </p>
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <Image name="inlp_8d_layer" />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Image name="rlace_8d_layer" />
-        </Grid>
-      </Grid>
-      <h2>Observation 2: The bias is not encoded in a linear way</h2>
       <p>
-        Though RLACE is able to make any linear classifier fail separation
-        between male and female with a rank-8 projection, we found that, no
-        matter where the projection is done, and how many dimensions are
-        removed, model bias isn't eliminated.
+        We ran experiments in other setups, editing multiple layers at once,
+        editing more layers, and trying methods to find the relevant directions
+        faster. If you want to know more, please reach out!
       </p>
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <Image name="rlace_8d_layer" />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Image name="rlace_dims" />
-        </Grid>
-      </Grid>
       <h2>Additionnal remarks</h2>
       <h3>Comparison with picking random dimensions</h3>
       <p>
@@ -281,11 +315,6 @@ const CountergenResults = () => {
           </li>
         </li>
       </ul>
-      <p>
-        We ran experiments in other setups, editing multiple layers at once,
-        editing more layers, and methods to find the relevant directions faster.
-        If you want to know more, please reach out!
-      </p>
     </Container>
   );
 };
