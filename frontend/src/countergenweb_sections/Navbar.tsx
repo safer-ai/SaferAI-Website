@@ -208,6 +208,7 @@ const Navbar = () => {
                   my: 2,
                   color: "white",
                   display: { md: low_priority ? "none" : "block", lg: "block" },
+                  fontSize: "16px",
                 }}
               >
                 <Link

@@ -12,3 +12,7 @@ a {
   -moz-box-shadow: inset 0px 0px 0px 1px #024564;
   box-shadow: inset 0px 0px 0px 1px #024564;
 }
+
+button {
+  text-transform: none !important;
+}
