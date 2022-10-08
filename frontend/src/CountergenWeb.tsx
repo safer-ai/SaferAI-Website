@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./CountergenApp.css";
-import ColabLink from "./components/ColabLink";
 import DataAugmentation from "./countergenweb_sections/DataAugmentation";
 import DataSelection from "./countergenweb_sections/DataSelection";
 import ModelEvaluation from "./countergenweb_sections/ModelEvaluation";
 import { AugmentedDataset, Dataset } from "./types";
 import { Container } from "@mui/material";
+import { NOTEBOOK_URL, REPO_URL } from "./params";
 
 const CountergenWeb = () => {
   const [dataset, setDataset] = useState<Dataset>({ samples: [] });
@@ -19,7 +19,8 @@ const CountergenWeb = () => {
       </h3>
       <p>
         If you use sensitive data, or if you want more flexibility, use the{" "}
-        <ColabLink>Google Colab version</ColabLink> of this tool!
+        <a href={NOTEBOOK_URL}>Colab Notebook</a>, or run the{" "}
+        <a href={REPO_URL}>Python module</a> locally.
       </p>
       <p>
         You can checkout the documentation and the code behind this tool{" "}
