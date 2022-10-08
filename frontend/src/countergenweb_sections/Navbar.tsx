@@ -149,7 +149,7 @@ const Navbar = () => {
               {pages.map(({ link, children, external }) => (
                 <MenuItem key={link} onClick={handleCloseNavMenu}>
                   <Link
-                    to={`${link}`}
+                    to={external ? { pathname: link } : link}
                     target={external ? "_blank" : "_self"}
                     style={{
                       textDecoration: "none",
@@ -212,7 +212,7 @@ const Navbar = () => {
                 }}
               >
                 <Link
-                  to={`${link}`}
+                  to={external ? { pathname: link } : link}
                   target={external ? "_blank" : "_self"}
                   style={{
                     color: "white",

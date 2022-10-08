@@ -78,9 +78,9 @@ const UseCases = () => {
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 8 }}>
           Load your data and your model into a{" "}
-          <Link to={NOTEBOOK_URL} target="_blank">
+          <a href={NOTEBOOK_URL} target="_blank" rel="noreferrer">
             friendly Colab notebook
-          </Link>{" "}
+          </a>{" "}
           and get started with evaluation & model editing!
         </Grid>
         <Grid
@@ -103,87 +103,19 @@ const UseCases = () => {
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 9 }}>
           Use the open source{" "}
-          <Link to={REPO_URL} target="_blank">
+          <a href={REPO_URL} target="_blank" rel="noreferrer">
             countergen Python modules
-          </Link>{" "}
+          </a>{" "}
           to evaluate the models you are using or creating.{" "}
-          <Link to={DOCS_URL} target="_blank">
+          <a href={DOCS_URL} target="_blank" rel="noreferrer">
             Documentation
-          </Link>{" "}
+          </a>{" "}
           included!
         </Grid>
       </Grid>
       {/* </Grid> */}
     </Container>
   );
-  // return (
-  //   <div id="features" className="text-center">
-  //     <div className="container">
-  //       <div className="col-md-10 col-md-offset-1">
-  //         <h2>Use cases</h2>
-  //       </div>
-  //       <div className="row">
-  //         <div className="col-xs-6 col-md-3 feature-col">
-  //           <Avatar
-  //             sx={{ bgcolor: "primary.main", padding: "2em", margin: "1em" }}
-  //           >
-  //             <AdbIcon fontSize="large" />
-  //           </Avatar>
-
-  //           <h3>zae</h3>
-  //           <p>
-  //             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
-  //             ipsam ducimus tempore deleniti magnam amet? Distinctio veritatis
-  //             voluptatem asperiores vitae at reiciendis. Repudiandae
-  //             consequuntur eaque maiores aut quae repellat sit!
-  //           </p>
-  //         </div>
-  //         <div className="col-xs-6 col-md-3  feature-col">
-  //           <Avatar
-  //             sx={{ bgcolor: "primary.main", padding: "2em", margin: "1em" }}
-  //           >
-  //             <AdbIcon fontSize="large" />
-  //           </Avatar>
-  //           <h3>zae</h3>
-  //           <p>
-  //             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
-  //             ipsam ducimus tempore deleniti magnam amet? Distinctio veritatis
-  //             voluptatem asperiores vitae at reiciendis. Repudiandae
-  //             consequuntur eaque maiores aut quae repellat sit!
-  //           </p>
-  //         </div>
-  //         <div className="col-xs-6 col-md-3  feature-col">
-  //           <Avatar
-  //             sx={{ bgcolor: "primary.main", padding: "2em", margin: "1em" }}
-  //           >
-  //             <AdbIcon fontSize="large" />
-  //           </Avatar>
-  //           <h3>zae</h3>
-  //           <p>
-  //             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
-  //             ipsam ducimus tempore deleniti magnam amet? Distinctio veritatis
-  //             voluptatem asperiores vitae at reiciendis. Repudiandae
-  //             consequuntur eaque maiores aut quae repellat sit!
-  //           </p>
-  //         </div>
-  //         <div className="col-xs-6 col-md-3  feature-col">
-  //           <Avatar
-  //             sx={{ bgcolor: "primary.main", padding: "2em", margin: "1em" }}
-  //           >
-  //             <AdbIcon fontSize="large" />
-  //           </Avatar>
-  //           <h3>zae</h3>
-  //           <p>
-  //             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
-  //             ipsam ducimus tempore deleniti magnam amet? Distinctio veritatis
-  //             voluptatem asperiores vitae at reiciendis. Repudiandae
-  //             consequuntur eaque maiores aut quae repellat sit!
-  //           </p>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default UseCases;
