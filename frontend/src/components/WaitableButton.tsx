@@ -7,16 +7,20 @@ type WaitableButtonProps = {
   expectedTime?: string;
   disabled?: boolean;
   waiting?: boolean;
+  buttonParams?: any;
 };
 
 const WaitableButton = (props: WaitableButtonProps) => {
-  const { text, onClick, expectedTime, disabled, waiting } = props;
+  const { text, onClick, expectedTime, disabled, waiting, buttonParams } =
+    props;
   return (
     <div className="horizontal-flex">
       <Button
         onClick={onClick}
         disabled={waiting || disabled}
-        variant="outlined"
+        variant="contained"
+        {...(buttonParams ?? {})}
+        
       >
         {text}
       </Button>

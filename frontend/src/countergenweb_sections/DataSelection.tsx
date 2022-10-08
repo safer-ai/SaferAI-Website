@@ -98,13 +98,11 @@ const DataSelection = (props: DataSelectionProps) => {
           </Button>
         </div>
         <p>
-          Note: all empty fields will be ignored. Spaces at the end of the input
-          are removed, and space are added at the beginning of outputs.
+          <i>
+            Note: all empty fields will be ignored. Spaces at the end of the
+            input are removed, and space are added at the beginning of outputs.
+          </i>
         </p>
-        <Collapsable text={"Upload your data"}>
-          <p>Via csv</p>
-          <p>Via jsonl</p>
-        </Collapsable>
       </CardContent>
       <CardContent className="section-result">
         <Ready state={dsIsReadyToAugment(formatedDataset)} />

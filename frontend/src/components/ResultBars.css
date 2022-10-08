@@ -32,20 +32,7 @@
 }
 
 .bar {
-  background-color: #e91e63;
+  background-color: #e34b31;
   height: 0.5em;
   border-radius: 0 1000px 1000px 0;
-}
-/* Retro Metro https://gist.github.com/afcotroneo/716a864e9f7ba1bde4d2100313ad9f75#file-omni-retro-metro ["#ea5545", "#f46a9b", "#ef9b20", "#edbf33", "#ede15b", "#bdcf32", "#87bc45", "#27aeef", "#b33dc6"]*/
-.bar-0 {
-  background-color: #e91e63;
-}
-.bar-1 {
-  background-color: #e91e63;
-}
-.bar-2 {
-  background-color: #ef9b20;
-}
-.bar-3 {
-  background-color: #87bc45;
 }

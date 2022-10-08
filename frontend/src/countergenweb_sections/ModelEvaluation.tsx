@@ -100,20 +100,34 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
             </>
           )}
         </div>
-        <WaitableButton
-          text={"Evaluate!"}
-          onClick={evaluate}
-          disabled={!augdsReady || !dsIsReadyToEvaluate(augdataset).ready}
-          waiting={waiting}
-          expectedTime={"a few minutes"}
-        />
+        <div
+          style={{
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+          }}
+        >
+          <WaitableButton
+            text={"Evaluate!"}
+            onClick={evaluate}
+            disabled={!augdsReady || !dsIsReadyToEvaluate(augdataset).ready}
+            waiting={waiting}
+            expectedTime={"a few minutes"}
+            buttonParams={{ color: "secondary" }}
+          />
+        </div>
       </CardContent>
       <CardContent className="section-result">
         {result !== null && result !== undefined && (
           <>
-            <p style={{ textAlign: "center" }}>Average performances</p>
+            <h3 style={{ textAlign: "center" }}>Average performances</h3>
+            <p>
+              Here, "performance" is the probability that the model generates
+              one of the outputs.
+            </p>
             <ResultBars stats={result.stats} />
-            <p style={{ textAlign: "center" }}>Outliers</p>
+            <h3 style={{ textAlign: "center" }}>Outliers</h3>
             {result.outliers.map((v, i) => {
               return v.map(([inp, out, cats, perf], j) => (
                 <div key={`variation-${i}-${j}`}>

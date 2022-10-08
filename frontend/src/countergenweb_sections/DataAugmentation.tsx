@@ -70,13 +70,23 @@ const DataAugmentation = (props: DataAugmentationProps) => {
           <i style={{ marginLeft: "0.5em" }}>{"(John <-> Mohammed, ...)"}</i>
         </p>
         {errMessage && <p style={{ color: "red" }}>{errMessage}</p>}
-        <WaitableButton
-          text={"Augment!"}
-          onClick={augment}
-          disabled={!dsIsReadyToAugment(dataset).ready}
-          waiting={waiting}
-          expectedTime={"a few seconds"}
-        />
+        <div
+          style={{
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+          }}
+        >
+          <WaitableButton
+            text={"Augment!"}
+            onClick={augment}
+            disabled={!dsIsReadyToAugment(dataset).ready}
+            waiting={waiting}
+            expectedTime={"a few seconds"}
+            buttonParams={{ color: "secondary" }}
+          />
+        </div>
       </CardContent>
       <CardContent className="section-result">
         {augdataset !== null && (

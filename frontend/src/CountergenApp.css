@@ -8,20 +8,36 @@
 }
 .section-title {
   position: relative;
+  background-color: #024564;
+  color: white;
 }
 .section-content {
-  background-color: #f8f8f8;
+  background-color: white;
 }
 .section-result {
+  position: relative;
   background-color: #ccc;
   overflow-y: scroll;
+  background-color: white;
   max-height: 50vh;
+  /* border-top: #0fa1c2 2px solid; */
+}
+
+.section-result::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 0;
+  width: 90%;
+  height: 2px;
+  background-color: #0fa1c2;
 }
 
 .horizontal-flex {
-  /* display: flex;
+  display: flex;
   flex-direction: row;
-  align-items: center; */
+  align-items: center;
   color: #953322;
 }
 
