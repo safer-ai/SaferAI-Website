@@ -1,5 +1,6 @@
-import { Button, Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import HexText from "../components/HexText";
+import { ReferenceMarker } from "./References";
 
 const HexBlock = (props: { text: string }) => {
   const { text } = props;
@@ -21,7 +22,7 @@ const HexBlock = (props: { text: string }) => {
   );
 };
 
-const TextParagraph = (props: { title: string; children: string }) => {
+const TextParagraph = (props: { title: string; children: any }) => {
   const { title, children } = props;
   return (
     <Grid item xs={12} md={8}>
@@ -71,7 +72,9 @@ const Process = () => {
             protected category to cases where it’s not. Countergen lets you
             generate variations of your data where attributes which should not
             be taken into account by the model are changed. We provide methods
-            to generate these variations [3][4], but you can also easily plug
+            to generate these variations
+            {<ReferenceMarker refId="counterfactual" />}
+            {<ReferenceMarker refId="llmd" />}, but you can also easily plug
             your own method into the framework.
           </TextParagraph>
         </Grid>
@@ -86,8 +89,10 @@ const Process = () => {
             Bias can arise when data changes and when the model changes, so
             Countergen enables you to easily plug your data and your model into
             a flexible evaluation pipeline. We also provide default datasets
-            from the literature studying bias in language models [1][2], and a
-            built-in integration of GPT-3 [5].
+            from the literature studying bias in language models
+            {<ReferenceMarker refId="stereotypes" />}
+            {<ReferenceMarker refId="doublebind" />}, and a built-in integration
+            of GPT-3{<ReferenceMarker refId="openai" />}.
           </TextParagraph>
           <HexBlock text="Test" />
         </Grid>
@@ -104,8 +109,9 @@ const Process = () => {
             on the different variations that should be treated in the same way
             by measuring the neuron’s activations of your model and making them
             closer on new inputs, leveraging techniques already developed to
-            make sentence embedding more similar across protected categories.
-            [6][7]
+            make sentence embedding more similar across protected categories
+            {<ReferenceMarker refId="inlp" />}
+            {<ReferenceMarker refId="rlace" />}.
           </TextParagraph>
         </Grid>
       </Container>

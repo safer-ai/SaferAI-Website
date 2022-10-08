@@ -8,7 +8,6 @@ const HexText = (props: HexTextProps) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     textAlign: "center",
-    fontSize: "24px",
     margin: 0,
     // filter:
     //   "invert(50%) sepia(70%) saturate(552%) hue-rotate(143deg) brightness(91%) contrast(96%)",
@@ -25,7 +24,7 @@ const HexText = (props: HexTextProps) => {
         marginRight: 0,
       }}
     >
-      <div style={{ textAlign: "center" }}>{text}</div>
+      <div style={{ textAlign: "center", fontSize: "24px" }}>{text}</div>
 
       <img
         style={{ ...imageStyle, width: "160px" }}
