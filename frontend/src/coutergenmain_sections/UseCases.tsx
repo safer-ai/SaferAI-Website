@@ -41,7 +41,20 @@ const UseCases = () => {
           flexDirection="column"
         >
           <CircleAvatar>
-            <BsPencil size={"3em"} />
+            <svg
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              height="3em"
+              width="3em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
           </CircleAvatar>
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 4 }}>
@@ -73,7 +86,7 @@ const UseCases = () => {
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 5 }}>
           <Typography variant="h3" fontSize="24px" textAlign={"center"}>
-            For Machine Learning enthusiasts
+            For Machine Learning enthusiasts and students
           </Typography>
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 8 }}>
@@ -98,7 +111,7 @@ const UseCases = () => {
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 6 }}>
           <Typography variant="h3" fontSize="24px" textAlign={"center"}>
-            For engineers and researchers
+            For Machine Learning engineers and researchers
           </Typography>
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 9 }}>
