@@ -19,13 +19,15 @@ type DataSelectionProps = {
   setDataset: (ds: Dataset) => void;
 };
 
+const DEFAULT_DS = "male-stereotypes"
+
 const DataSelection = (props: DataSelectionProps) => {
   // For machine use
   const { dataset: formatedDataset, setDataset: setFormatedDataset } = props;
   // For human use
   const [cleanDataset, setCleanDataset_] = useState<Dataset>({ samples: [] });
 
-  const [selectedData, setSelectData] = useState<string>("doublebind-negative");
+  const [selectedData, setSelectData] = useState<string>(DEFAULT_DS);
 
   const setCleanDataset = (ds: Dataset) => {
     setCleanDataset_(ds);
@@ -47,7 +49,7 @@ const DataSelection = (props: DataSelectionProps) => {
     });
   };
 
-  useEffect(() => addDefault("doublebind-negative"), []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => addDefault(DEFAULT_DS), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const numberOfInputs = formatedDataset.samples.length;
   const numberOfOutputs = formatedDataset.samples.reduce(
