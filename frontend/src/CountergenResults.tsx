@@ -31,7 +31,7 @@ const Image = (props: { name: string }) => {
       : words[1] === "32d"
       ? " (32 dimensions edited)"
       : words[1] === "dims"
-      ? "(at layer 6/11)"
+      ? "(at layer 7/12)"
       : "";
   const fullName = `Bias with ${techniqueFullName} as ${measurementName}`;
   return (
@@ -51,7 +51,7 @@ const Image = (props: { name: string }) => {
       </div>
       <div style={{ overflow: "hidden" }}>
         <img
-          style={{ marginTop: "-18px", width: "100%" }}
+          style={{ marginTop: "0", width: "100%" }}
           src={`/result_imgs/${name}.png`}
           alt={fullName}
         />
@@ -250,7 +250,7 @@ const CountergenResults = () => {
       <h2>Conclusion</h2>
       <p>
         Model exhibit easily measurable bias on small datasets from the
-        literature augmented using Countergen. Editing model on these small
+        literature augmented using CounterGen. Editing model on these small
         datasets is hard, and further research is need to determine if it can be
         a robust way to reduce the amount of bias in language models.
       </p>

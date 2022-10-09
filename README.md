@@ -1,6 +1,6 @@
-# Countergen website
+# CounterGen website
 
-This repo contains the website that presents Countergen and provide a web interface for it.
+This repo contains the website that presents CounterGen and provide a web interface for it.
 
 ## Dev instructions
 
@@ -50,8 +50,8 @@ npm run build
 pip install -r requirements-dev.txt
 ```
 
-4. Copy the content of the `frontend/build` folder as well as `requirements.txt` and `application.py` 
-in the root directory of another folder. Remove the CORS from the `application.py`, send `index.html` instead of `__file__[:-6] + "frontend/build/index.html"`, replace the Flask constructor by `Flask(__name__)`, and remove arguments from the `application.run` command.
+4. Copy the content of the `frontend/build` folder as well as `requirements.txt` and `application.py`
+   in the root directory of another folder. Remove the CORS from the `application.py`, send `index.html` instead of `__file__[:-6] + "frontend/build/index.html"`, replace the Flask constructor by `Flask(__name__)`, and remove arguments from the `application.run` command.
 
 5. In the new folder you created, run
 

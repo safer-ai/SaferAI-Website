@@ -69,7 +69,7 @@ const Process = () => {
           <TextParagraph title="Generate counterfactuals">
             To evaluate the bias of the model, you want to compare the output of
             a model between the cases where the input is about a member of a
-            protected category to cases where it’s not. Countergen lets you
+            protected category to cases where it’s not. CounterGen lets you
             generate variations of your data where attributes which should not
             be taken into account by the model are changed. We provide methods
             to generate these variations
@@ -87,7 +87,7 @@ const Process = () => {
         >
           <TextParagraph title="Test your model on your data">
             Bias can arise when data changes and when the model changes, so
-            Countergen enables you to easily plug your data and your model into
+            CounterGen enables you to easily plug your data and your model into
             a flexible evaluation pipeline. We also provide default datasets
             from the literature studying bias in language models
             {<ReferenceMarker refId="stereotypes" />}
@@ -105,7 +105,7 @@ const Process = () => {
         >
           <HexBlock text="Edit" />
           <TextParagraph title="Edit your model">
-            Countergen allows you to make your model act in a more similar way
+            CounterGen allows you to make your model act in a more similar way
             on the different variations that should be treated in the same way
             by measuring the neuron’s activations of your model and making them
             closer on new inputs, leveraging techniques already developed to

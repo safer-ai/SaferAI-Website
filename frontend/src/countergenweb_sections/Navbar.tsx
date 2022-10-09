@@ -24,7 +24,7 @@ const pages = [
     children: (
       <>
         <BsFillStarFill />
-        Use Countergen Online
+        Use CounterGen Online
       </>
     ),
   },
@@ -106,7 +106,7 @@ const Navbar = () => {
                 textDecoration: "none",
               }}
             >
-              Countergen
+              CounterGen
             </Link>
           </Typography>
 
@@ -195,7 +195,7 @@ const Navbar = () => {
                 textDecoration: "none",
               }}
             >
-              Countergen
+              CounterGen
             </Link>
           </Typography>
           <Box

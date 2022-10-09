@@ -14,7 +14,7 @@ const CountergenWeb = () => {
 
   return (
     <Container maxWidth="md">
-      <h1 className="title">The Countergen Web Tool</h1>
+      <h1 className="title">The CounterGen Web Tool</h1>
       <h3>
         Choose or load data, augment it, and evaluate the model of your choice!
       </h3>
