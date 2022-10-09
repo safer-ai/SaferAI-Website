@@ -14,7 +14,7 @@ const ResultBars = (props: ResultBarsProps) => {
   return (
     <div className="result-bars">
       {Object.entries(stats).map(([category, stat], i) => (
-        <div className="result-bar">
+        <div className="result-bar" key={category}>
           <p className="category">{category}</p>
           <div>
             <div

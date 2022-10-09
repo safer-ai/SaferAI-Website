@@ -1,9 +1,7 @@
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
   Card,
   CardContent,
   CardHeader,
-  Chip,
   MenuItem,
   Select,
   TextField,
@@ -11,12 +9,28 @@ import {
 import { useState } from "react";
 import ResultBars from "../components/ResultBars";
 import WaitableButton from "../components/WaitableButton";
-import { AugmentedDataset, EvaluationReturn } from "../types";
+import { AugmentedDataset, EvaluationReturn, OutlierData } from "../types";
 import { sendAPIEvaluate, simpleEvaluate } from "../utils/communication";
 import { dsIsReadyToEvaluate } from "../utils/dsUtils";
 
 type ModelEvaluationProps = {
   augdataset: AugmentedDataset | null;
+};
+
+const Outlier = (props: { outlierData: OutlierData }) => {
+  const [inp, out, cats, perf] = props.outlierData;
+  return (
+    <div
+      style={{ margin: "0.2em", padding: "0.5em", border: "#024564 1px solid" }}
+    >
+      <div>
+        Performance: <b>{perf.toPrecision(2)}</b> on
+      </div>
+      <div>"{inp}"</div>
+      <div>Expected outputs: {JSON.stringify(out)}</div>
+      <div>Categories: {JSON.stringify(cats)}</div>
+    </div>
+  );
 };
 
 const ModelEvaluation = (props: ModelEvaluationProps) => {
@@ -133,23 +147,21 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
             <ResultBars stats={result.stats} />
             <h3 style={{ textAlign: "center" }}>Outliers</h3>
             {result.outliers.map((v, i) => {
-              return v.map(([inp, out, cats, perf], j) => (
-                <div key={`variation-${i}-${j}`}>
-                  {"perf="}
-                  {perf.toPrecision(2)}
-                  {" on: "}
-                  {inp}
-                  <ArrowForwardIcon fontSize="small" />
-                  {out}
-                  {cats.map((c, k) => (
-                    <Chip
-                      label={c}
-                      variant="outlined"
-                      key={`variation-chip-${i}-${k}`}
-                    />
-                  ))}
+              const [outlier1, outlier2] = v;
+              return (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: "0.5em",
+                  }}
+                  key={`variation-${i}-${outlier1[3]}`}
+                >
+                  <Outlier outlierData={outlier1} />
+                  <small style={{ marginTop: "3em" }}>but</small>
+                  <Outlier outlierData={outlier2} />
                 </div>
-              ));
+              );
             })}
           </>
         )}
