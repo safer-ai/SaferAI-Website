@@ -129,7 +129,7 @@ const CountergenResults = () => {
       <h1>Results On Gender Bias</h1>
       <p>
         <i>
-          <b>Results are prelimenary</b>: larger real life experiments are
+          <b>Results are preliminary</b>: larger real life experiments are
           needed to assess the viability of this approach. Please view these
           results as hints aimed at helping you if you want to experiment with
           model editing.
@@ -154,7 +154,7 @@ const CountergenResults = () => {
           <p>The datasets used are:</p>
           <ul>
             <li>The stereotype dataset from ZZZ</li>
-            <li>The questions from the doublebind experiment ZZZ</li>
+            <li>The questions from the double bind experiment ZZZ</li>
           </ul>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -163,10 +163,10 @@ const CountergenResults = () => {
                 <TableCell>Female stereotype</TableCell>
                 <TableCell>Male stereotype</TableCell>
                 <TableCell>
-                  Positive adjective in the doublebind experiment
+                  Positive adjective in the double bind experiment
                 </TableCell>
                 <TableCell>
-                  Negative adjective in the doublebind experiment
+                  Negative adjective in the double bind experiment
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -198,7 +198,7 @@ const CountergenResults = () => {
         <li>
           We then measured the relative probability between completions
           following inputs with a female subject and inputs with male subjects
-          on both stereotypes data and the doublebind data as validation.
+          on both stereotypes data and the double bind data as validation.
         </li>
       </ul>
       <Card className="section">
@@ -210,7 +210,7 @@ const CountergenResults = () => {
           <p>
             Applying RLACE or INLP to intermediate activations slightly reduces
             the bias of the model. But it works better and generalize a bit more
-            to the validation set (the doublebind sociology experiment) when
+            to the validation set (the double bind sociology experiment) when
             editing is done in the middle of the network, where the network
             probably has a crisper representation of "male" and "female".
           </p>
@@ -259,7 +259,7 @@ const CountergenResults = () => {
         editing more layers, and trying methods to find the relevant directions
         faster. If you want to know more, please reach out!
       </p>
-      <h2>Additionnal remarks</h2>
+      <h2>Additional remarks</h2>
       <h3>Comparison with picking random dimensions</h3>
       <p>
         Projecting activation on random directions increases noise, and reduces
@@ -276,10 +276,10 @@ const CountergenResults = () => {
       </Grid>
       <h3>Why are performance before edit different?</h3>
       <p>
-        For each experiment, we pick the variations once. This higher or lower
-        measured bias. Because no new variation is generated when editing the
-        model, this is a fair and slightly less noisy reference point we can
-        compare the editing methods against.
+        For each experiment, we pick the variations once. Because no new
+        variation is generated when editing the model, this is a fair and
+        slightly less noisy reference point we can compare the editing methods
+        against.
       </p>
       <h3>Where can I find the detail of the experiments?</h3>
       <p>Here are the notebooks used to produce the results above:</p>
