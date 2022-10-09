@@ -1,4 +1,11 @@
-import { Card, CardContent, CardHeader, Checkbox, Chip } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Checkbox,
+  Chip,
+  Button,
+} from "@mui/material";
 import { useState } from "react";
 import Ready from "../components/Ready";
 import WaitableButton from "../components/WaitableButton";
@@ -20,6 +27,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
   const [augmentGender, setAugmentGender] = useState<boolean>(true);
   const [augmentRace, setAugmentRace] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
+  const [downloadURL, setDownloadURL] = useState<string | null>(null);
 
   const augment = () => {
     let toAugment = [];
@@ -32,7 +40,21 @@ const DataAugmentation = (props: DataAugmentationProps) => {
 
     setWaiting(true);
     multipleAugment(dataset, toAugment).then((augds) => {
-      if (augds !== undefined) setAugDataset(augds);
+      if (augds === undefined) {
+        return;
+      }
+      setAugDataset(augds);
+      const samplesStrings = augds.samples.map((sample) => {
+        const { input, outputs, variations } = sample;
+        return JSON.stringify({ input, outputs, variations });
+      });
+      const jsonlString = samplesStrings?.join("\n");
+      const blob = new Blob([jsonlString]);
+      if (downloadURL !== null) {
+        URL.revokeObjectURL(downloadURL);
+      }
+      const fileDownloadUrl = URL.createObjectURL(blob);
+      setDownloadURL(fileDownloadUrl);
       setWaiting(false);
     });
   };
@@ -123,8 +145,28 @@ const DataAugmentation = (props: DataAugmentationProps) => {
         </div>
       </CardContent>
       <CardContent className="section-result">
-        {augdataset !== null && (
-          <Ready state={dsIsReadyToEvaluate(augdataset)} />
+        {augdataset !== null && downloadURL !== null && (
+          <>
+            <div className="horizontal-flex" style={{ gap: "0.5em" }}>
+              <Button color="secondary" variant="outlined">
+                <a
+                  href={downloadURL}
+                  target="_blank"
+                  download="augmented_data.jsonl"
+                  rel="noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  Download
+                </a>
+              </Button>
+              <p>
+                If you download the augmented data, you can use it to finetune a
+                less baised model, or to do model editing using the CouterGen
+                Python module.
+              </p>
+            </div>
+            <Ready state={dsIsReadyToEvaluate(augdataset)} />
+          </>
         )}
         {augdataset !== null &&
           augdataset.samples.map((s: SampleWithVariations, i) => {
