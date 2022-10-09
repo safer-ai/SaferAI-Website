@@ -20,7 +20,7 @@ import { DOCS_URL, NOTEBOOK_URL, REPO_URL } from "../params";
 
 const pages = [
   {
-    link: "countergenweb",
+    link: "/countergenweb",
     children: (
       <>
         <BsFillStarFill />
@@ -29,7 +29,7 @@ const pages = [
     ),
   },
   {
-    link: "countergenresults",
+    link: "/countergenresults",
     children: (
       <>
         <BsFillFileEarmarkBarGraphFill />
@@ -144,31 +144,39 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map(({ link, children, external }) => (
-                <MenuItem key={link} onClick={handleCloseNavMenu}>
-                  <Link
-                    to={external ? { pathname: link } : link}
-                    target={external ? "_blank" : "_self"}
-                    style={{
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "1em",
-                      flexDirection: "row",
-                      color: "#024564",
-                    }}
-                  >
-                    {children}
-                  </Link>
-                </MenuItem>
-              ))}
+              {pages.map(({ link, children, external }) => {
+                const linkStyle: any = {
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1em",
+                  flexDirection: "row",
+                  color: "#024564",
+                };
+                return (
+                  <MenuItem key={link} onClick={handleCloseNavMenu}>
+                    {external ? (
+                      <a
+                        href={link}
+                        target="_blank"
+                        style={linkStyle}
+                        rel="noreferrer"
+                      >
+                        {children}
+                      </a>
+                    ) : (
+                      <Link to={link} style={linkStyle}>
+                        {children}
+                      </Link>
+                    )}
+                  </MenuItem>
+                );
+              })}
             </Menu>
           </Box>
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },

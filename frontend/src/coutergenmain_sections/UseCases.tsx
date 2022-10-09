@@ -1,6 +1,6 @@
-import { Avatar, Container, Grid, Typography } from "@mui/material";
+import { Avatar, Button, Container, Grid, Typography } from "@mui/material";
 import { FaHatCowboySide } from "react-icons/fa";
-import { BsFileEarmarkCode, BsPencil } from "react-icons/bs";
+import { BsFileEarmarkCode } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { DOCS_URL, NOTEBOOK_URL, REPO_URL } from "../params";
 
@@ -42,17 +42,18 @@ const UseCases = () => {
         >
           <CircleAvatar>
             <svg
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 24 24"
               aria-hidden="true"
-              height="3em"
-              width="3em"
+              height="3.5em"
+              width="3.5em"
               xmlns="http://www.w3.org/2000/svg"
+              fill="#fffacc"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </CircleAvatar>
@@ -126,7 +127,21 @@ const UseCases = () => {
           included!
         </Grid>
       </Grid>
-      {/* </Grid> */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          width: "100%",
+          paddingTop: "2em",
+        }}
+      >
+        <Button variant="outlined" color="secondary">
+          <Link to="/countergenresults" style={{ textDecoration: "none" }}>
+            See Results
+          </Link>
+        </Button>
+      </div>
     </Container>
   );
 };

@@ -1,9 +1,4 @@
-import {
-  Container,
-  List,
-  Typography,
-  ListItem,
-} from "@mui/material";
+import { Container, List, Typography, ListItem } from "@mui/material";
 
 const referencesList = [
   "counterfactual",
@@ -64,7 +59,12 @@ const References = () => {
       </Typography>
       <List sx={{ listStyleType: "disc" }}>
         {referencesList.map((refId, i) => (
-          <ListItem id={refId} className="focus-border" tabIndex={0}>
+          <ListItem
+            id={refId}
+            key={refId}
+            className="focus-border"
+            tabIndex={0}
+          >
             {i + 1}. {referenceData[refId]}
           </ListItem>
         ))}
