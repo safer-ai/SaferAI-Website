@@ -7,7 +7,6 @@ import {
   Select,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import Collapsable from "../components/Collapsable";
 import Ready from "../components/Ready";
 import TextSelector from "../components/TextSelector";
 import { Dataset } from "../types";
@@ -19,7 +18,7 @@ type DataSelectionProps = {
   setDataset: (ds: Dataset) => void;
 };
 
-const DEFAULT_DS = "male-stereotypes"
+const DEFAULT_DS = "male-stereotypes";
 
 const DataSelection = (props: DataSelectionProps) => {
   // For machine use

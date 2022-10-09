@@ -24,8 +24,8 @@ const RemovableTextField = (props: RemovableTextFieldProps) => {
     const { value: nextValue } = e.target;
     setTempValue(nextValue);
     if (nextValue !== value) {
-      const debounceSetValue = debounce(() => setValue(nextValue), 1000);
-      debounceSetValue();
+      const debounceSetValue = debounce((v) => setValue(v), 500);
+      debounceSetValue(nextValue);
     }
   };
 

@@ -31,20 +31,19 @@ const TextSelector = (props: TextSelectorProps) => {
     });
   };
   const removeSample = (i: number) => {
+    const newSamples = [...dataset.samples];
+    newSamples.splice(i, 1);
     setDataset({
-      samples: [
-        ...dataset.samples.slice(0, i),
-        ...dataset.samples.slice(i + 1),
-      ],
+      samples: newSamples,
     });
   };
   const removeOutput = (i: number, j: number) => {
+    const newOutputs = [...dataset.samples[i].outputs];
+    newOutputs.splice(j, 1);
     setSample(i, {
       input: samples[i].input,
-      outputs: [
-        ...samples[i].outputs.slice(0, j),
-        ...samples[i].outputs.slice(j + 1),
-      ],
+      outputs: newOutputs,
+      time: (samples[i].time ?? 0) + 1, // Force update
     });
   };
 
@@ -65,9 +64,12 @@ const TextSelector = (props: TextSelectorProps) => {
 
   return (
     <div className="text-selector">
-      {samples.map(({ input, outputs }, i) => {
+      {samples.map(({ input, outputs, time }, i) => {
         return (
-          <div className="text-selector-line" key={`selector-item-input-${i}`}>
+          <div
+            className="text-selector-line"
+            key={`selector-item-input-${i}-${time}`}
+          >
             <RemovableTextField
               label="Input"
               value={input}
@@ -79,7 +81,7 @@ const TextSelector = (props: TextSelectorProps) => {
                 return (
                   <div
                     className="text-selector-output-line"
-                    key={`selector-item-output-${i}-${j}`}
+                    key={`selector-item-output-${i}-${j}-${time}`}
                   >
                     <RemovableTextField
                       label="Outputs"

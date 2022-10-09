@@ -5,6 +5,7 @@ import WaitableButton from "../components/WaitableButton";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { multipleAugment } from "../utils/communication";
 import { dsIsReadyToAugment, dsIsReadyToEvaluate } from "../utils/dsUtils";
+import RemovableTextField from "../components/RemovableTextField";
 
 type DataAugmentationProps = {
   dataset: Dataset;
@@ -33,6 +34,39 @@ const DataAugmentation = (props: DataAugmentationProps) => {
     multipleAugment(dataset, toAugment).then((augds) => {
       if (augds !== undefined) setAugDataset(augds);
       setWaiting(false);
+    });
+  };
+
+  const setSample = (i: number, sample: SampleWithVariations) => {
+    if (augdataset === null) return;
+    const newSamples = [...augdataset.samples];
+    newSamples[i] = sample;
+    setAugDataset({ samples: newSamples });
+  };
+
+  const removeVariation = (i: number, j: number) => {
+    if (augdataset === null) return;
+    const { samples } = augdataset;
+    const newVariations = [...samples[i].variations];
+    newVariations.splice(j, 1);
+    console.log(i, j, newVariations, samples[i].variations);
+    setSample(i, {
+      input: samples[i].input,
+      variations: newVariations,
+      outputs: samples[i].outputs,
+      time: (samples[i].time ?? 0) + 1, // Force update
+    });
+  };
+
+  const setVariation = (newValue: string, i: number, j: number) => {
+    if (augdataset === null) return;
+    const { samples } = augdataset;
+    const newVariations = [...samples[i].variations];
+    newVariations[j].text = newValue;
+    setSample(i, {
+      input: samples[i].input,
+      outputs: samples[i].outputs,
+      variations: newVariations,
     });
   };
 
@@ -95,17 +129,35 @@ const DataAugmentation = (props: DataAugmentationProps) => {
         {augdataset !== null &&
           augdataset.samples.map((s: SampleWithVariations, i) => {
             return (
-              <div className="variation-holder" key={`variation-${i}`}>
+              <div className="variation-holder" key={`variation-${s.input}`}>
                 {s.variations.map((v, j) => (
-                  <div key={`variation-${i}-${j}`}>
-                    {v.text}
-                    {v.categories.map((c, k) => (
-                      <Chip
-                        label={c}
-                        variant="outlined"
-                        key={`variation-chip-${i}-${j}-${k}`}
+                  <div
+                    key={`variation-${v.text}`}
+                    className="horizontal-flex"
+                    style={{ gap: "0.2em" }}
+                  >
+                    <div
+                      style={{
+                        width: "calc(100% - 8em)",
+                        display: "inline-block",
+                      }}
+                    >
+                      <RemovableTextField
+                        label="Variation"
+                        value={v.text}
+                        setValue={(s) => setVariation(s, i, j)}
+                        onDelete={() => removeVariation(i, j)}
                       />
-                    ))}
+                    </div>
+                    <div className="horizontal-flex" style={{ gap: "0.2em" }}>
+                      {v.categories.map((c, k) => (
+                        <Chip
+                          label={c}
+                          variant="outlined"
+                          key={`variation-chip-${c}`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>

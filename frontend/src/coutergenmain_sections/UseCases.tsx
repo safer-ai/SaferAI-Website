@@ -2,7 +2,7 @@ import { Avatar, Button, Container, Grid, Typography } from "@mui/material";
 import { FaHatCowboySide } from "react-icons/fa";
 import { BsFileEarmarkCode } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { DOCS_URL, NOTEBOOK_URL, REPO_URL } from "../params";
+import { NOTEBOOK_URL, REPO_URL } from "../params";
 
 const CircleAvatar = (props: { children: any }) => {
   return (

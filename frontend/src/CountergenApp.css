@@ -44,3 +44,17 @@
 h1 {
   margin-top: 1em;
 }
+
+.variation-holder {
+  position: relative;
+}
+.variation-holder::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  transform: translate(0, -50%);
+  left: -5px;
+  height: calc(100% - 20px);
+  width: 2px;
+  background-color: #0fa1c2;
+}
