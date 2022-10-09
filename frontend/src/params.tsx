@@ -23,8 +23,8 @@ export const doublebindExplanation = (
     </a>{" "}
     which found that female managers were perceived as less likable than their
     male counterparts. Exact data is from{" "}
-    <a href="https://arxiv.org/abs/1903.10561">Chandler (2019)</a> which
-    measures this kind of bias in Language models.
+    <a href="https://arxiv.org/abs/1903.10561">May (2019)</a> which measures
+    this kind of bias in Language models.
   </p>
 );
 export const stereotypesExplanation = (

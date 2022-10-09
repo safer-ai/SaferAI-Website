@@ -17,3 +17,8 @@ a {
 button {
   text-transform: none !important;
 }
+
+.p-less-margin > p,
+.p-less-margin > * > p {
+  margin: 0.2em;
+}

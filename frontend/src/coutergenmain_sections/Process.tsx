@@ -74,7 +74,6 @@ const Process = () => {
             generate variations of your data where attributes which should not
             be taken into account by the model are changed. We provide methods
             to generate these variations
-            {<ReferenceMarker refId="counterfactual" />}
             {<ReferenceMarker refId="llmd" />}, but you can also easily plug
             your own method into the framework.
           </TextParagraph>
