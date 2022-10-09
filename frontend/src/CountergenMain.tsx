@@ -1,5 +1,4 @@
 import Header from "./countergenmain_sections/Header";
-import Footer from "./countergenmain_sections/Footer";
 import References from "./countergenmain_sections/References";
 import UseCases from "./countergenmain_sections/UseCases";
 import "./CountergenMain.css";
@@ -14,7 +13,6 @@ const CountergenMain = (props: CountergenMainProps) => {
       <Process />
       <UseCases />
       <References />
-      <Footer />
     </>
   );
 };
