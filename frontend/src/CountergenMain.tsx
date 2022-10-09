@@ -1,9 +1,9 @@
-import Header from "./coutergenmain_sections/Header";
-import Footer from "./coutergenmain_sections/Footer";
-import References from "./coutergenmain_sections/References";
-import UseCases from "./coutergenmain_sections/UseCases";
+import Header from "./countergenmain_sections/Header";
+import Footer from "./countergenmain_sections/Footer";
+import References from "./countergenmain_sections/References";
+import UseCases from "./countergenmain_sections/UseCases";
 import "./CountergenMain.css";
-import Process from "./coutergenmain_sections/Process";
+import Process from "./countergenmain_sections/Process";
 
 type CountergenMainProps = {};
 

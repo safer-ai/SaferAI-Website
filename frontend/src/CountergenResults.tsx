@@ -11,7 +11,7 @@ import {
   CardHeader,
 } from "@mui/material";
 import { doublebindExplanation, stereotypesExplanation } from "./params";
-import Footer from "./coutergenmain_sections/Footer";
+import Footer from "./countergenmain_sections/Footer";
 
 const Image = (props: { name: string }) => {
   const { name } = props;
