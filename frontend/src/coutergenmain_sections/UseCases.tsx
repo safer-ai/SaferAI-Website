@@ -14,6 +14,25 @@ const CircleAvatar = (props: { children: any }) => {
   );
 };
 
+const CenteredButton = (props: { children: any }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        width: "100%",
+      }}
+    >
+      <Button variant="outlined" color="secondary">
+        {props.children}
+      </Button>
+    </div>
+  );
+};
+
+const nbCol = 3;
+
 const UseCases = () => {
   return (
     <Container maxWidth="md">
@@ -58,20 +77,26 @@ const UseCases = () => {
             </svg>
           </CircleAvatar>
         </Grid>
-        <Grid item xs={12} md={4} order={{ md: 4 }}>
+        <Grid item xs={12} md={4} order={{ md: 1 + nbCol }}>
           <Typography variant="h3" fontSize="24px" textAlign={"center"}>
             For investigators without a CS background
           </Typography>
         </Grid>
-        <Grid item xs={12} md={4} order={{ md: 7 }}>
-          A{" "}
-          <Link to="/countergenweb" target="_blank">
-            web interface
-          </Link>{" "}
-          allows you to easily measure model bias on your data. No coding
-          required !
+        <Grid item xs={12} md={4} order={{ md: 1 + nbCol * 2 }}>
+          A web interface allows you to easily measure model bias on your data.
+          No coding required !
         </Grid>
-
+        <Grid item xs={12} md={4} order={{ md: 1 + nbCol * 3 }}>
+          <CenteredButton>
+            <Link
+              to="/countergenweb"
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
+              Open the web interface
+            </Link>
+          </CenteredButton>
+        </Grid>
         <Grid
           item
           xs={12}
@@ -85,17 +110,26 @@ const UseCases = () => {
             <FaHatCowboySide size={"3em"} />
           </CircleAvatar>
         </Grid>
-        <Grid item xs={12} md={4} order={{ md: 5 }}>
+        <Grid item xs={12} md={4} order={{ md: 2 + nbCol }}>
           <Typography variant="h3" fontSize="24px" textAlign={"center"}>
             For Machine Learning enthusiasts and students
           </Typography>
         </Grid>
-        <Grid item xs={12} md={4} order={{ md: 8 }}>
-          Load your data and your model into a{" "}
-          <a href={NOTEBOOK_URL} target="_blank" rel="noreferrer">
-            friendly Colab notebook
-          </a>{" "}
-          and get started with evaluation & model editing!
+        <Grid item xs={12} md={4} order={{ md: 2 + nbCol * 2 }}>
+          Load your data and your model into a friendly Colab notebook and get
+          started with evaluation & model editing!
+        </Grid>
+        <Grid item xs={12} md={4} order={{ md: 2 + nbCol * 3 }}>
+          <CenteredButton>
+            <a
+              href={NOTEBOOK_URL}
+              target="_blank"
+              style={{ textDecoration: "none" }}
+              rel="noreferrer"
+            >
+              Open the notebook
+            </a>
+          </CenteredButton>
         </Grid>
         <Grid
           item
@@ -110,38 +144,28 @@ const UseCases = () => {
             <BsFileEarmarkCode size={"3em"} />
           </CircleAvatar>
         </Grid>
-        <Grid item xs={12} md={4} order={{ md: 6 }}>
+        <Grid item xs={12} md={4} order={{ md: 3 + nbCol }}>
           <Typography variant="h3" fontSize="24px" textAlign={"center"}>
             For Machine Learning engineers and researchers
           </Typography>
         </Grid>
-        <Grid item xs={12} md={4} order={{ md: 9 }}>
-          Use the open source{" "}
-          <a href={REPO_URL} target="_blank" rel="noreferrer">
-            countergen Python modules
-          </a>{" "}
-          to evaluate the models you are using or creating.{" "}
-          <a href={DOCS_URL} target="_blank" rel="noreferrer">
-            Documentation
-          </a>{" "}
-          included!
+        <Grid item xs={12} md={4} order={{ md: 3 + nbCol * 2 }}>
+          Use the open source countergen Python modules to evaluate the models
+          you are using or creating. Documentation included!
+        </Grid>
+        <Grid item xs={12} md={4} order={{ md: 3 + nbCol * 3 }}>
+          <CenteredButton>
+            <a
+              href={REPO_URL}
+              target="_blank"
+              style={{ textDecoration: "none" }}
+              rel="noreferrer"
+            >
+              Open the GitHub Repo
+            </a>
+          </CenteredButton>
         </Grid>
       </Grid>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          width: "100%",
-          paddingTop: "2em",
-        }}
-      >
-        <Button variant="outlined" color="secondary">
-          <Link to="/countergenresults" style={{ textDecoration: "none" }}>
-            See Results
-          </Link>
-        </Button>
-      </div>
     </Container>
   );
 };

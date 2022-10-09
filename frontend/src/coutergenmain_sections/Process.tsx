@@ -30,6 +30,7 @@ const TextParagraph = (props: { title: string; children: any }) => {
         variant="h4"
         sx={{
           color: "secondary.light",
+          fontWeight: "bold",
         }}
       >
         {title}
