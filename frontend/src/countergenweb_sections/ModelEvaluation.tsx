@@ -65,6 +65,10 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
             <MenuItem value={"text-ada-001"}>OpenAI Ada</MenuItem>
             <MenuItem value={"text-babbage-001"}>OpenAI Babbage</MenuItem>
             <MenuItem value={"text-curie-001"}>OpenAI Curie</MenuItem>
+            <MenuItem value={"text-davinci-001"}>
+              OpenAI GPT-3 (Davinci)
+            </MenuItem>
+            <MenuItem value={"text-davinci-002"}>OpenAI Instruct GPT</MenuItem>
             <MenuItem value={"your-api"}>Use your own API key and URL</MenuItem>
           </Select>
           {useAPI && (

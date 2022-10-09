@@ -158,7 +158,7 @@ def evaluate_simple(model_name="text-ada-001"):
 
     Except data like augds.samples (a list)"""
 
-    if model_name not in ["text-ada-001", "text-babbage-001", "text-curie-001"]:
+    if model_name not in ["text-ada-001", "text-babbage-001", "text-curie-001", "text-davinci-001", "text-davinci-002"]:
         return json.dumps({"error": "wrong model name", "data": model_name})
 
     ds = load_sent_augds(request.json)
