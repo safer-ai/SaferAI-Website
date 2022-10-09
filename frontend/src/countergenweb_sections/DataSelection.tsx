@@ -9,9 +9,10 @@ import {
 import { useEffect, useState } from "react";
 import Ready from "../components/Ready";
 import TextSelector from "../components/TextSelector";
-import { Dataset } from "../types";
+import { Dataset, Sample } from "../types";
 import { getDefaultDataset } from "../utils/communication";
 import { cleanDs, dsIsReadyToAugment, formatDs } from "../utils/dsUtils";
+import { MAX_SAMPLES } from "../utils/parameters";
 
 type DataSelectionProps = {
   dataset: Dataset; // Not used to display
@@ -28,6 +29,9 @@ const DataSelection = (props: DataSelectionProps) => {
 
   const [selectedData, setSelectData] = useState<string>(DEFAULT_DS);
 
+  const [displayUploadFileInfo, setDisplayUploadFileInfo] =
+    useState<boolean>(false);
+
   const setCleanDataset = (ds: Dataset) => {
     setCleanDataset_(ds);
     setFormatedDataset(formatDs(ds));
@@ -36,8 +40,6 @@ const DataSelection = (props: DataSelectionProps) => {
   const clear = () => {
     setCleanDataset({ samples: [] });
   };
-
-  const uploadData = () => {};
 
   const addDefault = (name: string) => {
     getDefaultDataset(name).then((data: Dataset | undefined) => {
@@ -56,6 +58,39 @@ const DataSelection = (props: DataSelectionProps) => {
     0
   );
 
+  const loadFile = (evt: any) => {
+    // From https://javascript.plainenglish.io/how-to-create-download-and-upload-files-in-react-apps-80893da4247a
+
+    const fileObj = evt.target.files[0]; // We've not allowed multiple files.
+    const reader = new FileReader();
+    setDisplayUploadFileInfo(false);
+
+    let fileloaded = (e: any) => {
+      const fileContents: string = e.target.result;
+      console.log(fileContents);
+      const lines = fileContents.split("\n");
+      let samples: Sample[];
+      try {
+        samples = lines.slice(0, MAX_SAMPLES + 2).map((line: string) => {
+          const r = JSON.parse(line);
+          // eslint-disable-next-line no-throw-literal
+          if (!("input" in r) || !("outputs" in r)) throw "invalid json";
+          return r as Sample;
+        });
+
+        setCleanDataset({
+          samples: [...cleanDataset.samples, ...cleanDs({ samples }).samples],
+        });
+        // read the file
+      } catch (e) {
+        setDisplayUploadFileInfo(true);
+      }
+    };
+
+    reader.onload = fileloaded;
+    reader.readAsText(fileObj);
+  };
+
   return (
     <Card className="section">
       <CardHeader className="section-title" title="Choose your data" />
@@ -66,13 +101,38 @@ const DataSelection = (props: DataSelectionProps) => {
           className="horizontal-flex"
           style={{ padding: "0.5em", gap: "0.5em" }}
         >
-          <Button onClick={uploadData} variant="outlined">
-            Upload your data
+          <Button
+            variant="outlined"
+            component="label"
+            style={{ textTransform: "none" }}
+          >
+            Upload file
+            <input
+              type="file"
+              className="hidden"
+              multiple={false}
+              accept=".jsonl,application/jsonl"
+              onChange={(evt) => loadFile(evt)}
+              hidden
+            />
           </Button>
           <Button onClick={clear} variant="outlined">
             Clear
           </Button>
         </div>
+        {displayUploadFileInfo && (
+          <>
+            <p>
+              <i>
+                The file should be a JSONL file where each line is a JSON object
+                with an "input" field (with a string value) and an "outputs"
+                field (with a list of string value). For example, this line is a
+                valid line:
+              </i>
+            </p>
+            <code>{`{"input": "She is", "outputs":[" alive", " dead"]}`}</code>
+          </>
+        )}
         <div
           className="horizontal-flex"
           style={{ gap: "0.5em", padding: "0.5em" }}
@@ -98,6 +158,7 @@ const DataSelection = (props: DataSelectionProps) => {
             Load and append
           </Button>
         </div>
+
         <p>
           <i>
             Note: all empty fields will be ignored. Spaces at the end of the
