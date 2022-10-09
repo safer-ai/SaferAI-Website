@@ -76,7 +76,14 @@ def handle_exception(e):
 def get_default_ds(name):
     """Excepts doublebind or tiny-test."""
 
-    if name not in ["doublebind-negative", "doublebind-positive", "male-stereotypes", "female-stereotypes"]:
+    if name not in [
+        "doublebind-unlikable",
+        "doublebind-likable",
+        "male-stereotypes",
+        "doublebind-negative",
+        "doublebind-positive",
+        "female-stereotypes",
+    ]:
         return json.dumps({"error": "wrong dataset name", "data": name})
 
     ds = Dataset.from_default(name)

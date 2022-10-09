@@ -12,14 +12,12 @@ import TextSelector from "../components/TextSelector";
 import { Dataset, Sample } from "../types";
 import { getDefaultDataset } from "../utils/communication";
 import { cleanDs, dsIsReadyToAugment, formatDs } from "../utils/dsUtils";
-import { MAX_SAMPLES } from "../utils/parameters";
+import { MAX_SAMPLES, DATASETS, DEFAULT_DS } from "../params";
 
 type DataSelectionProps = {
   dataset: Dataset; // Not used to display
   setDataset: (ds: Dataset) => void;
 };
-
-const DEFAULT_DS = "male-stereotypes";
 
 const DataSelection = (props: DataSelectionProps) => {
   // For machine use
@@ -145,20 +143,15 @@ const DataSelection = (props: DataSelectionProps) => {
             onChange={(e) => setSelectData(e.target.value)}
             style={{ width: "18em" }}
           >
-            <MenuItem value={"doublebind-negative"}>
-              Double bind, negative adjectives
-            </MenuItem>
-            <MenuItem value={"doublebind-positive"}>
-              Double bind, positive adjectives
-            </MenuItem>
-            <MenuItem value={"female-stereotypes"}>Female stereotypes</MenuItem>
-            <MenuItem value={"male-stereotypes"}>Male stereotypes</MenuItem>
+            {Object.entries(DATASETS).map(([code, { displayedName }]) => (
+              <MenuItem value={code}>{displayedName}</MenuItem>
+            ))}
           </Select>
           <Button onClick={() => addDefault(selectedData)} variant="outlined">
             Load and append
           </Button>
         </div>
-
+        {DATASETS[selectedData].explanation}
         <p>
           <i>
             Note: all empty fields will be ignored. Spaces at the end of the

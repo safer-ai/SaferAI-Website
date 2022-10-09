@@ -10,6 +10,7 @@ import {
   Card,
   CardHeader,
 } from "@mui/material";
+import { doublebindExplanation, stereotypesExplanation } from "./params";
 
 const Image = (props: { name: string }) => {
   const { name } = props;
@@ -87,39 +88,39 @@ const SimpleTableRow = (props: { data: string[] }) => {
 
 const experimentData = [
   [
-    "GPT-3  (175B parameters)",
-    "20% more likely for women",
-    "48% more likely for men*",
-    "11% more likely for women",
-    "17% more likely for men",
+    "InstructGPT  (175B parameters)",
+    "2% more likely for women",
+    "47% more likely for men*",
+    "24% more likely for men",
+    "6% more likely for women",
   ],
   [
-    "InstructGPT  (175B parameters)",
-    "20% more likely for women",
-    "48% more likely for men*",
-    "12% more likely for women",
-    "26% more likely for men",
+    "GPT-3  (175B parameters)",
+    "2% more likely for women",
+    "47% more likely for men*",
+    "23% more likely for men",
+    "4% more likely for women",
   ],
   [
     "OpenAI Curie (13B parameters)",
-    "12% more likely for men",
-    "23% more likely for men",
-    "35% more likely for women*",
-    "17% more likely for women",
+    "6% more likely for men",
+    "37% more likely for men*",
+    "18% more likely for women",
+    "33% more likely for women*",
   ],
   [
     "OpenAI Babbage (~3B parameters)",
-    "2% more likely for women",
-    "33% more likely for men*",
-    "25% more likely for women*",
-    "1% more likely for women",
+    "0% more likely for women",
+    "50% more likely for men*",
+    "54% more likely for women*",
+    "46% more likely for women*",
   ],
   [
     "OpenAI Ada (~1B parameters)",
-    "21% more likely for men",
-    "23% more likely for men*",
-    "49% more likely for women*",
-    "14% more likely for women",
+    "19% more likely for women",
+    "18% more likely for men*",
+    "54% more likely for women*",
+    "46% more likely for women*",
   ],
 ];
 
@@ -151,10 +152,10 @@ const CountergenResults = () => {
             male. The given number is the relative probability (compared to the
             biggest of the two probabilities).
           </p>
-          <p>The datasets used are:</p>
+          <p>Data:</p>
           <ul>
-            <li>The stereotype dataset from ZZZ</li>
-            <li>The questions from the double bind experiment ZZZ</li>
+            <li>{doublebindExplanation}</li>
+            <li>{stereotypesExplanation}</li>
           </ul>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -163,10 +164,10 @@ const CountergenResults = () => {
                 <TableCell>Female stereotype</TableCell>
                 <TableCell>Male stereotype</TableCell>
                 <TableCell>
-                  Positive adjective in the double bind experiment
+                  Positive prosocial adjective in the double bind experiment
                 </TableCell>
                 <TableCell>
-                  Negative adjective in the double bind experiment
+                  Negative antisocial adjective in the double bind experiment
                 </TableCell>
               </TableRow>
             </TableHead>
