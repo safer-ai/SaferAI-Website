@@ -14,6 +14,18 @@ const ModelEditing = () => {
           either use <a href={NOTEBOOK_URL}>the Colab Notebook</a>, or run the{" "}
           <a href={REPO_URL}>Python modules</a> locally.
         </p>
+        <p>
+          A short explanation of what the editing does and how it works is
+          available{" "}
+          <a
+            href={
+              "https://fabienroger.github.io/Countergen/docs/_build/html/countergenedit/usage.html"
+            }
+          >
+            here
+          </a>
+          .
+        </p>
       </CardContent>
     </Card>
   );
