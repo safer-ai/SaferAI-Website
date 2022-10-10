@@ -33,7 +33,7 @@ export const stereotypesExplanation = (
     <a href="https://stereoset.mit.edu/" target="_blank" rel="noreferrer">
       StereoSet
     </a>
-    , filtered for the ones which "outputs" are gender neutrals.
+    , filtered for the ones whose outputs are gender neutral.
   </p>
 );
 

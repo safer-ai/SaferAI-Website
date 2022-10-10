@@ -149,8 +149,8 @@ const CountergenResults = () => {
           <p>
             We compare the probability that a model generate one of the expected
             outputs when the subjects of the input are female and when they are
-            male. The given number is the relative probability (compared to the
-            biggest of the two probabilities).
+            male. The given number is the average relative probability (relative
+            to the biggest of the two probabilities compared).
           </p>
           <p>Data:</p>
           <ul>
