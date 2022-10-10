@@ -11,6 +11,7 @@ const referencesList = [
   "nltk",
   "hateSpeech",
   "nameOrigin",
+  "biasSentenceProb",
 ];
 const referenceData: {
   [refId: string]: { for: string; refObject: JSX.Element };
@@ -134,6 +135,25 @@ const referenceData: {
           https://www.autohotkey.com/board/topic/20260-gender-verification-by-forename-cmd-line-tool-db/
         </a>
         .
+      </p>
+    ),
+  },
+  biasSentenceProb: {
+    for: 'For evaluation data & a metric from "Social Bias from Sentence Probability"',
+    refObject: (
+      <p>
+        Ghazal, Ahmad, Tilmann Rabl, Minqing Hu, Francois Raab, Meikel Poess,
+        Alain Crolotte, and Hans-Arno Jacobsen. 2013.{" "}
+        <span>
+          “Bigbench: Towards an Industry Standard Benchmark for Big Data
+          Analytics.”
+        </span>{" "}
+        In{" "}
+        <em>
+          Proceedings of the 2013 ACM SIGMOD International Conference on
+          Management of Data
+        </em>
+        , 1197–1208.
       </p>
     ),
   },

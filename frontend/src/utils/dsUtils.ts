@@ -21,7 +21,7 @@ export const cleanDs = (ds: Dataset): Dataset => {
         outputs: cleanOutputs(sample.outputs),
       };
     })
-    .filter((sample) => sample.input.length > 0 && sample.outputs.length > 0);
+    .filter((sample) => sample.input.length > 0);
   return { samples: newSamples };
 };
 

@@ -61,6 +61,7 @@ const DataSelection = (props: DataSelectionProps) => {
 
     const fileObj = evt.target.files[0]; // We've not allowed multiple files.
     const reader = new FileReader();
+    console.log(fileObj.name);
     setDisplayUploadFileInfo(false);
 
     let fileloaded = (e: any) => {
@@ -69,13 +70,25 @@ const DataSelection = (props: DataSelectionProps) => {
       const lines = fileContents.split("\n");
       let samples: Sample[];
       try {
-        samples = lines.slice(0, MAX_SAMPLES + 2).map((line: string) => {
-          const r = JSON.parse(line);
-          // eslint-disable-next-line no-throw-literal
-          if (!("input" in r) || !("outputs" in r)) throw "invalid json";
-          return r as Sample;
-        });
+        const splitName = evt.target.files[0].name.split(".");
+        const isCsv = splitName[splitName.length - 1] === "csv";
 
+        if (isCsv) {
+          samples = lines.slice(1, MAX_SAMPLES + 2).map((line: string) => {
+            const r = line.split(",");
+            // eslint-disable-next-line no-throw-literal
+            if (r.length < 1) throw "invalid csv";
+            return { input: r[0], outputs: r.slice(1) };
+          });
+        } else {
+          samples = lines.slice(0, MAX_SAMPLES + 2).map((line: string) => {
+            const r = JSON.parse(line);
+            // eslint-disable-next-line no-throw-literal
+            if (!("input" in r) || !("outputs" in r)) throw "invalid json";
+            return r as Sample;
+          });
+        }
+        console.log(samples);
         setCleanDataset({
           samples: [...cleanDataset.samples, ...cleanDs({ samples }).samples],
         });
@@ -93,7 +106,6 @@ const DataSelection = (props: DataSelectionProps) => {
     <Card className="section">
       <CardHeader className="section-title" title="Choose your data" />
       <CardContent className="section-content">
-        <p>Enter you own data</p>
         <TextSelector dataset={cleanDataset} setDataset={setCleanDataset} />
         <div
           className="horizontal-flex"
@@ -109,7 +121,7 @@ const DataSelection = (props: DataSelectionProps) => {
               type="file"
               className="hidden"
               multiple={false}
-              accept=".jsonl,application/jsonl"
+              accept=".jsonl,application/jsonl,.csv,application/csv"
               onChange={(evt) => loadFile(evt)}
               hidden
             />
@@ -121,14 +133,24 @@ const DataSelection = (props: DataSelectionProps) => {
         {displayUploadFileInfo && (
           <>
             <p>
-              <i>
-                The file should be a JSONL file where each line is a JSON object
-                with an "input" field (with a string value) and an "outputs"
-                field (with a list of string value). For example, this line is a
-                valid line:
-              </i>
+              The file should be either:
+              <ul>
+                <li>
+                  a .csv file where the first column is the input and the next
+                  columns are outputs. The first line is assumed to be the
+                  header and will be skipped. This is a valid csv line:
+                  <br />
+                  <code>{`She is, alive, dead`}</code>
+                </li>
+                <li>
+                  a .jsonl file where each line is a JSON object with an "input"
+                  field (with a string value) and an "outputs" field (with a
+                  list of string value). For example, this line is a valid line:
+                  <br />
+                  <code>{`{"input": "She is", "outputs":[" alive", " dead"]}`}</code>
+                </li>
+              </ul>
             </p>
-            <code>{`{"input": "She is", "outputs":[" alive", " dead"]}`}</code>
           </>
         )}
         <div
@@ -144,7 +166,9 @@ const DataSelection = (props: DataSelectionProps) => {
             style={{ width: "18em" }}
           >
             {Object.entries(DATASETS).map(([code, { displayedName }]) => (
-              <MenuItem value={code}>{displayedName}</MenuItem>
+              <MenuItem value={code} key={code}>
+                {displayedName}
+              </MenuItem>
             ))}
           </Select>
           <Button onClick={() => addDefault(selectedData)} variant="outlined">
