@@ -160,8 +160,8 @@ const DataAugmentation = (props: DataAugmentationProps) => {
                 </a>
               </Button>
               <p>
-                If you download the augmented data, you can use it to finetune a
-                less baised model, or to do model editing using the CouterGen
+                If you download the augmented data, you can use it to fine-tune a
+                less biased model, or to do model editing using the CounterGen
                 Python module.
               </p>
             </div>
