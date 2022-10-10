@@ -75,7 +75,7 @@ Setup the instance by following the instructions here <https://www.youtube.com/w
 and then enter the following instruction
 
 ```bash
-ssh -i ~/.ssh/countergen-website-2.pem ubuntu@ec2-184-73-128-253.compute-1.amazonaws.com
+ssh -i ~/.ssh/countergen-website-2.pem ubuntu@[SSH-IP]
 git clone https://github.com/FabienRoger/Countergen-Website
 sudo apt update
 sudo apt install python-is-python3
