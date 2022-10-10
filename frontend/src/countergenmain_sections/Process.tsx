@@ -68,14 +68,15 @@ const Process = () => {
         >
           <HexBlock text="Augment" />
           <TextParagraph title="Generate counterfactuals">
-            To evaluate the bias of the model, you want to compare the output of
-            a model between the cases where the input is about a member of a
-            protected category to cases where it’s not. CounterGen lets you
-            generate variations of your data where attributes which should not
-            be taken into account by the model are changed. We provide methods
-            to generate these variations
-            {<ReferenceMarker refId="llmd" />}, but you can also easily plug
-            your own method into the framework.
+            To evaluate the bias of a model, we compare the output of a model
+            between the cases where the input is about a member of a protected
+            category to cases where it’s not. CounterGen lets you generate
+            variations of your data by changing attributes which should not
+            affect the model output. This makes it possible to measure the bias
+            on the actual text your model is processing in deployment, which is
+            not possible with traditional benchmarks. We provide methods to
+            generate variations{<ReferenceMarker refId="llmd" />}, but you can
+            also easily plug your own method into the framework.
           </TextParagraph>
         </Grid>
         <Grid
@@ -105,13 +106,14 @@ const Process = () => {
         >
           <HexBlock text="Edit" />
           <TextParagraph title="Edit your model">
-            CounterGen allows you to make your model act in a more similar way
-            on the different variations that should be treated in the same way
-            by measuring the neuron’s activations of your model and making them
-            closer on new inputs, leveraging techniques already developed to
-            make sentence embedding more similar across protected categories
-            {<ReferenceMarker refId="inlp" />}
-            {<ReferenceMarker refId="rlace" />}.
+            CounterGen allows you to reduce the bias of your model by leveraging
+            techniques already developed to make sentence embedding more similar
+            across protected categories{<ReferenceMarker refId="inlp" />}
+            {<ReferenceMarker refId="rlace" />}. To do so, we measure the
+            neuron’s activations of your model on the augmented data, and find
+            how to change the internal computations of your network so that it
+            behaves in the same way no matter the protected categories to which
+            inputs belong.
           </TextParagraph>
         </Grid>
       </Container>

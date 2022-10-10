@@ -83,8 +83,16 @@ const UseCases = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 1 + nbCol * 2 }}>
-          A web interface allows you to easily measure model bias on your data.
-          No coding required !
+          A web interface allows you to easily measure model bias on your data:
+          <ul style={{ marginTop: "0", marginBottom: "0" }}>
+            <li>use your expertise to write and collect data</li>
+            <li>enter the data in the web app and measure model bias</li>
+            <li>
+              warn relevant stakeholders (e.g engineers, auditors, regulators)
+              about the biases you have found
+            </li>
+          </ul>
+          No coding required!
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 1 + nbCol * 3 }}>
           <CenteredButton>
@@ -116,8 +124,17 @@ const UseCases = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 2 + nbCol * 2 }}>
-          Load your data and your model into a friendly Colab notebook and get
-          started with evaluation & model editing!
+          Load your data and your model into a friendly Colab notebook:
+          <ul style={{ marginTop: "0", marginBottom: "0" }}>
+            <li>
+              learn on what kind of data publicly available models are the most
+              biased
+            </li>
+            <li>see how much you can reduce the bias of a model</li>
+            <li>try new techniques to reduce model bias</li>
+          </ul>
+          Use the Colab graphical interface to get started, personalize it, and
+          dig deeper!
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 2 + nbCol * 3 }}>
           <CenteredButton>
@@ -150,8 +167,16 @@ const UseCases = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 3 + nbCol * 2 }}>
-          Use the open source countergen Python modules to evaluate the models
-          you are using or creating. Documentation included!
+          Use the open source CounterGen Python modules to:
+          <ul style={{ marginTop: "0", marginBottom: "0" }}>
+            <li>
+              evaluate the bias of models you consider using in real-world
+              situations, on the data you care about
+            </li>
+            <li>edit your model to reduce its bias</li>
+            <li>monitor the bias of your model during deployment</li>
+          </ul>
+          Documentation included!
         </Grid>
         <Grid item xs={12} md={4} order={{ md: 3 + nbCol * 3 }}>
           <CenteredButton>
