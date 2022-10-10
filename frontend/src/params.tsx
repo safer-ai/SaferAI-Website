@@ -5,9 +5,9 @@ export const DOCS_URL =
   "https://fabienroger.github.io/Countergen/docs/_build/html/index.html";
 
 export const MAX_SAMPLES = 200;
-export const MIN_SAMPLES = 2;
-export const MIN_OUTPUTS = 6;
-export const MIN_VARIATIONS = 6;
+export const MIN_SAMPLES = 1;
+export const MIN_OUTPUTS = 1;
+export const MIN_VARIATIONS = 2;
 
 export const DEFAULT_DS = "male-stereotypes";
 
