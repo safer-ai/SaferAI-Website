@@ -160,51 +160,71 @@ const DataAugmentation = (props: DataAugmentationProps) => {
                 </a>
               </Button>
               <p>
-                If you download the augmented data, you can use it to fine-tune a
-                less biased model, or to do model editing using the CounterGen
+                If you download the augmented data, you can use it to fine-tune
+                a less biased model, or to do model editing using the CounterGen
                 Python module.
               </p>
             </div>
             <Ready state={dsIsReadyToEvaluate(augdataset)} />
           </>
         )}
-        {augdataset !== null &&
-          augdataset.samples.map((s: SampleWithVariations, i) => {
-            return (
-              <div className="variation-holder" key={`variation-${s.input}`}>
-                {s.variations.map((v, j) => (
-                  <div
-                    key={`variation-${v.text}`}
-                    className="horizontal-flex"
-                    style={{ gap: "0.2em" }}
-                  >
-                    <div
-                      style={{
-                        width: "calc(100% - 8em)",
-                        display: "inline-block",
-                      }}
-                    >
-                      <RemovableTextField
-                        label="Variation"
-                        value={v.text}
-                        setValue={(s) => setVariation(s, i, j)}
-                        onDelete={() => removeVariation(i, j)}
-                      />
-                    </div>
-                    <div className="horizontal-flex" style={{ gap: "0.2em" }}>
-                      {v.categories.map((c, k) => (
-                        <Chip
-                          label={c}
-                          variant="outlined"
-                          key={`variation-chip-${c}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
+        {augdataset !== null && (
+          <>
+            <div className="horizontal-flex" style={{ gap: "0.2em" }}>
+              <div
+                style={{
+                  width: "calc(100% - 8em)",
+                  display: "inline-block",
+                  flexGrow: "0",
+                }}
+              >
+                Variations
               </div>
-            );
-          })}
+              <div
+                className="horizontal-flex"
+                style={{ gap: "0.2em", flexGrow: "0" }}
+              >
+                Categories
+              </div>
+            </div>
+            {augdataset.samples.map((s: SampleWithVariations, i) => {
+              return (
+                <div className="variation-holder" key={`variation-${s.input}`}>
+                  {s.variations.map((v, j) => (
+                    <div
+                      key={`variation-${v.text}`}
+                      className="horizontal-flex"
+                      style={{ gap: "0.2em" }}
+                    >
+                      <div
+                        style={{
+                          width: "calc(100% - 8em)",
+                          display: "inline-block",
+                        }}
+                      >
+                        <RemovableTextField
+                          label="Variation"
+                          value={v.text}
+                          setValue={(s) => setVariation(s, i, j)}
+                          onDelete={() => removeVariation(i, j)}
+                        />
+                      </div>
+                      <div className="horizontal-flex" style={{ gap: "0.2em" }}>
+                        {v.categories.map((c, k) => (
+                          <Chip
+                            label={c}
+                            variant="outlined"
+                            key={`variation-chip-${c}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </>
+        )}
       </CardContent>
     </Card>
   );
