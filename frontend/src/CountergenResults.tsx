@@ -262,13 +262,6 @@ const CountergenResults = () => {
       <p>Some further experiments are needed:</p>
       <ul>
         <li>
-          Current experiments don't measure how much the edited models suffer
-          from the edition. Further experiment would{" "}
-          <b>measure the drop in performance due to edition</b> and compare it
-          to finetuning on the augmented dataset, and other bias reduction
-          methods.
-        </li>
-        <li>
           The current edition method projects the data in a subspace of the
           activation space. This requires a high degree of independence between
           directions, which is not exactly the case: Anthropic showed in their{" "}
@@ -287,6 +280,18 @@ const CountergenResults = () => {
           . This suggests that other kinds of projection - such as projection on
           a cone - might be able to remove relevant information about the target
           concepts while keeping unrelated concepts intact.
+        </li>
+        <li>
+          Current experiments don't measure how much the edited models suffer
+          from the edition. Further experiment would{" "}
+          <b>measure the drop in performance due to edition</b> and compare it
+          to finetuning on the augmented dataset, and other bias reduction
+          methods.{" "}
+          <i>
+            Note: this requires an easily measurable task the model should still
+            be good at, which is not straightforward in the context of
+            generative models.
+          </i>
         </li>
       </ul>
       <p>If you are interested, please reach out!</p>
