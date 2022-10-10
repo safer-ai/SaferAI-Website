@@ -168,10 +168,10 @@ const CountergenResults = () => {
                 <TableCell>Female stereotype</TableCell>
                 <TableCell>Male stereotype</TableCell>
                 <TableCell>
-                  Positive prosocial adjective in the double bind experiment
+                  Positive adjective in the double bind experiment
                 </TableCell>
                 <TableCell>
-                  Negative antisocial adjective in the double bind experiment
+                  Negative adjective in the double bind experiment
                 </TableCell>
               </TableRow>
             </TableHead>

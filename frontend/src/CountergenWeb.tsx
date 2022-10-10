@@ -16,7 +16,8 @@ const CountergenWeb = () => {
     <Container maxWidth="md">
       <h1 className="title">The CounterGen Web Tool</h1>
       <h3>
-        Choose or load data, augment it, and evaluate the model of your choice!
+        Choose or load data, augment it, and evaluate the bias of the model of
+        your choice!
       </h3>
       <p>
         If you use sensitive data, or if you want more flexibility, use the{" "}
