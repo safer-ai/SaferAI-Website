@@ -18,6 +18,8 @@ const Image = (props: { name: string }) => {
   const techniqueFullName = {
     inlp: "INLP",
     rlace: "RLACE",
+    inlpbis: "INLP",
+    rlacebis: "RLACE",
     rdm: "random vectors",
   }[words[0]];
   const measurementName =
@@ -31,6 +33,8 @@ const Image = (props: { name: string }) => {
       ? " (8 dimensions edited)"
       : words[1] === "32d"
       ? " (32 dimensions edited)"
+      : words[1] === "1d"
+      ? " (1 dimension edited)"
       : words[1] === "dims"
       ? "(at layer 7/12)"
       : "";
@@ -188,20 +192,30 @@ const CountergenResults = () => {
       <h2>Editing Method</h2>
       <ul>
         <li>
-          We measured model activations on the stereotype dataset and edited the
-          model to reduce this bias by applying INLP or RLACE on intermediate
-          activations of the neural network.
+          We measured model activations on a simple handcrafted training dataset
+          containing 20 variations of 10 sentences and edited the model to
+          reduce this bias by applying INLP or RLACE on intermediate activations
+          of the neural network.
         </li>
         <li>
           Finding the relevant directions in the activations is a noisy process.
-          We repeat the process 5 times and show the result of each run.
+          We repeat the process 5 times and show the result of each run, as well
+          as their average.
         </li>
         <li>
           We then measured the relative probability between completions
           following inputs with a female subject and inputs with male subjects
-          on both stereotypes data and the double bind data as validation.
+          on stereotypes data and the double bind data as validation.
         </li>
       </ul>
+      <p>
+        <i>
+          Because of compute limitations, all experiments are done on GPT-2
+          small. We expect the results to be similar with larger model, but we
+          can't demonstrate that yet.
+        </i>
+      </p>
+
       <Card className="section">
         <CardHeader
           className="section-title"
@@ -220,15 +234,38 @@ const CountergenResults = () => {
               <Image name="inlp_8d_layer" />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Image name="rlace_8d_layer" />
+              <Image name="rlace_1d_layer" />
             </Grid>
           </Grid>
+          <i>
+            For both techniques tested, we took the advised number of dimensions
+            to remove. Worse bias possible is 1, no bias is 0.
+          </i>
         </CardContent>
       </Card>
       <Card className="section">
         <CardHeader
           className="section-title"
-          title="Observation 2: The bias is not encoded in a linear way"
+          title="Observation 2: Editing direction generalizes well on most datasets"
+        />
+        <CardContent className="section-content">
+          <p>
+            As shown in the graphs above,{" "}
+            <b>editing reduces bias in both training and validation data</b>,
+            even though these are very different kinds of data (for instance,
+            our training data doesn't have any gender pronouns, only names, the
+            stereotypes data doesn't have any name in it).
+          </p>
+          <p>
+            However, that's not always the case: on the male stereotypes
+            dataset, the technique doesn't reduce bias much.
+          </p>
+        </CardContent>
+      </Card>
+      <Card className="section">
+        <CardHeader
+          className="section-title"
+          title="Observation 3: The bias is not encoded in a linear way"
         />
         <CardContent className="section-content">
           <p>
@@ -239,7 +276,7 @@ const CountergenResults = () => {
           </p>
           <Grid container>
             <Grid item xs={12} md={6}>
-              <Image name="rlace_8d_layer" />
+              <Image name="rlace_1d_layer" />
             </Grid>
             <Grid item xs={12} md={6}>
               <Image name="rlace_dims" />
@@ -247,17 +284,21 @@ const CountergenResults = () => {
           </Grid>
         </CardContent>
       </Card>
-
       <h2>Conclusion and upcoming improvements</h2>
       <p>
         Model exhibit easily <b>measurable bias</b> on small datasets from the
         literature, augmented using CounterGen.{" "}
         <b>
           Direct model editing reduces the bias to a considerable extent while
-          requiring very few datapoints
+          requiring very few data points
         </b>
         . Still, it doesn't eliminate all the biases these model have, even
-        according to our narrow definition of bias.
+        according to our narrow definition of bias, and sometimes increases it.
+        <b>
+          One should always check that editing reduced model bias before using
+          the edited model
+        </b>
+        .
       </p>
       <p>Some further experiments are needed:</p>
       <ul>
@@ -274,7 +315,7 @@ const CountergenResults = () => {
           </a>
           that{" "}
           <b>
-            rather than orthogonaility between vectors representing unrelated
+            rather than orthogonality between vectors representing unrelated
             concepts, we should expect "almost orthogonality"
           </b>
           . This suggests that other kinds of projection - such as projection on
@@ -285,7 +326,7 @@ const CountergenResults = () => {
           Current experiments don't measure how much the edited models suffer
           from the edition. Further experiment would{" "}
           <b>measure the drop in performance due to edition</b> and compare it
-          to finetuning on the augmented dataset, and other bias reduction
+          to fine-tuning on the augmented dataset, and other bias reduction
           methods.{" "}
           <i>
             Note: this requires an easily measurable task the model should still
@@ -296,6 +337,21 @@ const CountergenResults = () => {
       </ul>
       <p>If you are interested, please reach out!</p>
       <h2>Additional remarks</h2>
+      <h3>Choose your training data wisely!</h3>
+      <p>
+        The methods followed doesn't work much better when the directions are
+        found using the data we care about: below is what we found using the
+        stereotypes dataset as training data.
+      </p>
+      <p></p>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Image name="inlpbis_8d_layer" />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Image name="rlacebis_1d_layer" />
+        </Grid>
+      </Grid>
       <h3>Comparison with picking random dimensions</h3>
       <p>
         Projecting activation on random directions increases noise, and reduces

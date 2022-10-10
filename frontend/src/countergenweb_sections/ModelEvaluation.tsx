@@ -81,7 +81,7 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
           className="horizontal-flex"
           style={{ padding: "0.5em", gap: "0.5em" }}
         >
-          <p style={{ margin: 0 }}>Chose a model to evaluate</p>
+          <p style={{ margin: 0 }}>Choose a model to evaluate</p>
           <Select
             value={selectedModel}
             label="Model"
@@ -98,6 +98,7 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
             <MenuItem value={"your-api"}>Use your own API key and URL</MenuItem>
           </Select>
         </div>
+        <p>We will add more models if there's interest for it!</p>
         {useAPI && (
           <>
             <div
