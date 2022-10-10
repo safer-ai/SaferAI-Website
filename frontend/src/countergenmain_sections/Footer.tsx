@@ -13,6 +13,7 @@ const Footer = () => {
     >
       <Container maxWidth="md">
         <Typography>By SaferAI, 2022</Typography>
+        <Typography>Contact us at saferai.audit at gmail.com</Typography>
       </Container>
     </Box>
   );
