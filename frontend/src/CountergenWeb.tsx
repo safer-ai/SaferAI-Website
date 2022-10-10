@@ -19,6 +19,16 @@ const CountergenWeb = () => {
         Choose or load data, augment it, and evaluate the bias of the model of
         your choice!
       </h3>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          src="/images/explanation.svg"
+          alt="explanation"
+          style={{
+            border: "#024564 2px solid",
+            width: "calc(min(100%, 35em))",
+          }}
+        ></img>
+      </div>
       <p>
         If you use sensitive data, or if you want more flexibility, use the{" "}
         <a href={NOTEBOOK_URL}>Colab Notebook</a>, or run the{" "}
