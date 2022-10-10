@@ -5,6 +5,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import ResultBars from "../components/ResultBars";
@@ -38,25 +39,36 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
   const [result, setResult] = useState<EvaluationReturn | null>(null);
   const [selectedModel, setSelectModel] = useState<string>("text-ada-001");
   const useAPI = selectedModel === "your-api";
-  const [apiKey, setApiKey] = useState<string>("");
+  const [apiKey, setApiKey] = useState<string>("sk-...");
   const [apiURL, setApiURL] = useState<string>("https://api.openai.com/v1");
   const [modelName, setModelName] = useState<string>("text-ada-001");
+  const [isApiErr, setIsApiErr] = useState<boolean>(false);
   const [waiting, setWaiting] = useState<boolean>(false);
+
+  const processData = (data: any) => {
+    if (!data || "error" in data) {
+      setResult(null);
+      setIsApiErr(true);
+      setWaiting(false);
+      return;
+    }
+    setResult(data);
+    setWaiting(false);
+  };
 
   const evaluate = () => {
     setWaiting(true);
+    setIsApiErr(false);
     if (augdataset === null) return;
     if (useAPI) {
       sendAPIEvaluate(augdataset, modelName, apiKey, apiURL).then(
         (data: any) => {
-          setResult(data);
-          setWaiting(false);
+          processData(data);
         }
       );
     } else {
       simpleEvaluate(augdataset, selectedModel).then((data: any) => {
-        setResult(data);
-        setWaiting(false);
+        processData(data);
       });
     }
   };
@@ -85,8 +97,13 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
             <MenuItem value={"text-davinci-002"}>OpenAI Instruct GPT</MenuItem>
             <MenuItem value={"your-api"}>Use your own API key and URL</MenuItem>
           </Select>
-          {useAPI && (
-            <>
+        </div>
+        {useAPI && (
+          <>
+            <div
+              className="horizontal-flex"
+              style={{ padding: "0.5em", gap: "0.5em" }}
+            >
               <TextField
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
@@ -115,9 +132,25 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
                 margin="dense"
                 label="Model name"
               />
-            </>
-          )}
-        </div>
+            </div>
+            <Typography>
+              Your API key should be the API key provided by the API provider
+              you are using. The API URL is an URL given by your API provider.
+              OpenAI's is <code>https://api.openai.com/v1</code> and GooseAI
+              (which provides access to GPT-NeoX 20B and GPT-J) is{" "}
+              <code>https://api.goose.ai/v1</code>. This URL will be fed into
+              the <code>openai</code> Python module, and your API provider must
+              be compatible with it. The model name is the code corresponding to
+              the model you wish to use: GPT-3 is <code>text-davinci-001</code>,
+              and GPT-NeoX 20B is <code>gpt-neo-20b</code>.
+            </Typography>
+            {isApiErr && (
+              <Typography color="secondary">
+                The request failed. Please use a valid key, URL and model name.
+              </Typography>
+            )}
+          </>
+        )}
         <div
           style={{
             width: "100%",
