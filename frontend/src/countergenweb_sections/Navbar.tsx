@@ -66,7 +66,6 @@ const pages = [
         <div>Docs</div>
       </>
     ),
-    low_priority: true,
   },
 ];
 
@@ -206,7 +205,7 @@ const Navbar = () => {
               gap: 2,
             }}
           >
-            {pages.map(({ link, children, external, low_priority }) => {
+            {pages.map(({ link, children, external }) => {
               const linkStyle: any = {
                 color: "white",
                 textDecoration: "none",
@@ -222,10 +221,6 @@ const Navbar = () => {
                   onClick={handleCloseNavMenu}
                   sx={{
                     color: "white",
-                    display: {
-                      md: low_priority ? "none" : "block",
-                      lg: "block",
-                    },
                     fontSize: "16px",
                   }}
                 >

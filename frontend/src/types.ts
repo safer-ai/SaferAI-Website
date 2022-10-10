@@ -9,7 +9,7 @@ export type Category = string;
 export type Sample = {
   input: Input;
   outputs: Outputs;
-  time?: number;
+  time?: number; // To force reloads
 };
 export type Dataset = { samples: Sample[] };
 
@@ -18,7 +18,7 @@ export type SampleWithVariations = {
   input: Input;
   outputs: Outputs;
   variations: Variation[];
-  time?: number;
+  time?: number; // To force reloads
 };
 export type AugmentedDataset = { samples: SampleWithVariations[] };
 

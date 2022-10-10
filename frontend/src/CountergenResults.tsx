@@ -151,10 +151,10 @@ const CountergenResults = () => {
         />
         <CardContent className="section-content">
           <p>
-            We compare the probability that a model generate one of the expected
-            outputs when the subjects of the input are female and when they are
-            male. The given number is the average relative probability (relative
-            to the biggest of the two probabilities compared).
+            We compare the probability that a model generates one of the
+            expected outputs when the subjects of the input are females and when
+            they are males. The given number is the average relative probability
+            (relative to the biggest of the two probabilities compared).
           </p>
           <p>Data:</p>
           <ul>
@@ -269,7 +269,7 @@ const CountergenResults = () => {
         />
         <CardContent className="section-content">
           <p>
-            Though RLACE is able to make any linear classifier fail separation
+            Though RLACE is able to make any linear classifier fail to separate
             between male and female with a rank-8 projection, we found that, no
             matter where the projection is done, and how many dimensions are
             removed, model bias isn't eliminated.
@@ -286,14 +286,14 @@ const CountergenResults = () => {
       </Card>
       <h2>Conclusion and upcoming improvements</h2>
       <p>
-        Model exhibit easily <b>measurable bias</b> on small datasets from the
+        Models exhibit easily <b>measurable bias</b> on small datasets from the
         literature, augmented using CounterGen.{" "}
         <b>
           Direct model editing reduces the bias to a considerable extent while
           requiring very few data points
         </b>
-        . Still, it doesn't eliminate all the biases these model have, even
-        according to our narrow definition of bias, and sometimes increases it.
+        . Still, it doesn't eliminate all the biases these models have, even
+        according to our narrow definition of bias, and sometimes increases it.{" "}
         <b>
           One should always check that editing reduced model bias before using
           the edited model
@@ -312,7 +312,7 @@ const CountergenResults = () => {
             rel="noreferrer"
           >
             Polysemanticy write-up
-          </a>
+          </a>{" "}
           that{" "}
           <b>
             rather than orthogonality between vectors representing unrelated
@@ -324,7 +324,7 @@ const CountergenResults = () => {
         </li>
         <li>
           Current experiments don't measure how much the edited models suffer
-          from the edition. Further experiment would{" "}
+          from the edition. Further experiments would{" "}
           <b>measure the drop in performance due to edition</b> and compare it
           to fine-tuning on the augmented dataset, and other bias reduction
           methods.{" "}
@@ -339,7 +339,7 @@ const CountergenResults = () => {
       <h2>Additional remarks</h2>
       <h3>Choose your training data wisely!</h3>
       <p>
-        The methods followed doesn't work much better when the directions are
+        The methods followed don't work much better when the directions are
         found using the data we care about: below is what we found using the
         stereotypes dataset as training data.
       </p>

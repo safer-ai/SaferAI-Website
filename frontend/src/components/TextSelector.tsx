@@ -33,6 +33,9 @@ const TextSelector = (props: TextSelectorProps) => {
   const removeSample = (i: number) => {
     const newSamples = [...dataset.samples];
     newSamples.splice(i, 1);
+    newSamples.forEach((sample) => {
+      sample.time = (sample.time ?? 0) + 1; // Force reload
+    });
     setDataset({
       samples: newSamples,
     });

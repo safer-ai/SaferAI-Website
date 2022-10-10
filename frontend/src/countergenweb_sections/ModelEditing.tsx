@@ -11,8 +11,15 @@ const ModelEditing = () => {
       <CardContent className="section-content">
         <p>
           Model editing isn't available in the web tool. If you want to use it,
-          either use <a href={NOTEBOOK_URL}>the Colab Notebook</a>, or run the{" "}
-          <a href={REPO_URL}>Python modules</a> locally.
+          either use{" "}
+          <a href={NOTEBOOK_URL} target="_blank" rel="noreferrer">
+            the Colab Notebook
+          </a>
+          , or run the{" "}
+          <a href={REPO_URL} target="_blank" rel="noreferrer">
+            Python modules
+          </a>{" "}
+          locally.
         </p>
         <p>
           A short explanation of what the editing does and how it works is
@@ -21,6 +28,8 @@ const ModelEditing = () => {
             href={
               "https://fabienroger.github.io/Countergen/docs/_build/html/countergenedit/usage.html"
             }
+            target="_blank"
+            rel="noreferrer"
           >
             here
           </a>
