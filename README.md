@@ -1,12 +1,16 @@
 # CounterGen website
 
-This repo contains the website that presents CounterGen and provide a web interface for it.
+This repository contains the CounterGen Web Tool and the website that explains how CounterGen works. Check it out [here](http://www.safer-ai.org/countergen).
+
+Feel free to deploy it in your organization to let more people evaluate of large language models!
+
+The parts of the projects not relevant to the online tool itself are the `Navbar`, the `Footer`, the `countergenmain_sections`, `CountergenMain`, and `CountergenResults`. Feel free to remove them from your project if you don't need them!
 
 ## Dev instructions
 
-Written in React + ts with MUI.
+Written in React + Typescript with MaterialUI.
 
-To run the backend:
+To run the backend locally:
 
 1. Set the OPENAI_API_KEY env variable to your openai key.
 2. Run
@@ -17,7 +21,7 @@ python app.py
 
 To dev the frontend:
 
-1. Create a `.env` file in `frontend/` containing `REACT_APP_COUNTERGEN_BACK_URL=http://127.0.0.1:5000` (or the URL of whathever backend you wish to use, for example `https://countergen.heroku.app`)
+1. Create a `.env` file in `frontend/` containing `REACT_APP_COUNTERGEN_BACK_URL=http://127.0.0.1:5000` (or the URL of the backend you wish to use)
 2. Run
 
 ```bash
@@ -26,47 +30,10 @@ cd frontend; npm start
 
 ## Deploy
 
-Remove `REACT_APP_COUNTERGEN_BACK_URL=http://127.0.0.1:5000` in the `.env` file
-
 ### Deploy on heroku
 
 ```bash
 git push heroku main
-```
-
-### Deploy on beanstalk
-
-1. Add your aws credentials to the appropriate `.aws` folder
-
-2. In frontend folder, run
-
-```bash
-npm run build
-```
-
-3. In project folder, run
-
-```bash
-pip install -r requirements-dev.txt
-```
-
-4. Copy the content of the `frontend/build` folder as well as `requirements.txt` and `application.py`
-   in the root directory of another folder. Remove the CORS from the `application.py`, send `index.html` instead of `__file__[:-6] + "frontend/build/index.html"`, replace the Flask constructor by `Flask(__name__)`, and remove arguments from the `application.run` command.
-
-5. In the new folder you created, run
-
-```bash
-eb init -p python-3.7 countergen-web --region us-east-2
-eb create
-```
-
-Follow the instruction and stick with the defaults.
-
-```bash
-git init
-git add .
-git commit -m "Deploy"
-eb deploy
 ```
 
 ### Deploy on an EC2 instance
@@ -75,7 +42,7 @@ Setup the instance by following the instructions here <https://www.youtube.com/w
 and then enter the following instruction
 
 ```bash
-ssh -i ~/.ssh/countergen-website-2.pem ubuntu@[SSH-IP]
+ssh -i ~/.ssh/countergen-website-2.pem ubuntu@<SSH-IP>
 git clone https://github.com/FabienRoger/Countergen-Website
 sudo apt update
 sudo apt install python-is-python3
@@ -87,12 +54,11 @@ npm run build
 cd ~/Countergen-Website
 sudo apt install libpq-dev python3-dev
 pip install -r requirements.txt
-export PORT=8080
-export OPENAI_API_KEY=
+export PORT=<PORT YOUR ARE USING (8080 if you are following the instruction)>
+export OPENAI_API_KEY=<YOUR API KEY>
 screen
 python app.py
 ```
+Ctrl+A then d to close the python process without shutting down the server.
 
-Ctrl+A then d
-
-(recover with `screen -r`)
+Recover the python process with `screen -r`.
