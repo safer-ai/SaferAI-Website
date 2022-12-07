@@ -1,10 +1,4 @@
-# CounterGen website
-
-This repository contains the CounterGen Web Tool and the website that explains how CounterGen works. Check it out [here](http://www.safer-ai.org/countergen).
-
-Feel free to deploy it in your organization to let more people evaluate of large language models!
-
-The parts of the projects not relevant to the online tool itself are the `Navbar`, the `Footer`, the `countergenmain_sections`, `CountergenMain`, and `CountergenResults`. Feel free to remove them from your project if you don't need them!
+# SaferAI's Website
 
 ## Dev instructions
 
