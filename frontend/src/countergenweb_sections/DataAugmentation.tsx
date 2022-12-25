@@ -27,7 +27,6 @@ const DataAugmentation = (props: DataAugmentationProps) => {
   const [augmentGender, setAugmentGender] = useState<boolean>(true);
   const [augmentRace, setAugmentRace] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
-  const [downloadURL, setDownloadURL] = useState<string | null>(null);
 
   const augment = () => {
     let toAugment = [];
@@ -44,19 +43,27 @@ const DataAugmentation = (props: DataAugmentationProps) => {
         return;
       }
       setAugDataset(refreshAllIds(augds));
-      const samplesStrings = augds.samples.map((sample) => {
-        const { input, outputs, variations } = sample;
-        return JSON.stringify({ input, outputs, variations });
-      });
-      const jsonlString = samplesStrings?.join("\n");
-      const blob = new Blob([jsonlString]);
-      if (downloadURL !== null) {
-        URL.revokeObjectURL(downloadURL);
-      }
-      const fileDownloadUrl = URL.createObjectURL(blob);
-      setDownloadURL(fileDownloadUrl);
       setWaiting(false);
     });
+  };
+
+  const download = () => {
+    if (augdataset === null) return;
+    const samplesStrings = augdataset.samples.map((sample) => {
+      const { input, outputs, variations } = sample;
+      return JSON.stringify({ input, outputs, variations });
+    });
+    const jsonlString = samplesStrings?.join("\n");
+    const blob = new Blob([jsonlString]);
+
+    const fileDownloadUrl = URL.createObjectURL(blob);
+    const aElement = document.createElement('a');
+    aElement.setAttribute('href', fileDownloadUrl);
+    aElement.setAttribute('download', "augmented_data.jsonl");
+    aElement.href = fileDownloadUrl;
+    aElement.setAttribute('target', '_blank');
+    aElement.click();
+    URL.revokeObjectURL(fileDownloadUrl);
   };
 
   const setSample = (i: number, sample: SampleWithVariations) => {
@@ -146,19 +153,11 @@ const DataAugmentation = (props: DataAugmentationProps) => {
         </div>
       </CardContent>
       <CardContent className="section-result">
-        {augdataset !== null && downloadURL !== null && (
+        {augdataset !== null && (
           <>
             <div className="horizontal-flex" style={{ gap: "0.5em" }}>
-              <Button color="secondary" variant="outlined">
-                <a
-                  href={downloadURL}
-                  target="_blank"
-                  download="augmented_data.jsonl"
-                  rel="noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  Download
-                </a>
+              <Button color="secondary" variant="outlined" onClick={download}>
+                Download
               </Button>
               <p>
                 If you download the augmented data, you can use it to fine-tune
