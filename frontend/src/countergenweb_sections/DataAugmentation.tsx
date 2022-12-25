@@ -11,7 +11,7 @@ import Ready from "../components/Ready";
 import WaitableButton from "../components/WaitableButton";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { multipleAugment } from "../utils/communication";
-import { dsIsReadyToAugment, dsIsReadyToEvaluate } from "../utils/dsUtils";
+import { dsIsReadyToAugment, dsIsReadyToEvaluate, refreshAllIds } from "../utils/dsUtils";
 import RemovableTextField from "../components/RemovableTextField";
 
 type DataAugmentationProps = {
@@ -43,7 +43,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       if (augds === undefined) {
         return;
       }
-      setAugDataset(augds);
+      setAugDataset(refreshAllIds(augds));
       const samplesStrings = augds.samples.map((sample) => {
         const { input, outputs, variations } = sample;
         return JSON.stringify({ input, outputs, variations });
@@ -76,7 +76,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       input: samples[i].input,
       variations: newVariations,
       outputs: samples[i].outputs,
-      time: (samples[i].time ?? 0) + 1, // Force update
+      id: Math.random(), // Force update
     });
   };
 
@@ -89,6 +89,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       input: samples[i].input,
       outputs: samples[i].outputs,
       variations: newVariations,
+      id: samples[i].id,
     });
   };
 
@@ -189,10 +190,10 @@ const DataAugmentation = (props: DataAugmentationProps) => {
             </div>
             {augdataset.samples.map((s: SampleWithVariations, i) => {
               return (
-                <div className="variation-holder" key={`variation-${s.input}`}>
+                <div className="variation-holder" key={`variation-${s.id}`}>
                   {s.variations.map((v, j) => (
                     <div
-                      key={`variation-${v.text}`}
+                      key={`variation-${s.id}-${j}`}
                       className="horizontal-flex"
                       style={{ gap: "0.2em" }}
                     >

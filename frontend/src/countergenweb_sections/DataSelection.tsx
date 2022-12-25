@@ -11,7 +11,7 @@ import Ready from "../components/Ready";
 import TextSelector from "../components/TextSelector";
 import { Dataset, Sample } from "../types";
 import { getDefaultDataset } from "../utils/communication";
-import { cleanDs, dsIsReadyToAugment, formatDs } from "../utils/dsUtils";
+import { cleanDs, dsIsReadyToAugment, formatDs, refreshAllIds } from "../utils/dsUtils";
 import { MAX_SAMPLES, DATASETS, DEFAULT_DS } from "../params";
 
 type DataSelectionProps = {
@@ -42,9 +42,9 @@ const DataSelection = (props: DataSelectionProps) => {
   const addDefault = (name: string) => {
     getDefaultDataset(name).then((data: Dataset | undefined) => {
       if (data !== undefined)
-        setCleanDataset({
+        setCleanDataset(refreshAllIds({
           samples: [...cleanDataset.samples, ...cleanDs(data).samples],
-        });
+        }));
     });
   };
 
@@ -89,9 +89,9 @@ const DataSelection = (props: DataSelectionProps) => {
           });
         }
         console.log(samples);
-        setCleanDataset({
+        setCleanDataset(refreshAllIds({
           samples: [...cleanDataset.samples, ...cleanDs({ samples }).samples],
-        });
+        }));
         // read the file
       } catch (e) {
         setDisplayUploadFileInfo(true);

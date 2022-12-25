@@ -1,4 +1,4 @@
-import { AugmentedDataset } from "../types";
+import { AugmentedDataset, SampleWithVariations } from "../types";
 import { addBeginSpace, stripEndSpace, stripBeginSpace } from "./textUtils";
 import { Dataset, Outputs, Sample } from "../types";
 import { MAX_SAMPLES, MIN_OUTPUTS, MIN_SAMPLES } from "../params";
@@ -19,6 +19,7 @@ export const cleanDs = (ds: Dataset): Dataset => {
       return {
         input: stripBeginSpace(stripEndSpace(sample.input)),
         outputs: cleanOutputs(sample.outputs),
+        id: sample.id,
       };
     })
     .filter((sample) => sample.input.length > 0);
@@ -40,6 +41,7 @@ export const formatDs = (ds: Dataset): Dataset => {
       return {
         input: stripBeginSpace(stripEndSpace(sample.input)),
         outputs: formatOutputs(sample.outputs),
+        id: sample.id,
       };
     })
     .filter((sample) => sample.input.length > 0 && sample.outputs.length > 0);
@@ -98,3 +100,15 @@ export const dsIsReadyToEvaluate = (ds: AugmentedDataset): ReadyState => {
     message: "Ready to evaluate!",
   };
 };
+
+export const refreshAllIds = <T extends Sample|SampleWithVariations>(ds: {samples: T[]}): {samples: T[]} => {
+  const newSamples = ds.samples.map((sample) => {
+    return {
+      ...sample,
+      id: Math.random(),
+    };
+  });
+  return {
+    samples: newSamples,
+  };
+}
