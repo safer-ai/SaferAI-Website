@@ -37,11 +37,11 @@ const Outlier = (props: { outlierData: OutlierData }) => {
 const ModelEvaluation = (props: ModelEvaluationProps) => {
   const { augdataset } = props;
   const [result, setResult] = useState<EvaluationReturn | null>(null);
-  const [selectedModel, setSelectModel] = useState<string>("text-ada-001");
+  const [selectedModel, setSelectModel] = useState<string>("ada");
   const useAPI = selectedModel === "your-api";
   const [apiKey, setApiKey] = useState<string>("sk-...");
   const [apiURL, setApiURL] = useState<string>("https://api.openai.com/v1");
-  const [modelName, setModelName] = useState<string>("text-ada-001");
+  const [modelName, setModelName] = useState<string>("ada");
   const [isApiErr, setIsApiErr] = useState<boolean>(false);
   const [waiting, setWaiting] = useState<boolean>(false);
 
@@ -88,13 +88,13 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
             size="small"
             onChange={(e) => setSelectModel(e.target.value)}
           >
-            <MenuItem value={"text-ada-001"}>OpenAI Ada</MenuItem>
-            <MenuItem value={"text-babbage-001"}>OpenAI Babbage</MenuItem>
-            <MenuItem value={"text-curie-001"}>OpenAI Curie</MenuItem>
-            <MenuItem value={"text-davinci-001"}>
+            <MenuItem value={"ada"}>OpenAI Ada</MenuItem>
+            <MenuItem value={"babbage"}>OpenAI Babbage</MenuItem>
+            <MenuItem value={"curie"}>OpenAI Curie</MenuItem>
+            <MenuItem value={"davinci"}>
               OpenAI GPT-3 (Davinci)
             </MenuItem>
-            <MenuItem value={"text-davinci-002"}>OpenAI Instruct GPT</MenuItem>
+            <MenuItem value={"text-davinci-003"}>OpenAI Instruct GPT</MenuItem>
             <MenuItem value={"your-api"}>Use your own API key and URL</MenuItem>
           </Select>
         </div>
@@ -142,7 +142,7 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
               <code>https://api.goose.ai/v1</code>. This URL will be fed into
               the <code>openai</code> Python module, and your API provider must
               be compatible with it. The model name is the code corresponding to
-              the model you wish to use: GPT-3 is <code>text-davinci-001</code>,
+              the model you wish to use: GPT-3 is <code>davinci</code>,
               and GPT-NeoX 20B is <code>gpt-neo-20b</code>.
             </Typography>
             {isApiErr && (

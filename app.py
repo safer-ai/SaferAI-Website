@@ -160,12 +160,12 @@ def evaluate_complex(samples: Iterable[AugmentedSample], model_ev: ModelEvaluato
 
 
 @application.route("/evaluate/simple/<model_name>", methods=["POST"])
-def evaluate_simple(model_name="text-ada-001"):
+def evaluate_simple(model_name="ada"):
     """Accepts only certain models any model name
 
     Except data like augds.samples (a list)"""
 
-    if model_name not in ["text-ada-001", "text-babbage-001", "text-curie-001", "text-davinci-001", "text-davinci-002"]:
+    if model_name not in ["ada", "babbage", "curie", "davinci", "text-davinci-003"]:
         return json.dumps({"error": "wrong model name", "data": model_name})
 
     ds = load_sent_augds(request.json)
@@ -183,7 +183,7 @@ def evaluate_simple(model_name="text-ada-001"):
 
 
 @application.route("/evaluate/sendapi/<model_name>", methods=["POST"])
-def evaluate_sendapi(model_name="text-ada-001"):
+def evaluate_sendapi(model_name="ada"):
     """Accepts any model name.
 
     Except data like
