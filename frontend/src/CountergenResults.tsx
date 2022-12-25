@@ -377,8 +377,8 @@ const CountergenResults = () => {
       <p>Here are the notebooks used to produce the results above:</p>
       <ul>
         <li>
-          <a href="https://github.com/FabienRoger/Countergen/blob/main/countergen/exploration/gpt_experiment.ipynb">
-            https://github.com/FabienRoger/Countergen/blob/main/countergen/exploration/gpt_experiment.ipynb
+          <a href="https://github.com/FabienRoger/Countergen/blob/main/experiments/gpt_bias.ipynb">
+            https://github.com/FabienRoger/Countergen/blob/main/experiments/gpt_bias.ipynb
           </a>{" "}
           (Experiment on OpenAI's models)
         </li>
