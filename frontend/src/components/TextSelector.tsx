@@ -15,7 +15,10 @@ const TextSelector = (props: TextSelectorProps) => {
 
   const addSample = () => {
     setDataset({
-      samples: [...dataset.samples, { input: "", outputs: [""], id: Math.random() }],
+      samples: [
+        ...dataset.samples,
+        { input: "", outputs: [""], id: Math.random() },
+      ],
     });
   };
 
@@ -68,10 +71,7 @@ const TextSelector = (props: TextSelectorProps) => {
     <div className="text-selector">
       {samples.map(({ input, outputs, id }, i) => {
         return (
-          <div
-            className="text-selector-line"
-            key={`selector-item-input-${id}`}
-          >
+          <div className="text-selector-line" key={`selector-item-input-${id}`}>
             {/* {id} */}
             <RemovableTextField
               label="Input"

@@ -20,7 +20,6 @@ const WaitableButton = (props: WaitableButtonProps) => {
         disabled={waiting || disabled}
         variant="contained"
         {...(buttonParams ?? {})}
-        
       >
         {text}
       </Button>

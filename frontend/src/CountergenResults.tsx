@@ -26,18 +26,18 @@ const Image = (props: { name: string }) => {
     words[1] === "dims"
       ? "the number of dimension edited changes"
       : words[2] === "layer"
-        ? "the edited layer changes"
-        : "the number of edited layer changes";
+      ? "the edited layer changes"
+      : "the number of edited layer changes";
   const additionalInfo =
     words[1] === "8d"
       ? " (8 dimensions edited)"
       : words[1] === "32d"
-        ? " (32 dimensions edited)"
-        : words[1] === "1d"
-          ? " (1 dimension edited)"
-          : words[1] === "dims"
-            ? "(at layer 7/12)"
-            : "";
+      ? " (32 dimensions edited)"
+      : words[1] === "1d"
+      ? " (1 dimension edited)"
+      : words[1] === "dims"
+      ? "(at layer 7/12)"
+      : "";
   const fullName = `Bias with ${techniqueFullName} as ${measurementName}`;
   return (
     <div

@@ -11,7 +11,11 @@ import Ready from "../components/Ready";
 import WaitableButton from "../components/WaitableButton";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { multipleAugment } from "../utils/communication";
-import { dsIsReadyToAugment, dsIsReadyToEvaluate, refreshAllIds } from "../utils/dsUtils";
+import {
+  dsIsReadyToAugment,
+  dsIsReadyToEvaluate,
+  refreshAllIds,
+} from "../utils/dsUtils";
 import RemovableTextField from "../components/RemovableTextField";
 
 type DataAugmentationProps = {
@@ -57,11 +61,11 @@ const DataAugmentation = (props: DataAugmentationProps) => {
     const blob = new Blob([jsonlString]);
 
     const fileDownloadUrl = URL.createObjectURL(blob);
-    const aElement = document.createElement('a');
-    aElement.setAttribute('href', fileDownloadUrl);
-    aElement.setAttribute('download', "augmented_data.jsonl");
+    const aElement = document.createElement("a");
+    aElement.setAttribute("href", fileDownloadUrl);
+    aElement.setAttribute("download", "augmented_data.jsonl");
     aElement.href = fileDownloadUrl;
-    aElement.setAttribute('target', '_blank');
+    aElement.setAttribute("target", "_blank");
     aElement.click();
     URL.revokeObjectURL(fileDownloadUrl);
   };

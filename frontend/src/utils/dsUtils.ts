@@ -101,7 +101,9 @@ export const dsIsReadyToEvaluate = (ds: AugmentedDataset): ReadyState => {
   };
 };
 
-export const refreshAllIds = <T extends Sample|SampleWithVariations>(ds: {samples: T[]}): {samples: T[]} => {
+export const refreshAllIds = <T extends Sample | SampleWithVariations>(ds: {
+  samples: T[];
+}): { samples: T[] } => {
   const newSamples = ds.samples.map((sample) => {
     return {
       ...sample,
@@ -111,4 +113,4 @@ export const refreshAllIds = <T extends Sample|SampleWithVariations>(ds: {sample
   return {
     samples: newSamples,
   };
-}
+};
