@@ -16,7 +16,7 @@ import {
   BsFillStarFill,
 } from "react-icons/bs";
 import { SiReadthedocs, SiGooglecolab } from "react-icons/si";
-import { DOCS_URL, NOTEBOOK_URL, REPO_URL } from "../params";
+import { DOCS_URL, NOTEBOOK_URL, REPO_URL } from "./params";
 
 const pages = [
   {

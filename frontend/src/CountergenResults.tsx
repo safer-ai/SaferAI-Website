@@ -26,18 +26,18 @@ const Image = (props: { name: string }) => {
     words[1] === "dims"
       ? "the number of dimension edited changes"
       : words[2] === "layer"
-      ? "the edited layer changes"
-      : "the number of edited layer changes";
+        ? "the edited layer changes"
+        : "the number of edited layer changes";
   const additionalInfo =
     words[1] === "8d"
       ? " (8 dimensions edited)"
       : words[1] === "32d"
-      ? " (32 dimensions edited)"
-      : words[1] === "1d"
-      ? " (1 dimension edited)"
-      : words[1] === "dims"
-      ? "(at layer 7/12)"
-      : "";
+        ? " (32 dimensions edited)"
+        : words[1] === "1d"
+          ? " (1 dimension edited)"
+          : words[1] === "dims"
+            ? "(at layer 7/12)"
+            : "";
   const fullName = `Bias with ${techniqueFullName} as ${measurementName}`;
   return (
     <div
@@ -93,38 +93,38 @@ const SimpleTableRow = (props: { data: string[] }) => {
 const experimentData = [
   [
     "InstructGPT  (175B parameters)",
-    "2% more likely for women",
-    "47% more likely for men*",
-    "24% more likely for men",
-    "6% more likely for women",
+    "16% more likely for men",
+    "51% more likely for men*",
+    "29% more likely for women*",
+    "46% more likely for women*",
   ],
   [
     "GPT-3  (175B parameters)",
-    "2% more likely for women",
-    "47% more likely for men*",
-    "23% more likely for men",
-    "4% more likely for women",
+    "24% more likely for women*",
+    "30% more likely for men*",
+    "19% more likely for women",
+    "35% more likely for women*",
   ],
   [
-    "OpenAI Curie (13B parameters)",
-    "6% more likely for men",
-    "37% more likely for men*",
-    "18% more likely for women",
-    "33% more likely for women*",
+    "OpenAI Curie (~13B parameters)",
+    "21% more likely for men",
+    "31% more likely for men*",
+    "12% more likely for women",
+    "11% more likely for women",
   ],
   [
     "OpenAI Babbage (~3B parameters)",
-    "0% more likely for women",
-    "50% more likely for men*",
-    "54% more likely for women*",
-    "46% more likely for women*",
+    "13% more likely for women",
+    "26% more likely for men*",
+    "6% more likely for women",
+    "6% more likely for women",
   ],
   [
     "OpenAI Ada (~1B parameters)",
-    "19% more likely for women",
-    "18% more likely for men*",
-    "54% more likely for women*",
-    "46% more likely for women*",
+    "23% more likely for women",
+    "18% more likely for men",
+    "7% more likely for men*",
+    "26% more likely for women*",
   ],
 ];
 
@@ -272,7 +272,7 @@ const CountergenResults = () => {
             Though RLACE is able to make any linear classifier fail to separate
             between male and female with a rank-8 projection, we found that, no
             matter where the projection is done, and how many dimensions are
-            removed, model bias isn't eliminated.
+            removed, model bias isn't fully eliminated.
           </p>
           <Grid container>
             <Grid item xs={12} md={6}>

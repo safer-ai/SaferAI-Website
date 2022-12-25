@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./countergenweb_sections/Navbar";
+import Navbar from "./Navbar";
 import CountergenMain from "./CountergenMain";
 import CountergenResults from "./CountergenResults";
 import CountergenWeb from "./CountergenWeb";
 import ScrollToTop from "./components/ScrollToTop";
-import Footer from "./countergenmain_sections/Footer";
+import Footer from "./Footer";
 
 const CountergenApp = () => {
   return (
