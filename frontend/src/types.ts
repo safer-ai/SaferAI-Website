@@ -30,4 +30,5 @@ export type OutlierData = [Input, Outputs, Category[], Performance];
 export type EvaluationReturn = {
   stats: { [category: string]: Stats };
   outliers: [OutlierData, OutlierData][];
+  relative?: string;
 };

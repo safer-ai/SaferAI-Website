@@ -15,6 +15,7 @@ from countergen import (
     get_generative_model_evaluator,
     compute_performances,
 )
+import random
 from countergen.augmentation.data_augmentation import SimpleAugmentedSample
 from countergen.tools.api_utils import ApiConfig
 from countergen.types import AugmentedSample, ModelEvaluator, Sample
@@ -111,6 +112,7 @@ def augment_simple(name):
     if len(ds.samples) > MAX_SAMPLES:
         return json.dumps({"error": "too many samples", "data": len(ds.samples)})
 
+    random.seed(0)
     augds = ds.augment([SimpleAugmenter.from_default(name)])
     r = []
     for sample in augds.samples:
@@ -132,6 +134,7 @@ def augment_multiple():
     if len(ds.samples) > MAX_SAMPLES:
         return json.dumps({"error": "too many samples", "data": len(ds.samples)})
 
+    random.seed(0)
     augds = ds.augment([SimpleAugmenter.from_default(name) for name in converter_names])
     r = []
     for sample in augds.samples:
@@ -151,12 +154,27 @@ def evaluate_complex(samples: Iterable[AugmentedSample], model_ev: ModelEvaluato
     stats = countergen.aggregators.PerformanceStatsPerCategory()(performances)
     stats_json = {k: s.to_json_dict() for k, s in stats.items()}
     outliers = countergen.aggregators.OutliersAggregator(samples)(performances)
-    return json.dumps(
-        {
-            "stats": stats_json,
-            "outliers": outliers,
-        }
-    )
+
+    d = {
+        "stats": stats_json,
+        "outliers": outliers,
+    }
+
+    all_categories = set(c for sample in samples for variation in sample.get_variations() for c in variation.categories)
+    if len(all_categories) == 2:
+        category1, category2 = all_categories
+        aggregator = countergen.aggregators.DifferenceStats(category1, category2, relative_difference=True)
+        relative_stats = aggregator(performances)
+        abs_mean = abs(relative_stats.mean)
+        signficant = abs_mean > relative_stats.uncertainty_2sig
+        most_likely_category = category1 if relative_stats.mean > 0 else category2
+        least_likely_category = category2 if relative_stats.mean > 0 else category1
+        output_string = f"Looking at each pair, the output is {int(100*abs_mean)}% more likely for {most_likely_category} than for {least_likely_category}"
+        if signficant:
+            output_string += " (different from 0% with p<0.05)"
+        d["relative"] = output_string
+
+    return json.dumps(d)
 
 
 @application.route("/evaluate/simple/<model_name>", methods=["POST"])

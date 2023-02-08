@@ -171,12 +171,24 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
       <CardContent className="section-result">
         {result !== null && result !== undefined && (
           <>
-            <h3 style={{ textAlign: "center" }}>Average performances</h3>
-            <p>
-              Here, "performance" is the probability that the model generates
-              one of the outputs.
-            </p>
-            <ResultBars stats={result.stats} />
+            {result.relative !== undefined ? (
+              <>
+                <h3 style={{ textAlign: "center" }}>Relative probabilities</h3>
+                <p style={{ textAlign: "center" }}>{result.relative}</p>
+              </>
+            ) : (
+              <>
+                <h3 style={{ textAlign: "center" }}>
+                  Average probability of outputs
+                </h3>
+                <p>
+                  The average probability that the model generates one of the
+                  outputs:
+                </p>
+                <ResultBars stats={result.stats} />
+              </>
+            )}
+
             <h3 style={{ textAlign: "center" }}>Outliers</h3>
             {result.outliers.map((v, i) => {
               const [outlier1, outlier2] = v;
