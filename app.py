@@ -23,6 +23,11 @@ from flask import Flask, render_template, request, send_file, redirect
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 
+# No logging to avoid storing user data in logs
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 application = Flask(__name__, static_url_path="", static_folder="frontend/build")
 CORS(application)
 
