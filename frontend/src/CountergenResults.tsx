@@ -28,7 +28,7 @@ const Image = (props: { name: string }) => {
       : words[2] === "layer"
       ? "the edited layer changes"
       : "the number of edited layer changes";
-  const additionalInfo =
+  let additionalInfo =
     words[1] === "8d"
       ? " (8 dimensions edited)"
       : words[1] === "32d"
@@ -38,7 +38,14 @@ const Image = (props: { name: string }) => {
       : words[1] === "dims"
       ? "(at layer 7/12)"
       : "";
-  const fullName = `Bias with ${techniqueFullName} as ${measurementName}`;
+  let fullName = `Bias with ${techniqueFullName} as ${measurementName}`;
+
+  if (name === "inlp_bar_plot") {
+    fullName = "Reduction in bias: INLP vs. baselines";
+    additionalInfo =
+      "Edition at layer 6 out of 12\n(Uncertainty: 95% confidence interval over the mean)";
+  }
+
   return (
     <div
       style={{
@@ -141,7 +148,15 @@ const CountergenResults = () => {
         </i>
       </p>
       <p>
-        <i>More results will come in the next months!</i>
+        For more details about the methodology, read{" "}
+        <a
+          href={process.env.PUBLIC_URL + "/methodology.pdf"}
+          target="_blank"
+          rel="noreferrer"
+        >
+          this companion document
+        </a>
+        (pdf).
       </p>
       <Card className="section">
         <CardHeader
@@ -198,14 +213,10 @@ const CountergenResults = () => {
           of the neural network.
         </li>
         <li>
-          Finding the relevant directions in the activations is a noisy process.
-          We repeat the process 5 times and show the result of each run, as well
-          as their average.
-        </li>
-        <li>
-          We then measured the relative probability between completions
-          following inputs with a female subject and inputs with male subjects
-          on stereotypes data and the double bind data as validation.
+          We then measured bias reduction by measuring the relative probability
+          between completions following inputs with a female subject and inputs
+          with male subjects. The data used in distinct from the training data,
+          and extracted from stereoset and the doublebind experiment.
         </li>
       </ul>
       <p>
@@ -219,7 +230,37 @@ const CountergenResults = () => {
       <Card className="section">
         <CardHeader
           className="section-title"
-          title="Observation 1: Bias is easier to remove in the middle of the network"
+          title="Observation 1: Model editing can slightly reduce bias on out-of-distribution data"
+        />
+        <CardContent className="section-content">
+          <Grid container justifyContent={"center"}>
+            <Grid item xs={12} md={6}>
+              <Image name="inlp_bar_plot" />
+            </Grid>
+          </Grid>
+          <i>(Results over 10 seeds)</i>
+          <p>
+            As shown in the graph above,{" "}
+            <b>
+              editing using INLP reduces bias in both training and validation
+              data
+            </b>
+            , even though these are very different kinds of data (for instance,
+            our training data doesn't have any gender pronouns, only names, the
+            stereotypes data doesn't have any name in it).
+          </p>
+          <p>
+            However, that's not always the case: on the male stereotypes
+            dataset, the technique doesn't reduce bias, and sometimes slightly
+            increases it.
+          </p>
+        </CardContent>
+      </Card>
+      <i>Experiments below are done on 5 different seeds.</i>
+      <Card className="section">
+        <CardHeader
+          className="section-title"
+          title="Observation 2: Bias is easier to remove in the middle of the network"
         />
         <CardContent className="section-content">
           <p>
@@ -241,25 +282,6 @@ const CountergenResults = () => {
             For both techniques tested, we took the advised number of dimensions
             to remove. Worse bias possible is 1, no bias is 0.
           </i>
-        </CardContent>
-      </Card>
-      <Card className="section">
-        <CardHeader
-          className="section-title"
-          title="Observation 2: Editing direction generalizes well on most datasets"
-        />
-        <CardContent className="section-content">
-          <p>
-            As shown in the graphs above,{" "}
-            <b>editing reduces bias in both training and validation data</b>,
-            even though these are very different kinds of data (for instance,
-            our training data doesn't have any gender pronouns, only names, the
-            stereotypes data doesn't have any name in it).
-          </p>
-          <p>
-            However, that's not always the case: on the male stereotypes
-            dataset, the technique doesn't reduce bias much.
-          </p>
         </CardContent>
       </Card>
       <Card className="section">
@@ -381,6 +403,12 @@ const CountergenResults = () => {
             https://github.com/FabienRoger/Countergen/blob/main/experiments/gpt_bias.ipynb
           </a>{" "}
           (Experiment on OpenAI's models)
+        </li>
+        <li>
+          <a href="https://www.kaggle.com/fabienroger/editing-inlp-barplot">
+            https://www.kaggle.com/fabienroger/editing-inlp-barplot
+          </a>{" "}
+          (Bar plot comparing INLP and baselines)
         </li>
         <li>
           <a href="https://www.kaggle.com/code/fabienroger/editing-2r">
