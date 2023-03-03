@@ -24,7 +24,7 @@ const CountergenApp = () => {
           path="/countergenresultspdf"
           element={
             <RedirectComponent
-              url={process.env.PUBLIC_URL + "/countergen/methodology.pdf"}
+              url={process.env.PUBLIC_URL + "/countergenmethodology.pdf"}
             />
           }
         />

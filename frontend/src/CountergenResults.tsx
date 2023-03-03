@@ -150,7 +150,7 @@ const CountergenResults = () => {
       <p>
         For more details about the methodology, read{" "}
         <a
-          href={process.env.PUBLIC_URL + "/methodology.pdf"}
+          href={process.env.PUBLIC_URL + "/countergenmethodology.pdf"}
           target="_blank"
           rel="noreferrer"
         >
