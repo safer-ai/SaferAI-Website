@@ -25,7 +25,8 @@ from werkzeug.exceptions import HTTPException
 
 # No logging to avoid storing user data in logs
 import logging
-log = logging.getLogger('werkzeug')
+
+log = logging.getLogger("werkzeug")
 log.setLevel(logging.ERROR)
 
 application = Flask(__name__, static_url_path="", static_folder="frontend/build")
@@ -248,5 +249,7 @@ def isthereinternet():
 
 
 if __name__ == "__main__":
+    from waitress import serve
+
     port = int(os.environ.get("PORT", 5000))
-    application.run(host="0.0.0.0", threaded=True, port=port, debug=True)
+    serve(application, host="0.0.0.0", port=port)
