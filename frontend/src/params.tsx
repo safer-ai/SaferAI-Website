@@ -1,4 +1,4 @@
-export const REPO_URL = "https://github.com/FabienRoger/Countergen";
+export const REPO_URL = "https://github.com/safer-ai/Countergen";
 export const NOTEBOOK_URL =
   "https://colab.research.google.com/drive/1J6zahRfPfqSyXlA1hm_KQCQlkcd3KVPc";
 export const DOCS_URL =
@@ -8,6 +8,8 @@ export const MAX_SAMPLES = 200;
 export const MIN_SAMPLES = 1;
 export const MIN_OUTPUTS = 1;
 export const MIN_VARIATIONS = 2;
+
+export const api_disabled = true;
 
 export const DEFAULT_DS = "male-stereotypes";
 

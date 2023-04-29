@@ -17,7 +17,7 @@ import {
   formatDs,
   refreshAllIds,
 } from "../utils/dsUtils";
-import { MAX_SAMPLES, DATASETS, DEFAULT_DS } from "../params";
+import { MAX_SAMPLES, DATASETS, DEFAULT_DS, api_disabled } from "../params";
 
 type DataSelectionProps = {
   dataset: Dataset; // Not used to display
@@ -180,7 +180,11 @@ const DataSelection = (props: DataSelectionProps) => {
               </MenuItem>
             ))}
           </Select>
-          <Button onClick={() => addDefault(selectedData)} variant="outlined">
+          <Button
+            onClick={() => addDefault(selectedData)}
+            variant="outlined"
+            disabled={api_disabled}
+          >
             Load and append
           </Button>
         </div>

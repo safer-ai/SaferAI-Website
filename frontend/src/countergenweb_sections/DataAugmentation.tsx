@@ -17,6 +17,7 @@ import {
   refreshAllIds,
 } from "../utils/dsUtils";
 import RemovableTextField from "../components/RemovableTextField";
+import { api_disabled } from "../params";
 
 type DataAugmentationProps = {
   dataset: Dataset;
@@ -149,7 +150,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
           <WaitableButton
             text={"Augment!"}
             onClick={augment}
-            disabled={!dsIsReadyToAugment(dataset).ready}
+            disabled={!dsIsReadyToAugment(dataset).ready || api_disabled}
             waiting={waiting}
             expectedTime={"a few seconds"}
             buttonParams={{ color: "secondary" }}

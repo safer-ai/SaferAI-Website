@@ -37,7 +37,7 @@ and then enter the following instruction
 
 ```bash
 ssh -i ~/.ssh/countergen-website-2.pem ubuntu@<SSH-IP>
-git clone https://github.com/FabienRoger/Countergen-Website
+git clone https://github.com/safer-ai/Countergen-Website
 sudo apt update
 sudo apt install python-is-python3
 sudo apt install python3-pip

@@ -67,7 +67,7 @@ def countergennotebook_page():
 
 @application.route("/countergengithub")
 def countergengithub_page():
-    return redirect("https://github.com/FabienRoger/Countergen", code=302)
+    return redirect("https://github.com/safer-ai/Countergen", code=302)
 
 
 @application.errorhandler(Exception)

@@ -5,8 +5,8 @@ import DataSelection from "./countergenweb_sections/DataSelection";
 import ModelEvaluation from "./countergenweb_sections/ModelEvaluation";
 import ModelEditing from "./countergenweb_sections/ModelEditing";
 import { AugmentedDataset, Dataset } from "./types";
-import { Container } from "@mui/material";
-import { NOTEBOOK_URL, REPO_URL } from "./params";
+import { Container, Typography } from "@mui/material";
+import { NOTEBOOK_URL, REPO_URL, api_disabled } from "./params";
 
 const CountergenWeb = () => {
   const [dataset, setDataset] = useState<Dataset>({ samples: [] });
@@ -34,6 +34,29 @@ const CountergenWeb = () => {
         <a href={NOTEBOOK_URL}>Colab Notebook</a>, or run the{" "}
         <a href={REPO_URL}>Python module</a> locally.
       </p>
+      {api_disabled && (
+        <>
+          <Typography
+            sx={{
+              color: "secondary.light",
+              fontWeight: "bold",
+            }}
+          >
+            Running the online tool isn't free and we decided to shut it down
+            given the low demand for it. If you want to use this tool, please
+            contact us! In the meantime, you can use the Python tool,{" "}
+            <a
+              href="https://github.com/safer-ai/Countergen-Website"
+              target="_blank"
+              rel="noreferrer"
+            >
+              or deploy the website yourself
+            </a>
+            .
+          </Typography>
+          <br />
+        </>
+      )}
 
       <DataSelection dataset={dataset} setDataset={setDataset} />
 
@@ -51,8 +74,8 @@ const CountergenWeb = () => {
       <p>
         The code for this website and instructions to adapt it to your needs are
         freely available. For more information, visit{" "}
-        <a href="https://github.com/FabienRoger/Countergen-Website">
-          github.com/FabienRoger/Countergen-Website
+        <a href="https://github.com/safer-ai/Countergen-Website">
+          github.com/safer-ai/Countergen-Website
         </a>
         .
       </p>

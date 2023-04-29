@@ -13,6 +13,7 @@ import WaitableButton from "../components/WaitableButton";
 import { AugmentedDataset, EvaluationReturn, OutlierData } from "../types";
 import { sendAPIEvaluate, simpleEvaluate } from "../utils/communication";
 import { dsIsReadyToEvaluate } from "../utils/dsUtils";
+import { api_disabled } from "../params";
 
 type ModelEvaluationProps = {
   augdataset: AugmentedDataset | null;
@@ -161,7 +162,11 @@ const ModelEvaluation = (props: ModelEvaluationProps) => {
           <WaitableButton
             text={"Evaluate!"}
             onClick={evaluate}
-            disabled={!augdsReady || !dsIsReadyToEvaluate(augdataset).ready}
+            disabled={
+              !augdsReady ||
+              !dsIsReadyToEvaluate(augdataset).ready ||
+              api_disabled
+            }
             waiting={waiting}
             expectedTime={"a few minutes"}
             buttonParams={{ color: "secondary" }}
