@@ -11,7 +11,11 @@ import Ready from "../components/Ready";
 import WaitableButton from "../components/WaitableButton";
 import { AugmentedDataset, Dataset, SampleWithVariations } from "../types";
 import { multipleAugment } from "../utils/communication";
-import { dsIsReadyToAugment, dsIsReadyToEvaluate } from "../utils/dsUtils";
+import {
+  dsIsReadyToAugment,
+  dsIsReadyToEvaluate,
+  refreshAllIds,
+} from "../utils/dsUtils";
 import RemovableTextField from "../components/RemovableTextField";
 
 type DataAugmentationProps = {
@@ -27,7 +31,6 @@ const DataAugmentation = (props: DataAugmentationProps) => {
   const [augmentGender, setAugmentGender] = useState<boolean>(true);
   const [augmentRace, setAugmentRace] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
-  const [downloadURL, setDownloadURL] = useState<string | null>(null);
 
   const augment = () => {
     let toAugment = [];
@@ -43,20 +46,28 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       if (augds === undefined) {
         return;
       }
-      setAugDataset(augds);
-      const samplesStrings = augds.samples.map((sample) => {
-        const { input, outputs, variations } = sample;
-        return JSON.stringify({ input, outputs, variations });
-      });
-      const jsonlString = samplesStrings?.join("\n");
-      const blob = new Blob([jsonlString]);
-      if (downloadURL !== null) {
-        URL.revokeObjectURL(downloadURL);
-      }
-      const fileDownloadUrl = URL.createObjectURL(blob);
-      setDownloadURL(fileDownloadUrl);
+      setAugDataset(refreshAllIds(augds));
       setWaiting(false);
     });
+  };
+
+  const download = () => {
+    if (augdataset === null) return;
+    const samplesStrings = augdataset.samples.map((sample) => {
+      const { input, outputs, variations } = sample;
+      return JSON.stringify({ input, outputs, variations });
+    });
+    const jsonlString = samplesStrings?.join("\n");
+    const blob = new Blob([jsonlString]);
+
+    const fileDownloadUrl = URL.createObjectURL(blob);
+    const aElement = document.createElement("a");
+    aElement.setAttribute("href", fileDownloadUrl);
+    aElement.setAttribute("download", "augmented_data.jsonl");
+    aElement.href = fileDownloadUrl;
+    aElement.setAttribute("target", "_blank");
+    aElement.click();
+    URL.revokeObjectURL(fileDownloadUrl);
   };
 
   const setSample = (i: number, sample: SampleWithVariations) => {
@@ -76,7 +87,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       input: samples[i].input,
       variations: newVariations,
       outputs: samples[i].outputs,
-      time: (samples[i].time ?? 0) + 1, // Force update
+      id: Math.random(), // Force update
     });
   };
 
@@ -89,6 +100,7 @@ const DataAugmentation = (props: DataAugmentationProps) => {
       input: samples[i].input,
       outputs: samples[i].outputs,
       variations: newVariations,
+      id: samples[i].id,
     });
   };
 
@@ -145,19 +157,11 @@ const DataAugmentation = (props: DataAugmentationProps) => {
         </div>
       </CardContent>
       <CardContent className="section-result">
-        {augdataset !== null && downloadURL !== null && (
+        {augdataset !== null && (
           <>
             <div className="horizontal-flex" style={{ gap: "0.5em" }}>
-              <Button color="secondary" variant="outlined">
-                <a
-                  href={downloadURL}
-                  target="_blank"
-                  download="augmented_data.jsonl"
-                  rel="noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  Download
-                </a>
+              <Button color="secondary" variant="outlined" onClick={download}>
+                Download
               </Button>
               <p>
                 If you download the augmented data, you can use it to fine-tune
@@ -189,10 +193,10 @@ const DataAugmentation = (props: DataAugmentationProps) => {
             </div>
             {augdataset.samples.map((s: SampleWithVariations, i) => {
               return (
-                <div className="variation-holder" key={`variation-${s.input}`}>
+                <div className="variation-holder" key={`variation-${s.id}`}>
                   {s.variations.map((v, j) => (
                     <div
-                      key={`variation-${v.text}`}
+                      key={`variation-${s.id}-${j}`}
                       className="horizontal-flex"
                       style={{ gap: "0.2em" }}
                     >

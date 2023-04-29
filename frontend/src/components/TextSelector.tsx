@@ -15,7 +15,10 @@ const TextSelector = (props: TextSelectorProps) => {
 
   const addSample = () => {
     setDataset({
-      samples: [...dataset.samples, { input: "", outputs: [""] }],
+      samples: [
+        ...dataset.samples,
+        { input: "", outputs: [""], id: Math.random() },
+      ],
     });
   };
 
@@ -33,9 +36,6 @@ const TextSelector = (props: TextSelectorProps) => {
   const removeSample = (i: number) => {
     const newSamples = [...dataset.samples];
     newSamples.splice(i, 1);
-    newSamples.forEach((sample) => {
-      sample.time = (sample.time ?? 0) + 1; // Force reload
-    });
     setDataset({
       samples: newSamples,
     });
@@ -46,7 +46,7 @@ const TextSelector = (props: TextSelectorProps) => {
     setSample(i, {
       input: samples[i].input,
       outputs: newOutputs,
-      time: (samples[i].time ?? 0) + 1, // Force update
+      id: Math.random(), // Force reload
     });
   };
 
@@ -54,6 +54,7 @@ const TextSelector = (props: TextSelectorProps) => {
     setSample(i, {
       input: newValue,
       outputs: samples[i].outputs,
+      id: samples[i].id,
     });
   };
   const setOutput = (newValue: string, i: number, j: number) => {
@@ -62,17 +63,16 @@ const TextSelector = (props: TextSelectorProps) => {
     setSample(i, {
       input: samples[i].input,
       outputs: newOutput,
+      id: samples[i].id,
     });
   };
 
   return (
     <div className="text-selector">
-      {samples.map(({ input, outputs, time }, i) => {
+      {samples.map(({ input, outputs, id }, i) => {
         return (
-          <div
-            className="text-selector-line"
-            key={`selector-item-input-${i}-${time}`}
-          >
+          <div className="text-selector-line" key={`selector-item-input-${id}`}>
+            {/* {id} */}
             <RemovableTextField
               label="Input"
               value={input}
@@ -84,7 +84,7 @@ const TextSelector = (props: TextSelectorProps) => {
                 return (
                   <div
                     className="text-selector-output-line"
-                    key={`selector-item-output-${i}-${j}-${time}`}
+                    key={`selector-item-output-${j}-${id}`}
                   >
                     <RemovableTextField
                       label="Outputs"

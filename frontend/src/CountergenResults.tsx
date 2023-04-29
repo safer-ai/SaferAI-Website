@@ -28,7 +28,7 @@ const Image = (props: { name: string }) => {
       : words[2] === "layer"
       ? "the edited layer changes"
       : "the number of edited layer changes";
-  const additionalInfo =
+  let additionalInfo =
     words[1] === "8d"
       ? " (8 dimensions edited)"
       : words[1] === "32d"
@@ -38,7 +38,14 @@ const Image = (props: { name: string }) => {
       : words[1] === "dims"
       ? "(at layer 7/12)"
       : "";
-  const fullName = `Bias with ${techniqueFullName} as ${measurementName}`;
+  let fullName = `Bias with ${techniqueFullName} as ${measurementName}`;
+
+  if (name === "inlp_bar_plot") {
+    fullName = "Reduction in bias: INLP vs. baselines";
+    additionalInfo =
+      "Edition at layer 6 out of 12\n(Uncertainty: 95% confidence interval over the mean)";
+  }
+
   return (
     <div
       style={{
@@ -93,38 +100,38 @@ const SimpleTableRow = (props: { data: string[] }) => {
 const experimentData = [
   [
     "InstructGPT  (175B parameters)",
-    "2% more likely for women",
-    "47% more likely for men*",
-    "24% more likely for men",
-    "6% more likely for women",
+    "16% more likely for men",
+    "51% more likely for men*",
+    "29% more likely for women*",
+    "46% more likely for women*",
   ],
   [
     "GPT-3  (175B parameters)",
-    "2% more likely for women",
-    "47% more likely for men*",
-    "23% more likely for men",
-    "4% more likely for women",
+    "24% more likely for women*",
+    "30% more likely for men*",
+    "19% more likely for women",
+    "35% more likely for women*",
   ],
   [
-    "OpenAI Curie (13B parameters)",
-    "6% more likely for men",
-    "37% more likely for men*",
-    "18% more likely for women",
-    "33% more likely for women*",
+    "OpenAI Curie (~13B parameters)",
+    "21% more likely for men",
+    "31% more likely for men*",
+    "12% more likely for women",
+    "11% more likely for women",
   ],
   [
     "OpenAI Babbage (~3B parameters)",
-    "0% more likely for women",
-    "50% more likely for men*",
-    "54% more likely for women*",
-    "46% more likely for women*",
+    "13% more likely for women",
+    "26% more likely for men*",
+    "6% more likely for women",
+    "6% more likely for women",
   ],
   [
     "OpenAI Ada (~1B parameters)",
-    "19% more likely for women",
-    "18% more likely for men*",
-    "54% more likely for women*",
-    "46% more likely for women*",
+    "23% more likely for women",
+    "18% more likely for men",
+    "7% more likely for men*",
+    "26% more likely for women*",
   ],
 ];
 
@@ -141,7 +148,15 @@ const CountergenResults = () => {
         </i>
       </p>
       <p>
-        <i>More results will come in the next months!</i>
+        For more details about the methodology, read{" "}
+        <a
+          href={process.env.PUBLIC_URL + "/countergenmethodology.pdf"}
+          target="_blank"
+          rel="noreferrer"
+        >
+          this companion document
+        </a>
+        (pdf).
       </p>
       <Card className="section">
         <CardHeader
@@ -198,14 +213,10 @@ const CountergenResults = () => {
           of the neural network.
         </li>
         <li>
-          Finding the relevant directions in the activations is a noisy process.
-          We repeat the process 5 times and show the result of each run, as well
-          as their average.
-        </li>
-        <li>
-          We then measured the relative probability between completions
-          following inputs with a female subject and inputs with male subjects
-          on stereotypes data and the double bind data as validation.
+          We then measured bias reduction by measuring the relative probability
+          between completions following inputs with a female subject and inputs
+          with male subjects. The data used in distinct from the training data,
+          and extracted from stereoset and the doublebind experiment.
         </li>
       </ul>
       <p>
@@ -219,7 +230,37 @@ const CountergenResults = () => {
       <Card className="section">
         <CardHeader
           className="section-title"
-          title="Observation 1: Bias is easier to remove in the middle of the network"
+          title="Observation 1: Model editing can slightly reduce bias on out-of-distribution data"
+        />
+        <CardContent className="section-content">
+          <Grid container justifyContent={"center"}>
+            <Grid item xs={12} md={6}>
+              <Image name="inlp_bar_plot" />
+            </Grid>
+          </Grid>
+          <i>(Results over 10 seeds)</i>
+          <p>
+            As shown in the graph above,{" "}
+            <b>
+              editing using INLP reduces bias in both training and validation
+              data
+            </b>
+            , even though these are very different kinds of data (for instance,
+            our training data doesn't have any gender pronouns, only names, the
+            stereotypes data doesn't have any name in it).
+          </p>
+          <p>
+            However, that's not always the case: on the male stereotypes
+            dataset, the technique doesn't reduce bias, and sometimes slightly
+            increases it.
+          </p>
+        </CardContent>
+      </Card>
+      <i>Experiments below are done on 5 different seeds.</i>
+      <Card className="section">
+        <CardHeader
+          className="section-title"
+          title="Observation 2: Bias is easier to remove in the middle of the network"
         />
         <CardContent className="section-content">
           <p>
@@ -246,25 +287,6 @@ const CountergenResults = () => {
       <Card className="section">
         <CardHeader
           className="section-title"
-          title="Observation 2: Editing direction generalizes well on most datasets"
-        />
-        <CardContent className="section-content">
-          <p>
-            As shown in the graphs above,{" "}
-            <b>editing reduces bias in both training and validation data</b>,
-            even though these are very different kinds of data (for instance,
-            our training data doesn't have any gender pronouns, only names, the
-            stereotypes data doesn't have any name in it).
-          </p>
-          <p>
-            However, that's not always the case: on the male stereotypes
-            dataset, the technique doesn't reduce bias much.
-          </p>
-        </CardContent>
-      </Card>
-      <Card className="section">
-        <CardHeader
-          className="section-title"
           title="Observation 3: The bias is not encoded in a linear way"
         />
         <CardContent className="section-content">
@@ -272,7 +294,7 @@ const CountergenResults = () => {
             Though RLACE is able to make any linear classifier fail to separate
             between male and female with a rank-8 projection, we found that, no
             matter where the projection is done, and how many dimensions are
-            removed, model bias isn't eliminated.
+            removed, model bias isn't fully eliminated.
           </p>
           <Grid container>
             <Grid item xs={12} md={6}>
@@ -377,10 +399,16 @@ const CountergenResults = () => {
       <p>Here are the notebooks used to produce the results above:</p>
       <ul>
         <li>
-          <a href="https://github.com/FabienRoger/Countergen/blob/main/countergen/exploration/gpt_experiment.ipynbr">
-            https://github.com/FabienRoger/Countergen/blob/main/countergen/exploration/gpt_experiment.ipynbr
+          <a href="https://github.com/FabienRoger/Countergen/blob/main/experiments/gpt_bias.ipynb">
+            https://github.com/FabienRoger/Countergen/blob/main/experiments/gpt_bias.ipynb
           </a>{" "}
           (Experiment on OpenAI's models)
+        </li>
+        <li>
+          <a href="https://www.kaggle.com/fabienroger/editing-inlp-barplot">
+            https://www.kaggle.com/fabienroger/editing-inlp-barplot
+          </a>{" "}
+          (Bar plot comparing INLP and baselines)
         </li>
         <li>
           <a href="https://www.kaggle.com/code/fabienroger/editing-2r">

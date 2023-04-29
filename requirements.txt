@@ -7,3 +7,4 @@ Werkzeug==2.1.0
 countergen==1.0.0
 requests
 flask-cors
+waitress

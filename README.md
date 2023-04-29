@@ -51,8 +51,12 @@ pip install -r requirements.txt
 export PORT=<PORT YOUR ARE USING (8080 if you are following the instruction)>
 export OPENAI_API_KEY=<YOUR API KEY>
 screen
-python app.py
+export FLASK_APP=app.py
+export FLASK_ENV=development
+export FLASK_DEBUG=0
+flask run
 ```
+
 Ctrl+A then d to close the python process without shutting down the server.
 
 Recover the python process with `screen -r`.
